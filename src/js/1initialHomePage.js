@@ -13,7 +13,7 @@ console.log(movieApi);
 
 // Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы
 // при загрузке страницы, и фильмы - результат поиска
-const homePageRef = document.querySelector('[data-home-page]');
+const homePageRef = document.querySelector('[data-home-gallery]');
 
 // Глобальные переменные, которые требуются по инструкции
 let renderFilms = '';
@@ -25,10 +25,15 @@ let pageNumber = 1;
 function createCardFunc(imgPath, filmTitle, movieId) {
   // Создание карточки фильма. Карточка - это лишка, в которой есть изображение и название фильма
   const galleryItemCard = document.createElement('li');
+  galleryItemCard.classList.add('gallery-item-card');
+
   const galleryItemImage = document.createElement('img');
-  const galleryItemTitle = document.createElement('p');
   galleryItemImage.src = imgPath;
+
+  const galleryItemTitle = document.createElement('p');
+  galleryItemTitle.classList.add('gallery-card-title');
   galleryItemTitle.textContent = filmTitle;
+
   galleryItemCard.appendChild(galleryItemImage);
   galleryItemCard.appendChild(galleryItemTitle);
 
