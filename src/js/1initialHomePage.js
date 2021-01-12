@@ -26,6 +26,7 @@ function createCardFunc(imgPath, filmTitle, movieId) {
   // Создание карточки фильма. Карточка - это лишка, в которой есть изображение и название фильма
   const galleryItemCard = document.createElement('li');
   galleryItemCard.classList.add('gallery-item-card');
+  galleryItemCard.setAttribute('data-id', movieId);
 
   const galleryItemImage = document.createElement('img');
   galleryItemImage.src = imgPath;
@@ -64,7 +65,8 @@ function fetchPopularMoviesList() {
       const popularMoviesFragment = document.createDocumentFragment();
       movies.forEach(movie => {
         const imgPath = movieApi.baseImageUrl + 'w500' + movie.backdrop_path;
-        const filmTitle = movie.title;
+        const filmYear = movie.release_date.slice(0, 4);
+        const filmTitle = `${movie.title} (${filmYear})`;
         const movieId = movie.id;
         const popularMoviesItem = createCardFunc(imgPath, filmTitle, movieId);
 
