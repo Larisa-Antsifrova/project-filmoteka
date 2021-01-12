@@ -13,14 +13,14 @@ searchForm.addEventListener('submit', searchFilms);
 prevBtn.addEventListener('click', plaginationNavigation);
 nextBtn.addEventListener('click', plaginationNavigation);
 
-
 // функции
+// функция-слушатель инпута и отображения страницы согласно запросу
 function searchFilms(e) {
     e.preventDefault();
     inputVaue = e.target.elements.query.value;
     fetchFilms(pageNumber, inputVaue);
 };
-
+// функция рендера страницы запроса
 function fetchFilms(pageNumber, inputVaue) {
         let query = '';
     if (inputVaue.length > 0 && inputVaue.trim() !== '') {
@@ -33,10 +33,16 @@ function fetchFilms(pageNumber, inputVaue) {
         `${movieApi.baseUrl}search/movie?api_key=${movieApi.apiKey}&language=en-US&query=${query}&page=${pageNumber}`,
   )
     .then(res => res.json())
-    .then(({ results }) => {
+        .then(({ results }) => {
+        // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
         if (results.length === 0) {
             notFound();
-      }
+        };
+        if (results.length === 20) {
+            nextBtn.removeAttribute('disabled');
+        } else {
+            nextBtn.setAttribute('disabled', '');
+        };
       return results;
     })
     .then(movies => {
@@ -54,11 +60,11 @@ function fetchFilms(pageNumber, inputVaue) {
     })
     .then(fragment => homePageRef.appendChild(fragment));
 
-
-    clearGallery();
+    clearhomePage();
     createCardFunc();
 };
-// ====================================================================
+
+// функция отображения страниц зарпосов
 function plaginationNavigation(e) {
     const activeBtn = e.currentTarget.id;
     if (activeBtn === 'previous__page') {
@@ -66,38 +72,41 @@ function plaginationNavigation(e) {
         if (pageNumber === 1) {
             prevBtn.setAttribute('disabled', '');
         };
-        clearGallery();
-        fetchPopularMoviesList();
-            console.log(pageNumber);
-
+        clearhomePage();
+        if (inputVaue.length === 0) {
+            fetchPopularMoviesList();
+        } else {
+            fetchFilms(pageNumber, inputVaue)
+        };
     };
+
     if (activeBtn === 'next__page') {
         pageNumber += 1;
         if (pageNumber > 1) {
             prevBtn.removeAttribute('disabled');
         };
-        console.log(pageNumber);
-        clearGallery();
-        fetchPopularMoviesList();
-        // fetchFilms();
+        clearhomePage();
+        if (inputVaue.length === 0) {
+            fetchPopularMoviesList();
+        } else {
+            fetchFilms(pageNumber, inputVaue)
+        };
     };
     currentPage.textContent = pageNumber;
     
-}
+};
+// функция очистки инпута и параграфа ошибки при фокусе
+function focusFunction() {
+    clearError();
+    searchForm.children.query.value = '';
+};
 
-//функции добавления и сокрытия кнопок пагинации
-function showPlagination() {
-    plaginationBar.classList.remove('hidden');
-};
-function hidePlagination() {
-    plaginationBar.classList.add('hidden');
-};
 function notFound() {
-  errorArea.insertAdjacentHTML('afterbegin', '<span>Not Found. Please enter a more correctly query!</span>'); 
+  errorArea.insertAdjacentHTML('afterbegin', '<span>По вашему запросу ничего не найдено. Попробуйте еще раз!</span>'); 
 };
 function clearError() {
     errorArea.innerHTML = '';
 }
-function clearGallery() {
+function clearhomePage() {
     homePageRef.innerHTML = '';
 };
