@@ -1,6 +1,9 @@
 # Artifacts
 stash/
 
+**/.DS_Store
+
+
 # Logs
 logs
 *.log
