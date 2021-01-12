@@ -72,16 +72,44 @@
   padding: 5px 10px;
 
   color: $basicWhiteColor;
-  @include fontBasicStyles(14px);
+  @include fontBasicStyles(14px, 1.5, 700);
 
   background: $backgroundGradient;
 
   @media screen and (min-width: 768px) {
     padding: 10px 15px;
-    @include fontBasicStyles(16px);
+    @include fontBasicStyles(16px, 1.5, 700);
   }
 
   @media screen and (min-width: 1024px) {
-    @include fontBasicStyles(20px);
+    @include fontBasicStyles(20px, 1.5, 700);
+  }
+}
+
+.gallery-card-raiting {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  padding: 4px 8px;
+  border-radius: 10px;
+
+  color: $basicWhiteColor;
+  background-color: $navigationCurrentTextColor;
+
+  @include fontBasicStyles(14px, 1.5, 700);
+
+  @media screen and (min-width: 768px) {
+    top: 12px;
+    right: 12px;
+    padding: 6px 10px;
+    @include fontBasicStyles(16px, 1.5, 700);
+  }
+
+  @media screen and (min-width: 1024px) {
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    @include fontBasicStyles(20px, 1.5, 700);
   }
 }
