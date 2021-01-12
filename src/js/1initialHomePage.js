@@ -34,11 +34,11 @@ function createCardFunc(imgPath, filmTitle, movieId, movieRating) {
   const galleryItemTitle = document.createElement('p');
   galleryItemTitle.classList.add('gallery-card-title');
   galleryItemTitle.textContent = filmTitle;
-  const galletyItemRating = document.createElement('p');
-  galletyItemRating.classList.add('gallery-card-raiting');
-  galletyItemRating.textContent = movieRating;
+  const galleryItemRating = document.createElement('p');
+  galleryItemRating.classList.add('gallery-card-raiting');
+  galleryItemRating.textContent = movieRating;
 
-  galleryItemCard.appendChild(galletyItemRating);
+  galleryItemCard.appendChild(galleryItemRating);
   galleryItemCard.appendChild(galleryItemImage);
   galleryItemCard.appendChild(galleryItemTitle);
 
