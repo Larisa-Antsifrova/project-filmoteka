@@ -13,7 +13,7 @@ console.log(movieApi);
 
 // Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы
 // при загрузке страницы, и фильмы - результат поиска
-const homePageRef = document.querySelector('[data-home-page]');
+const homePageRef = document.querySelector('[data-home-gallery]');
 
 // Глобальные переменные, которые требуются по инструкции
 let renderFilms = '';
@@ -22,13 +22,23 @@ let pageNumber = 1;
 
 // Функции
 // Функция, которая создает одну карточку для галереи и которая вешает на карточку слушатель события для показа страницы деталей фильма
-function createCardFunc(imgPath, filmTitle, movieId) {
+function createCardFunc(imgPath, filmTitle, movieId, movieRating) {
   // Создание карточки фильма. Карточка - это лишка, в которой есть изображение и название фильма
   const galleryItemCard = document.createElement('li');
+  galleryItemCard.classList.add('gallery-item-card');
+  galleryItemCard.setAttribute('data-id', movieId);
+
   const galleryItemImage = document.createElement('img');
-  const galleryItemTitle = document.createElement('p');
   galleryItemImage.src = imgPath;
+
+  const galleryItemTitle = document.createElement('p');
+  galleryItemTitle.classList.add('gallery-card-title');
   galleryItemTitle.textContent = filmTitle;
+  const galletyItemRating = document.createElement('p');
+  galletyItemRating.classList.add('gallery-card-raiting');
+  galletyItemRating.textContent = movieRating;
+
+  galleryItemCard.appendChild(galletyItemRating);
   galleryItemCard.appendChild(galleryItemImage);
   galleryItemCard.appendChild(galleryItemTitle);
 
@@ -59,9 +69,16 @@ function fetchPopularMoviesList() {
       const popularMoviesFragment = document.createDocumentFragment();
       movies.forEach(movie => {
         const imgPath = movieApi.baseImageUrl + 'w500' + movie.backdrop_path;
-        const filmTitle = movie.title;
+        const filmYear = movie.release_date.slice(0, 4);
+        const filmTitle = `${movie.title} (${filmYear})`;
         const movieId = movie.id;
-        const popularMoviesItem = createCardFunc(imgPath, filmTitle, movieId);
+        const movieRaiting = movie.vote_average;
+        const popularMoviesItem = createCardFunc(
+          imgPath,
+          filmTitle,
+          movieId,
+          movieRaiting,
+        );
 
         popularMoviesFragment.appendChild(popularMoviesItem);
       });
@@ -81,4 +98,4 @@ function fetchGenres() {
 
 fetchPopularMoviesList();
 fetchGenres();
-console.log("pageNumber", pageNumber);
+// console.log("pageNumber", pageNumber);

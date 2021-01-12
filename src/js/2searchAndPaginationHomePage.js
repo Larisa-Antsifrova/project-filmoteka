@@ -60,15 +60,29 @@ function fetchFilms(pageNumber, inputVaue) {
 };
 // ====================================================================
 function plaginationNavigation(e) {
-    if (e.currentTarget.id === 'previous__page') {
+    const activeBtn = e.currentTarget.id;
+    if (activeBtn === 'previous__page') {
         pageNumber -= 1;
+        if (pageNumber === 1) {
+            prevBtn.setAttribute('disabled', '');
+        };
+        clearGallery();
+        fetchPopularMoviesList();
+            console.log(pageNumber);
+
     };
-    if (e.currentTarget.id === 'next__page') {
+    if (activeBtn === 'next__page') {
         pageNumber += 1;
+        if (pageNumber > 1) {
+            prevBtn.removeAttribute('disabled');
+        };
+        console.log(pageNumber);
+        clearGallery();
+        fetchPopularMoviesList();
+        // fetchFilms();
     };
     currentPage.textContent = pageNumber;
-    console.log(pageNumber);
-    console.log(currentPage.textContent);
+    
 }
 
 //функции добавления и сокрытия кнопок пагинации
@@ -86,4 +100,4 @@ function clearError() {
 }
 function clearGallery() {
     homePageRef.innerHTML = '';
-}
+};
