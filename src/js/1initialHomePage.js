@@ -98,3 +98,4 @@ function fetchGenres() {
 
 fetchPopularMoviesList();
 fetchGenres();
+// console.log("pageNumber", pageNumber);
