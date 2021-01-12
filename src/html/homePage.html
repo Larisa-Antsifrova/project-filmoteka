@@ -1,28 +1,38 @@
-<h2>Hello, I am Home Page!</h2>
-<form class="search__form" id="search-form">
-  <input type="text" name="query" class="input" onfocus="this.value=''" autocomplete="off"
-    placeholder="Write movie name and click Enter" />
-</form>
-
-<p class="error__area"></p>
-
 <!-- Список на домашней странице, куда будет рендерится изначальный
 список популярных фильмов и список результата при поиске.
 Класс для оформления в CSS, data атрибут - для работы в JS -->
-<<<<<<< HEAD
-<div class="container">
-  <ul class="home-page-gallery" data-home-page></ul>
-</div>
-
-<div class="plagination  hidden">
-  <button type="button" class="plagination__button" disabled id="previous__page">Prev</button>
-  <span class="current__page">1</span>
-  <button type="button" class="plagination__button" id="next__page">Next</button>
-</div>
-=======
 <section class="home-page-section" data-home-section>
   <div class="container">
+    <div>
+      <form class="search__form" id="search-form">
+        <input
+          type="text"
+          name="query"
+          class="input"
+          onfocus="this.value=''"
+          autocomplete="off"
+          placeholder="Write movie name and click Enter"
+        />
+      </form>
+
+      <p class="error__area"></p>
+    </div>
+
     <ul class="home-page-gallery" data-home-gallery></ul>
+
+    <div class="plagination hidden">
+      <button
+        type="button"
+        class="plagination__button"
+        disabled
+        id="previous__page"
+      >
+        Prev
+      </button>
+      <span class="current__page">1</span>
+      <button type="button" class="plagination__button" id="next__page">
+        Next
+      </button>
+    </div>
   </div>
 </section>
->>>>>>> dev
