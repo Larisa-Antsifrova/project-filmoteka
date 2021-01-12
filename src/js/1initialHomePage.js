@@ -22,7 +22,7 @@ let pageNumber = 1;
 
 // Функции
 // Функция, которая создает одну карточку для галереи и которая вешает на карточку слушатель события для показа страницы деталей фильма
-function createCardFunc(imgPath, filmTitle, movieId) {
+function createCardFunc(imgPath, filmTitle, movieId, movieRating) {
   // Создание карточки фильма. Карточка - это лишка, в которой есть изображение и название фильма
   const galleryItemCard = document.createElement('li');
   galleryItemCard.classList.add('gallery-item-card');
@@ -34,7 +34,11 @@ function createCardFunc(imgPath, filmTitle, movieId) {
   const galleryItemTitle = document.createElement('p');
   galleryItemTitle.classList.add('gallery-card-title');
   galleryItemTitle.textContent = filmTitle;
+  const galletyItemRating = document.createElement('p');
+  galletyItemRating.classList.add('gallery-card-raiting');
+  galletyItemRating.textContent = movieRating;
 
+  galleryItemCard.appendChild(galletyItemRating);
   galleryItemCard.appendChild(galleryItemImage);
   galleryItemCard.appendChild(galleryItemTitle);
 
@@ -68,7 +72,13 @@ function fetchPopularMoviesList() {
         const filmYear = movie.release_date.slice(0, 4);
         const filmTitle = `${movie.title} (${filmYear})`;
         const movieId = movie.id;
-        const popularMoviesItem = createCardFunc(imgPath, filmTitle, movieId);
+        const movieRaiting = movie.vote_average;
+        const popularMoviesItem = createCardFunc(
+          imgPath,
+          filmTitle,
+          movieId,
+          movieRaiting,
+        );
 
         popularMoviesFragment.appendChild(popularMoviesItem);
       });
