@@ -31,16 +31,15 @@
 
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0px 10px 34px -10px rgba(0, 0, 0, 0.74);
+  box-shadow: $stillBoxShadow;
   transform: scale(1, 1);
-  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform $primaryTransition, box-shadow $primaryTransition;
   cursor: pointer;
 
   &:hover,
   :focus {
     transform: scale(1.08, 1.08);
-    box-shadow: 0px 10px 34px -10px rgba(0, 0, 0, 0.92);
+    box-shadow: $hoverBoxShadow;
   }
 
   @media screen and (max-width: 319px) {
@@ -62,12 +61,6 @@
       margin-bottom: 25px;
     }
   }
-
-  @media screen and (min-width: 1024px) {
-    &:not(:nth-last-child(-n + 2)) {
-      margin-bottom: 30px;
-    }
-  }
 }
 
 .gallery-card-title {
@@ -78,24 +71,17 @@
 
   padding: 5px 10px;
 
-  color: white;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.8;
-  letter-spacing: 0.03em;
+  color: $basicWhiteColor;
+  @include fontBasicStyles(14px);
 
-  background: linear-gradient(
-    360deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  background: $backgroundGradient;
 
   @media screen and (min-width: 768px) {
     padding: 10px 15px;
-    font-size: 16px;
+    @include fontBasicStyles(16px);
   }
 
   @media screen and (min-width: 1024px) {
-    font-size: 20px;
+    @include fontBasicStyles(20px);
   }
 }
