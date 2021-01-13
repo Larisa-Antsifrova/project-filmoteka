@@ -14,17 +14,19 @@ const movieApi = {
   isLastPage: false,
   images: {
     baseImageUrl: 'https://image.tmdb.org/t/p/',
-    backdrop_size: {
-      mobile: 'w300',
-      tablet: 'w780',
-      desktop: 'w1280',
-      original: 'original',
+    currentSizes: {
+      backdropSize: '',
+      posterSize: '',
     },
-    poster_size: {
-      mobile: 'w342',
-      tablet: 'w500',
-      desktop: 'w780',
-      original: 'original',
+    backdropSizes: {
+      mobile: 'w780',
+      tablet: 'w1280',
+      desktop: 'original',
+    },
+    posterSizes: {
+      mobile: 'w500',
+      tablet: 'w780',
+      desktop: 'original',
     },
   },
 
@@ -52,7 +54,36 @@ const movieApi = {
       .then(response => response.json())
       .then(data => data.genres);
   },
+  get imageBackdropSize() {
+    return this.images.currentSizes.backdropSize;
+  },
+  get imagePosterSize() {
+    return this.images.currentSizes.posterSize;
+  },
+  calculateBackdropImgSize() {
+    if (window.screen.availWidth >= 1024) {
+      this.images.currentSizes.backdropSize = this.images.backdropSizes.desktop;
+    }
+    if (window.screen.availWidth >= 768) {
+      this.images.currentSizes.backdropSize = this.images.backdropSizes.tablet;
+    }
+
+    this.images.currentSizes.backdropSize = this.images.backdropSizes.mobile;
+  },
+  calculatePosterImgSize() {
+    if (window.screen.availWidth >= 1024) {
+      this.images.currentSizes.posterSize = this.images.posterSizes.desktop;
+    }
+    if (window.screen.availWidth >= 768) {
+      this.images.currentSizes.posterSize = this.images.posterSizes.tablet;
+    }
+
+    this.images.currentSizes.posterSize = this.images.posterSizes.mobile;
+  },
 };
+// Вызов функций для высчета размеров изображений для карточек и постера
+movieApi.calculateBackdropImgSize();
+movieApi.calculatePosterImgSize();
 
 // Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы
 // при загрузке страницы, и фильмы - результат поиска
@@ -83,7 +114,10 @@ function createGallery(movies) {
 
 // Функция, которая создаёт одну карточку для фильма. Принимает один объект фильма.
 function createCardFunc(movie) {
-  const imgPath = movieApi.images.baseImageUrl + 'w500' + movie.backdrop_path;
+  const imgPath =
+    movieApi.images.baseImageUrl +
+    movieApi.imageBackdropSize +
+    movie.backdrop_path;
   const filmYear = movie.release_date.slice(0, 4);
   const filmTitle = `${movie.title} (${filmYear})`;
   const movieId = movie.id;
@@ -125,5 +159,3 @@ movieApi
 //   console.log('Hello, I am click event!');
 //   activeDetailsPage(movieId, false);
 // });
-
-console.log(window);
