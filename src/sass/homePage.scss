@@ -74,7 +74,7 @@
   color: $basicWhiteColor;
   @include fontBasicStyles(14px, 1.5, 700);
 
-  background: $backgroundGradient;
+  background: $titleBackgroundGradient;
 
   @media screen and (min-width: 768px) {
     padding: 10px 15px;
@@ -95,7 +95,7 @@
   border-radius: 10px;
 
   color: $basicWhiteColor;
-  background-color: $navigationCurrentTextColor;
+  background-color: $primaryColorLM;
 
   @include fontBasicStyles(14px, 1.5, 700);
 

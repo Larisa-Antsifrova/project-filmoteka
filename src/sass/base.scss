@@ -1,19 +1,21 @@
 // Переменные и миксины
 // Переменные для палитры
+// Базовый черный и белый
 $basicWhiteColor: #ffffff;
 $basicBlackColor: #000000;
 
-$logoColor: #41485b;
+// Светлая тема - LM - Light Mode
+$primaryColorLM: #0d253f;
+$secondaryColorLM: #01b4e4;
+$tertiaryColorLM: #90cea1;
 
-$navigationColor: #4d6671;
-$navigationCurrentTextColor: #372c48;
-
-$primaryTitleColor: #372c48;
-$primaryTextColor: #9a9a9a;
-
-$accentColor: #77c1bb;
+// Тёмная тема
+//??
 
 // На всякий случай
+$primaryTitleColor: #372c48;
+$primaryTextColor: #9a9a9a;
+$accentColor: #77c1bb;
 $secondaryBackgrounColor: #f5f4fa;
 $backdropColor: rgba(0, 0, 0, 0.2);
 
@@ -28,7 +30,7 @@ $stillBoxShadow: 0px 10px 34px -10px rgba(0, 0, 0, 0.74);
 $hoverBoxShadow: 0px 10px 34px -10px rgba(0, 0, 0, 0.92);
 
 // Переменная для градиента
-$backgroundGradient: linear-gradient(
+$titleBackgroundGradient: linear-gradient(
   360deg,
   rgba(0, 0, 0, 1) 0%,
   rgba(0, 0, 0, 0) 100%
