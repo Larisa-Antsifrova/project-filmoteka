@@ -1,0 +1,115 @@
+.home-page-section {
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  @media screen and (min-width: 320px) {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}
+
+.home-page-gallery {
+  @media screen and (min-width: 320px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+
+.gallery-item-card {
+  position: relative;
+
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: $stillBoxShadow;
+  transform: scale(1, 1);
+  transition: transform $primaryTransition, box-shadow $primaryTransition;
+  cursor: pointer;
+
+  &:hover,
+  :focus {
+    transform: scale(1.08, 1.08);
+    box-shadow: $hoverBoxShadow;
+  }
+
+  @media screen and (max-width: 319px) {
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    width: calc((100% - 25px * 2) / 2);
+
+    &:not(:nth-last-child(-n + 2)) {
+      margin-bottom: 25px;
+    }
+  }
+}
+
+.gallery-card-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding: 5px 10px;
+
+  color: $basicWhiteColor;
+  @include fontBasicStyles(14px, 1.5, 700);
+
+  background: $backgroundGradient;
+
+  @media screen and (min-width: 768px) {
+    padding: 10px 15px;
+    @include fontBasicStyles(16px, 1.5, 700);
+  }
+
+  @media screen and (min-width: 1024px) {
+    @include fontBasicStyles(20px, 1.5, 700);
+  }
+}
+
+.gallery-card-raiting {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  padding: 4px 8px;
+  border-radius: 10px;
+
+  color: $basicWhiteColor;
+  background-color: $navigationCurrentTextColor;
+
+  @include fontBasicStyles(14px, 1.5, 700);
+
+  @media screen and (min-width: 768px) {
+    top: 12px;
+    right: 12px;
+    padding: 6px 10px;
+    @include fontBasicStyles(16px, 1.5, 700);
+  }
+
+  @media screen and (min-width: 1024px) {
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    @include fontBasicStyles(20px, 1.5, 700);
+  }
+}
