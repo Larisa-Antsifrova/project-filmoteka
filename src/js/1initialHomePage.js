@@ -125,3 +125,5 @@ movieApi
 //   console.log('Hello, I am click event!');
 //   activeDetailsPage(movieId, false);
 // });
+
+console.log(window);
