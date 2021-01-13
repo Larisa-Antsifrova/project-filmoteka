@@ -111,6 +111,12 @@ function createCardFunc(movie) {
   return galleryItemCard;
 }
 
+// Вызов функций, которые фетчат популярные фильмы, создают фразмент с карточками галереи для каждого фильма и рендерят весь фрагмент в DOM
+movieApi
+  .fetchPopularMoviesList()
+  .then(createGallery)
+  .then(fragment => renderGallery(fragment, homePageRef));
+
 // // Добавление слушателя события, чтобы открыть страницу с деталями.
 // // Пока так по инструкции. Но потом стоит переделать на делегирование.
 // // Иначе у нас миллион слушателей будет.
@@ -119,9 +125,3 @@ function createCardFunc(movie) {
 //   console.log('Hello, I am click event!');
 //   activeDetailsPage(movieId, false);
 // });
-
-// Вызов функций, которые фетчат популярные фильмы, создают фразмент с карточками галереи для каждого фильма и рендерят весь фрагмент в DOM
-movieApi
-  .fetchPopularMoviesList()
-  .then(createGallery)
-  .then(fragment => renderGallery(fragment, homePageRef));
