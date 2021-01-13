@@ -42,13 +42,27 @@ function createLibraryCardFunc(movieObj) {
 
 function drawQueueFilmList() {
   const libraryGalleryQueueFragment = document.createDocumentFragment();
-  const libraryGalleryQueuedFilms = localStorage.getItem('filmsQueue');
+  const queuedFilmsContainer = localStorage.getItem('filmsQueue');
+  const parsedQueuedFilms = JSON.parse(queuedFilmsContainer);
 
-  if (libraryGalleryQueuedFilms.isEmpty) {
+  if (parsedQueuedFilms.isEmpty) {
+    const messageRef = document.querySelector('#queue .message');
+    messageRef.classList.remove('message--hidden');
+    messageRef.classList.add('message--active');
   }
 }
 
-function drawWatchedFilmList() {}
+function drawWatchedFilmList() {
+  const libraryGalleryWatchedFragment = document.createDocumentFragment();
+  const watchedFilmsContainer = localStorage.getItem('filmsWatched');
+  const parsedWatchedFilms = JSON.parse(watchedFilmsContainer);
+
+  if (parsedWatchedFilms.isEmpty) {
+    const messageRef = document.querySelector('#watched .message');
+    messageRef.classList.remove('message--hidden');
+    messageRef.classList.add('message--active');
+  }
+}
 
 // Tabs Queue/Watched
 const refs = {
