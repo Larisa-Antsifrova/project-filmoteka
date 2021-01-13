@@ -113,3 +113,16 @@
     @include fontBasicStyles(20px, 1.5, 700);
   }
 }
+.search__container {
+  outline: 1px solid tomato;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+}
+.input {
+  @include fontBasicStyles(16px);
+  margin-left: auto;
+  margin-right: auto;
+  width: 280px;
+}

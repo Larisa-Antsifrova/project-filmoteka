@@ -3,7 +3,7 @@
 Класс для оформления в CSS, data атрибут - для работы в JS -->
 <section class="home-page-section" data-home-section>
   <div class="container">
-    <div>
+    <div class="search__container">
       <form class="search__form" id="search-form">
         <input
           type="text"
@@ -13,6 +13,12 @@
           autocomplete="off"
           placeholder="Write movie name and click Enter"
         />
+        <div class="search__form__icon">
+        <svg class="search-icon">
+          <use href="../images/sprite.svg#icon-search"></use>
+        </svg>
+        </div>
+        
       </form>
 
       <p class="error__area"></p>
@@ -20,17 +26,17 @@
 
     <ul class="home-page-gallery" data-home-gallery></ul>
 
-    <div class="plagination hidden">
+    <div class="pagination">
       <button
         type="button"
-        class="plagination__button"
+        class="pagination__button"
         disabled
         id="previous__page"
       >
         Prev
       </button>
       <span class="current__page">1</span>
-      <button type="button" class="plagination__button" id="next__page">
+      <button type="button" class="pagination__button" id="next__page">
         Next
       </button>
     </div>

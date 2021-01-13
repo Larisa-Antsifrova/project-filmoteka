@@ -1,6 +1,6 @@
 const searchForm = document.querySelector('.search__form');
 const errorArea = document.querySelector('.error__area');
-const plaginationBar = document.querySelector('.plagination');
+const paginationBar = document.querySelector('.pagination');
 const prevBtn = document.querySelector('#previous__page');
 const currentPage = document.querySelector('.current__page');
 const nextBtn = document.querySelector('#next__page');
@@ -69,7 +69,7 @@ function focusFunction() {
 function notFound() {
   errorArea.insertAdjacentHTML(
     'afterbegin',
-    '<span>По вашему запросу ничего не найдено. Попробуйте еще раз!</span>',
+    '<span>Not Found. Please enter a more correct query!</span>',
   );
 };
 function clearError() {
