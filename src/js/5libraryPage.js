@@ -1,3 +1,55 @@
+// Функция, которая создаёт одну карточку для фильма в  МОЕЙ ГАЛЕРЕЕ.
+// Принимает один объект фильма from locale storage.
+
+function createLibraryCardFunc(movieObj) {
+  const filmYear = movieObj.year;
+  const filmTitle = `${movieObj.title} (${filmYear})`;
+  const movieId = movieObj.id;
+  const movieRaiting = movieObj.vote_average;
+  const imgPath = movieObj.img;
+
+  const libraryGalleryItem = document.createElement('li');
+  libraryGalleryItem.classList.add('library-gallery-item');
+  libraryGalleryItem.setAttribute('data-library-id', movieId);
+
+  const libraryGalleryImage = document.createElement('img');
+  libraryGalleryImage.src = imgPath;
+
+  const libraryGalleryTitle = document.createElement('p');
+  libraryGalleryTitle.classList.add('library-gallery-title');
+  libraryGalleryTitle.textContent = filmTitle;
+
+  const libraryGalleryRating = document.createElement('p');
+  libraryGalleryRating.classList.add('library-gallery-raiting');
+  libraryGalleryRating.textContent = movieRaiting;
+
+  libraryGalleryItem.appendChild(libraryGalleryRating);
+  libraryGalleryItem.appendChild(libraryGalleryImage);
+  libraryGalleryItem.appendChild(libraryGalleryTitle);
+
+  // Добавление слушателя события, чтобы открыть страницу с деталями.
+  // Для делегирования событий использую класс, общий для списка просмотренных
+  // и фильмов в очереди (ПРАВИЛЬНО ЛИ???)
+  const libraryGalleryListRef = document.querySelector('.');
+  libraryGalleryListRef.addEventListener('click', () => {
+    // Консолька для проверки, что слушатель события еще на месте.
+    console.log('Hello, I am click event!');
+    activeDetailsPage(movieId, false);
+  });
+
+  return libraryGalleryItem;
+}
+
+function drawQueueFilmList() {
+  const libraryGalleryQueueFragment = document.createDocumentFragment();
+  const libraryGalleryQueuedFilms = localStorage.getItem('filmsQueue');
+
+  if (libraryGalleryQueuedFilms.isEmpty) {
+  }
+}
+
+function drawWatchedFilmList() {}
+
 // Tabs Queue/Watched
 const refs = {
   controls: document.querySelector('[data-controls]'),
