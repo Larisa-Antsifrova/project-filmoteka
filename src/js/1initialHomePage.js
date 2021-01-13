@@ -55,18 +55,18 @@ const movieApi = {
   fetchSearchFilmsList(query) {
     this.searchQuery = query;
     return fetch(
-    `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
-  )
-    .then(res => res.json())
-    .then(({ results }) => {
-      // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
-      if (results.length === 0) {
-        notFound();
-        renderPopularMoviesList();
-      };
-      disactiveBtnNext(results);
-      return results;
-    })
+      `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
+    )
+      .then(res => res.json())
+      .then(({ results }) => {
+        // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
+        if (results.length === 0) {
+          notFound();
+          renderPopularMoviesList();
+        }
+        disactiveBtnNext(results);
+        return results;
+      });
   },
   fetchGenres() {
     return fetch(`${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`)
@@ -146,11 +146,11 @@ function createCardFunc(movie) {
 
   const galleryItemCard = document.createElement('li');
   galleryItemCard.classList.add('gallery-item-card');
-  // galleryItemCard.setAttribute('data-id', movieId);
+  galleryItemCard.setAttribute('data-id', movieId);
 
   const galleryItemImage = document.createElement('img');
   galleryItemImage.src = imgPath;
-  galleryItemImage.setAttribute('data-id', movieId);
+  // galleryItemImage.setAttribute('data-id', movieId);
 
   const galleryItemTitle = document.createElement('p');
   galleryItemTitle.classList.add('gallery-card-title');
@@ -181,8 +181,8 @@ function createCardFunc(movie) {
 // Alex add - вывел фетч в функцию, во избежание дублирования кода т.к. она нужна для рендера страницы при выводе ошибки (стр 65)
 function renderPopularMoviesList() {
   movieApi
-  .fetchPopularMoviesList()
-  .then(createGallery)
-  .then(fragment => renderGallery(fragment, homePageRef));
-};
+    .fetchPopularMoviesList()
+    .then(createGallery)
+    .then(fragment => renderGallery(fragment, homePageRef));
+}
 renderPopularMoviesList();
