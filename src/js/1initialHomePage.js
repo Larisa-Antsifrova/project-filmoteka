@@ -93,7 +93,7 @@ movieApi.calculatePosterImgSize();
 const homePageRef = document.querySelector('[data-home-gallery]');
 
 // Глобальные переменные, которые требуются по инструкции
-let renderFilms = '';
+let renderFilms = movieApi.fetchPopularMoviesList();
 const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
 let pageNumber = 1; // можно заменить свойством в АПИШКЕ
 
@@ -128,10 +128,11 @@ function createCardFunc(movie) {
 
   const galleryItemCard = document.createElement('li');
   galleryItemCard.classList.add('gallery-item-card');
-  galleryItemCard.setAttribute('data-id', movieId);
+  // galleryItemCard.setAttribute('data-id', movieId);
 
   const galleryItemImage = document.createElement('img');
   galleryItemImage.src = imgPath;
+  galleryItemImage.setAttribute('data-id', movieId);
 
   const galleryItemTitle = document.createElement('p');
   galleryItemTitle.classList.add('gallery-card-title');
