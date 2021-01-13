@@ -52,6 +52,22 @@ const movieApi = {
       .then(response => response.json())
       .then(({ results }) => results);
   },
+  fetchSearchFilmsList(query) {
+    this.searchQuery = query;
+    return fetch(
+    `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
+  )
+    .then(res => res.json())
+    .then(({ results }) => {
+      // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
+      if (results.length === 0) {
+        notFound();
+        renderPopularMoviesList();
+      };
+      disactiveBtnNext(results);
+      return results;
+    })
+  },
   fetchGenres() {
     return fetch(`${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`)
       .then(response => response.json())
@@ -105,6 +121,8 @@ function renderGallery(fragment, place) {
 
 // Функция, которая создает фрагмент со всеми карточками галереи. Принимает массив объектов фильмов.
 function createGallery(movies) {
+  // Alex add - create HPage
+  clearHomePage();
   const galleryFragment = document.createDocumentFragment();
 
   movies.forEach(movie => {
@@ -158,7 +176,12 @@ function createCardFunc(movie) {
 }
 
 // Вызов функций, которые фетчат популярные фильмы, создают фразмент с карточками галереи для каждого фильма и рендерят весь фрагмент в DOM
-movieApi
+
+// Alex add - вывел фетч в функцию, во избежание дублирования кода т.к. она нужна для рендера страницы при выводе ошибки (стр 65)
+function renderPopularMoviesList() {
+  movieApi
   .fetchPopularMoviesList()
   .then(createGallery)
   .then(fragment => renderGallery(fragment, homePageRef));
+};
+renderPopularMoviesList();
