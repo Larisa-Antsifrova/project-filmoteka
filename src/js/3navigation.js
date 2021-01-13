@@ -37,35 +37,26 @@ function activeLibraryPage(e) {
   drawQueueFilmList();
 }
 
-// renderFilms.then(data => {
-//   return data.find(el => {
-//     if (el.id === 508442) {
-//       return el;
-//     }
-//   });
-// });
-
-// selectFilm = renderFilms.then(data => {
-//   return data.find(el => {
-//     if (el.id === 508442) {
-//       return el;
-//     }
-//   });
-// });
-
-// selectFilm.then(console.log);
-
 // создаем функцию activeDetailsPage которая показывает страницу детальной отрисовки фильма
-// function activeDetailsPage(movieId, itsLibraryFilm) {
-//   detailisSectionRef.classList.remove('is-hidden');
-//   homePageSectionRef.classList.add('is-hidden');
-//     librarySectionRef.classList.add('is-hidden');
-//     if (itsLibraryFilm) {
-//         selectFilm =
-//     }
-// }
+function activeDetailsPage(movieId, itsLibraryFilm) {
+  detailisSectionRef.classList.remove('is-hidden');
+  homePageSectionRef.classList.add('is-hidden');
+  librarySectionRef.classList.add('is-hidden');
 
-// activeDetailsPage();
+  if (itsLibraryFilm) {
+    // перебираем localStorage и заполняем selectFilm
+  }
+  selectFilm = renderFilms.then(data => {
+    return data.find(el => {
+      if (el.id === movieId) {
+        return el;
+      }
+    });
+  });
+
+  return selectFilm.then(console.log);
+}
+
 function toggleActiveLink(link) {
   const currentActiveLink = navigationRefs.querySelector('.current');
   if (currentActiveLink) {
@@ -73,12 +64,3 @@ function toggleActiveLink(link) {
   }
   link.classList.add('current');
 }
-// renderFilms.then(console.log);
-
-// console.log(homePageRef);
-// homePageRef.addEventListener('click', e => {
-//   if (e.target.nodeName !== 'IMG') {
-//     return;
-//   }
-//   movieId = e.target.getAttribute('data-id');
-// });
