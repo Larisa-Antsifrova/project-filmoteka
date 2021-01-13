@@ -33,6 +33,9 @@ const movieApi = {
   incrementPage() {
     this.pageNumber += 1;
   },
+  decrementPage() {
+    this.pageNumber -= 1;
+  },
   resetPage() {
     this.pageNumber = 1;
   },
@@ -81,12 +84,12 @@ const movieApi = {
     this.images.currentSizes.posterSize = this.images.posterSizes.mobile;
   },
 };
+
 // Вызов функций для высчета размеров изображений для карточек и постера
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();
 
-// Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы
-// при загрузке страницы, и фильмы - результат поиска
+// Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы при загрузке страницы, и фильмы - результат поиска.
 const homePageRef = document.querySelector('[data-home-gallery]');
 
 // Глобальные переменные, которые требуются по инструкции
@@ -142,6 +145,15 @@ function createCardFunc(movie) {
   galleryItemCard.appendChild(galleryItemImage);
   galleryItemCard.appendChild(galleryItemTitle);
 
+  // Добавление слушателя события, чтобы открыть страницу с деталями.
+  // Пока так по инструкции. Но потом стоит переделать на делегирование.
+  // Иначе у нас миллион слушателей будет.
+  galleryItemCard.addEventListener('click', () => {
+    // Консолька для проверки, что слушатель события еще на месте.
+    console.log('Hello, I am click event!');
+    activeDetailsPage(movieId, false);
+  });
+
   return galleryItemCard;
 }
 
@@ -150,12 +162,3 @@ movieApi
   .fetchPopularMoviesList()
   .then(createGallery)
   .then(fragment => renderGallery(fragment, homePageRef));
-
-// // Добавление слушателя события, чтобы открыть страницу с деталями.
-// // Пока так по инструкции. Но потом стоит переделать на делегирование.
-// // Иначе у нас миллион слушателей будет.
-// galleryItemCard.addEventListener('click', () => {
-//   // Консолька для проверки, что слушатель события еще на месте.
-//   console.log('Hello, I am click event!');
-//   activeDetailsPage(movieId, false);
-// });
