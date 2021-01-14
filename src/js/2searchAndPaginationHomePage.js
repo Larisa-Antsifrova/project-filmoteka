@@ -1,6 +1,6 @@
 const searchForm = document.querySelector('.search__form');
 const errorArea = document.querySelector('.error__area');
-const plaginationBar = document.querySelector('.plagination');
+const paginationBar = document.querySelector('.pagination');
 const prevBtn = document.querySelector('#previous__page');
 const currentPage = document.querySelector('.current__page');
 const nextBtn = document.querySelector('#next__page');
@@ -20,6 +20,9 @@ function searchFilms(e) {
   e.preventDefault();
   inputVaue = e.target.elements.query.value;
   fetchFilms(movieApi.pageNumber, inputVaue);
+  renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
+  console.log(renderFilms.then(console.log));
+
 }
 // функция рендера страницы запроса
 function fetchFilms(pageNumber, inputVaue) {
@@ -33,9 +36,12 @@ function fetchFilms(pageNumber, inputVaue) {
     movieApi
         .fetchSearchFilmsList(query)
         .then(createGallery)
-        .then(fragment => renderGallery(fragment, homePageRef));
+      .then(fragment => renderGallery(fragment, homePageRef));
+  
+  
 }
-
+// проверка на отзыв
+console.log(renderFilms.then(console.log));
 // функция отображения страниц зарпосов
 function paginationNavigation(e) {
   const activeBtn = e.currentTarget.id;
@@ -62,14 +68,14 @@ function paginationNavigation(e) {
 // функция очистки инпута и параграфа ошибки при фокусе
 function focusFunction() {
   clearError();
-    searchForm.children.query.value = '';
+    searchForm.elements.query.value = '';
     movieApi.resetPage();
 };
 
 function notFound() {
   errorArea.insertAdjacentHTML(
     'afterbegin',
-    '<span>По вашему запросу ничего не найдено. Попробуйте еще раз!</span>',
+    '<span>Not Found. Please enter a more correct query!</span>',
   );
 };
 function clearError() {
