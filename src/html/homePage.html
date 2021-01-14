@@ -1,22 +1,23 @@
 <!-- Список на домашней странице, куда будет рендерится изначальный
 список популярных фильмов и список результата при поиске.
 Класс для оформления в CSS, data атрибут - для работы в JS -->
-<div class="search__container">
-  <form class="search__form" id="search-form">
-    <div class="input__container">
-      <input type="text" name="query" class="input" onfocus="this.value=''" autocomplete="off"
-        placeholder="Write movie name and click Enter" />
-      <div class="search__form__icon">
-        <svg class="search-icon" width="18" height="18">
-          <use href="../images/sprite.svg#icon-search"></use>
-        </svg>
-      </div>
-    </div>
-  </form>
-
-  <p class="error__area"></p>
-</div>
 <section class="home-page-section" data-home-section>
+  <div class="search__container">
+    <form class="search__form" id="search-form">
+      <div class="input__container">
+        <input type="text" name="query" class="input" onfocus="this.value=''" autocomplete="off"
+          placeholder="Write movie name and click Enter" />
+        <div class="search__form__icon">
+          <svg class="search-icon" width="18" height="18">
+            <use href="../images/sprite.svg#icon-search"></use>
+          </svg>
+        </div>
+      </div>
+    </form>
+  
+    <p class="error__area"></p>
+  </div>
+
   <div class="container">
   
 
