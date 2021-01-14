@@ -54,7 +54,13 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
     });
   });
 
-  return selectFilm.then(console.log);
+  showDetails(selectFilm);
+  toggleQueueBtn.addEventListener('click', () => {
+    console.log('клик в toggleQueue');
+  });
+  toggleWatchedBtn.addEventListener('click', () => {
+    console.log('клик в watchedQueue');
+  });
 }
 
 function toggleActiveLink(link) {
