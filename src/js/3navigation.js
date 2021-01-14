@@ -44,15 +44,21 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
   librarySectionRef.classList.add('is-hidden');
 
   if (itsLibraryFilm) {
-    // перебираем localStorage и заполняем selectFilm
-  }
-  selectFilm = renderFilms.then(data => {
-    return data.find(el => {
+    selectFilm = JSON.parse(localStorage.getItem('filmsQueue'));
+    return selectFilm.find(el => {
       if (el.id === movieId) {
         return el;
       }
     });
-  });
+  } else {
+    selectFilm = renderFilms.then(data => {
+      return data.find(el => {
+        if (el.id === movieId) {
+          return el;
+        }
+      });
+    });
+  }
 
   showDetails(selectFilm);
   toggleQueueBtn.addEventListener('click', () => {
