@@ -114,15 +114,23 @@
   }
 }
 .search__container {
+  position: relative;
+  margin-bottom: 30px;
   outline: 1px solid tomato;
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   align-items: center;
 }
 .input {
   @include fontBasicStyles(16px);
+  outline: none;
   margin-left: auto;
   margin-right: auto;
   width: 280px;
+}
+.search__form__icon {
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  left: 10px;
 }
