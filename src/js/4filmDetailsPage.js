@@ -30,22 +30,26 @@ function toggleToWatched() {
 }
 
 function showDetails(selectFilm) {
-  const img = document.querySelector('#js-detailsImg');
-  img.setAttribute(
-    'src',
-    `https://image.tmdb.org/t/p/w500${selectFilm.poster_path}`,
-  );
-  const title = document.querySelector('#js-detailsTitle');
-  title.textContent = selectFilm.title;
-  const vote = document.querySelector('#js-vote');
-  vote.textContent = selectFilm.vote_average;
-  const popolarity = document.querySelector('#js-popularity');
-  popolarity.textContent = selectFilm.popularity;
-  const originalTitle = document.querySelector('js-originalTitle');
-  originalTitle.textContent = selectFilm.original_title;
-  let genre;
-  const detailsAbout = document.querySelector('#js-detailsAbout');
-  detailsAbout.textContent = selectFilm.overview;
+  const img = detailisSectionRef.querySelector('#details__img');
+  const title = document.querySelector('#details__title');
+  const vote = document.querySelector('#details__vote');
+  const popularity = document.querySelector('#details__popularity');
+  const originalTitle = document.querySelector('#original__title');
+  const detailsAbout = document.querySelector('#details__about');
+
+  selectFilm.then(el => {
+    img.setAttribute(
+      'src',
+      `${movieApi.images.baseImageUrl}${movieApi.images.posterSizes.mobile}${el.poster_path}`,
+    );
+    title.textContent = el.title;
+    vote.textContent = el.vote_average;
+    popularity.textContent = el.popularity;
+    originalTitle.textContent = el.original_title;
+    detailsAbout.textContent = el.overview;
+    let genre;
+  });
+
   monitorButtonStatusText();
 }
 

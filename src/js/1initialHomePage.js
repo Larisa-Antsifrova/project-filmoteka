@@ -55,18 +55,18 @@ const movieApi = {
   fetchSearchFilmsList(query) {
     this.searchQuery = query;
     return fetch(
-    `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
-  )
-    .then(res => res.json())
-    .then(({ results }) => {
-      // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
-      if (results.length === 0) {
-        notFound();
-        renderPopularMoviesList();
-      };
-      disactiveBtnNext(results);
-      return results;
-    })
+      `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
+    )
+      .then(res => res.json())
+      .then(({ results }) => {
+        // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
+        if (results.length === 0) {
+          notFound();
+          renderPopularMoviesList();
+        }
+        disactiveBtnNext(results);
+        return results;
+      });
   },
   fetchGenres() {
     return fetch(`${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`)
@@ -109,7 +109,7 @@ movieApi.calculatePosterImgSize();
 const homePageRef = document.querySelector('[data-home-gallery]');
 
 // Глобальные переменные, которые требуются по инструкции
-let renderFilms = '';
+let renderFilms = movieApi.fetchPopularMoviesList();
 const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
 let pageNumber = 1; // можно заменить свойством в АПИШКЕ
 
@@ -150,6 +150,7 @@ function createCardFunc(movie) {
 
   const galleryItemImage = document.createElement('img');
   galleryItemImage.src = imgPath;
+  // galleryItemImage.setAttribute('data-id', movieId);
 
   const galleryItemTitle = document.createElement('p');
   galleryItemTitle.classList.add('gallery-card-title');
@@ -180,8 +181,8 @@ function createCardFunc(movie) {
 // Alex add - вывел фетч в функцию, во избежание дублирования кода т.к. она нужна для рендера страницы при выводе ошибки (стр 65)
 function renderPopularMoviesList() {
   movieApi
-  .fetchPopularMoviesList()
-  .then(createGallery)
-  .then(fragment => renderGallery(fragment, homePageRef));
-};
+    .fetchPopularMoviesList()
+    .then(createGallery)
+    .then(fragment => renderGallery(fragment, homePageRef));
+}
 renderPopularMoviesList();
