@@ -1,76 +1,117 @@
-// Функция, которая создаёт одну карточку для фильма в  МОЕЙ ГАЛЕРЕЕ.
-// Принимает один объект фильма from locale storage.
-
-function createLibraryCardFunc(movieObj) {
-  const filmYear = movieObj.year;
-  const filmTitle = `${movieObj.title} (${filmYear})`;
-  const movieId = movieObj.id;
-  const movieRaiting = movieObj.vote_average;
-  const imgPath = movieObj.img;
-
-  const libraryGalleryItem = document.createElement('li');
-  libraryGalleryItem.classList.add('library-gallery-item');
-  libraryGalleryItem.setAttribute('data-library-id', movieId);
-
-  const libraryGalleryImage = document.createElement('img');
-  libraryGalleryImage.src = imgPath;
-
-  const libraryGalleryTitle = document.createElement('p');
-  libraryGalleryTitle.classList.add('library-gallery-title');
-  libraryGalleryTitle.textContent = filmTitle;
-
-  const libraryGalleryRating = document.createElement('p');
-  libraryGalleryRating.classList.add('library-gallery-raiting');
-  libraryGalleryRating.textContent = movieRaiting;
-
-  libraryGalleryItem.appendChild(libraryGalleryRating);
-  libraryGalleryItem.appendChild(libraryGalleryImage);
-  libraryGalleryItem.appendChild(libraryGalleryTitle);
-
-  // Добавление слушателя события, чтобы открыть страницу с деталями.
-  // Для делегирования событий использую класс, общий для списка просмотренных
-  // и фильмов в очереди (ПРАВИЛЬНО ЛИ???)
-  const libraryGalleryListRef = document.querySelector('.');
-  libraryGalleryListRef.addEventListener('click', () => {
-    // Консолька для проверки, что слушатель события еще на месте.
-    console.log('Hello, I am click event!');
-    activeDetailsPage(movieId, false);
-  });
-
-  return libraryGalleryItem;
-}
-
-function drawQueueFilmList() {
-  const libraryGalleryQueueFragment = document.createDocumentFragment();
-  const queuedFilmsContainer = localStorage.getItem('filmsQueue');
-  const parsedQueuedFilms = JSON.parse(queuedFilmsContainer);
-
-  if (parsedQueuedFilms.isEmpty) {
-    const messageRef = document.querySelector('#queue .message');
-    messageRef.classList.remove('message--hidden');
-    messageRef.classList.add('message--active');
-  }
-}
-
-function drawWatchedFilmList() {
-  const libraryGalleryWatchedFragment = document.createDocumentFragment();
-  const watchedFilmsContainer = localStorage.getItem('filmsWatched');
-  const parsedWatchedFilms = JSON.parse(watchedFilmsContainer);
-
-  if (parsedWatchedFilms.isEmpty) {
-    const messageRef = document.querySelector('#watched .message');
-    messageRef.classList.remove('message--hidden');
-    messageRef.classList.add('message--active');
-  }
-}
-
-// Tabs Queue/Watched
+// Создание ссылок
 const refs = {
   controls: document.querySelector('[data-controls]'),
   panes: document.querySelector('[data-panes]'),
+  queueBtn: document.querySelector('[data-action-queue]'),
+  watchedBtn: document.querySelector('[data-action-watched]'),
+  galleryList: document.querySelector('.library-page-gallery'),
 };
 
-refs.controls.addEventListener('click', onControlsClick);
+// Слушатели
+refs.controls.addEventListener('click', onControlsClick); // для табов
+refs.queueBtn.addEventListener('click', drawQueueFilmList);
+refs.watchedBtn.addEventListener('click', drawWatchedFilmList);
+refs.galleryList.addEventListener('click', activeDetailsPage); // делегирование при клике на фильм на список <ul>
+
+// Функция для создания карточки фильма в  МОЕЙ ГАЛЕРЕЕ.
+// Принимает один объект фильма from local storage  по инструкции.
+// В данный момент для тестирования получила фильмы с помощью renderFilms.then()
+// Поля в local storage надо согласовать с Яриком
+// Делала функцию по патерну Ларисы
+function createLibraryCardFunc(movie) {
+  // const imgPath = filmObj.img;
+  // const filmYear = filmObj.year;
+  // const filmTitle = `${filmObj.title} (${filmYear})`;
+  // const filmId = filmObj.id;
+  // const filmRaiting = filmObj.voteAverage;
+  const imgPath =
+    movieApi.images.baseImageUrl +
+    movieApi.imageBackdropSize +
+    movie.backdrop_path;
+  const filmYear = movie.release_date.slice(0, 4);
+  const filmTitle = `${movie.title} (${filmYear})`;
+  const movieId = movie.id;
+  const movieRaiting = movie.vote_average;
+
+  const libraryGalleryItemRef = document.createElement('li');
+  libraryGalleryItemRef.classList.add('gallery-item-card');
+  libraryGalleryItemRef.setAttribute('data-id', movieId);
+
+  const libraryGalleryImageRef = document.createElement('img');
+  libraryGalleryImageRef.src = imgPath;
+
+  const libraryGalleryTitleRef = document.createElement('p');
+  libraryGalleryTitleRef.classList.add('gallery-card-title');
+  libraryGalleryTitleRef.textContent = filmTitle;
+
+  const libraryGalleryRatingRef = document.createElement('p');
+  libraryGalleryRatingRef.classList.add('gallery-card-raiting');
+  libraryGalleryRatingRef.textContent = movieRaiting;
+
+  libraryGalleryItemRef.appendChild(libraryGalleryRatingRef);
+  libraryGalleryItemRef.appendChild(libraryGalleryImageRef);
+  libraryGalleryItemRef.appendChild(libraryGalleryTitleRef);
+
+  return libraryGalleryItemRef;
+}
+
+// Функция для создания/отрисовки списка фильмов
+// Обращение к локальной памяти внутри функции. Если в памяти пусто,
+// Вешается class message--active на <p> с текстом, который до этого
+// был скрыт с помощью class message--hidden'
+function drawFilmList(key, paneId) {
+  const paneRef = getPaneById(paneId);
+  const parsedFilms = getFilmListFromLocalStorage(key);
+
+  if (parsedFilms === null || parsedFilms.length === 0) {
+    const messageRef = paneRef.querySelector('.message');
+    messageRef.classList.remove('message--hidden');
+    messageRef.classList.add('message--active');
+    return;
+  }
+
+  const listRef = paneRef.querySelector('.library-page-gallery');
+  const filmsList = createFilmListFragment(parsedFilms);
+  clearFilmList(listRef);
+  listRef.appendChild(filmsList);
+}
+
+// Функция для создания/отрисовки списка фильмов в очереди на просмотр
+function drawQueueFilmList() {
+  drawFilmList('filmsQueue', 'queue');
+}
+
+// Функция для создания/отрисовки списка просмотренных фильмов
+function drawWatchedFilmList() {
+  drawFilmList('filmsWatched', 'watched');
+}
+
+// Функция для зачистки списка. Принимает аргументом ссылку на
+// требуемый список
+function clearFilmList(filmsListRef) {
+  filmsListRef.innerHTML = '';
+}
+
+// Функция для получения данных с локальной памяти
+// Принимает аргументом ключ
+function getFilmListFromLocalStorage(key) {
+  const filmsContainer = localStorage.getItem(key);
+  return JSON.parse(filmsContainer);
+}
+
+// Функция для создания фрагмента документа с контентом
+// Аргументами являются массив фильмов для отрисовки и ссылка на сам фрагмент документа
+function createFilmListFragment(filmsArray) {
+  let docFragmentRef = document.createDocumentFragment();
+  filmsArray.forEach(film => {
+    const filmEntry = createLibraryCardFunc(film);
+    docFragmentRef.appendChild(filmEntry);
+  });
+
+  return docFragmentRef;
+}
+
+// Panes Queue/Watched => мастерская Саши Репеты
 
 function onControlsClick(event) {
   event.preventDefault();
@@ -79,21 +120,23 @@ function onControlsClick(event) {
     return;
   }
 
-  const activeControlItem = document.querySelector('.controls__item--active');
+  const activeControlItemRef = document.querySelector(
+    '.controls__item--active',
+  );
 
-  if (activeControlItem) {
-    activeControlItem.classList.remove('controls__item--active');
-    const paneId = getPaneId(activeControlItem);
-    const pane = getPaneById(paneId);
-    pane.classList.remove('pane--active');
+  if (activeControlItemRef) {
+    activeControlItemRef.classList.remove('controls__item--active');
+    const paneId = getPaneId(activeControlItemRef);
+    const paneRef = getPaneById(paneId);
+    paneRef.classList.remove('pane--active');
   }
 
   const controlItem = event.target;
   controlItem.classList.add('controls__item--active');
 
   const paneId = getPaneId(controlItem);
-  const pane = getPaneById(paneId);
-  pane.classList.add('pane--active');
+  const paneRef = getPaneById(paneId);
+  paneRef.classList.add('pane--active');
 }
 
 function getPaneId(control) {
@@ -103,3 +146,12 @@ function getPaneId(control) {
 function getPaneById(id) {
   return refs.panes.querySelector(`#${id}`);
 }
+
+/////////////////////////////////
+// Testing area. No tresspassing!
+/////////////////////////////////
+localStorage.setItem('filmsQueue', JSON.stringify(filmObjArray));
+
+renderFilms.then(results =>
+  localStorage.setItem('filmsQueue', JSON.stringify(results)),
+);
