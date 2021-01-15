@@ -63,19 +63,20 @@ const movieApi = {
       .then(resp => {
         this.totalPages = resp.total_pages;
         if (this.totalPages > 1) {
+          // тут еще черновик
+          // createPaginationMarkup(resp);
           totalPage.textContent = this.totalPages;
           delimiter.textContent = ". . ."
+          disactiveBtnNext(resp.results);
         }
         return resp
       })
       .then(({ results }) => {
-        console.log(results);
         // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
         if (results.length === 0) {
           notFound();
           renderPopularMoviesList();
         }
-        disactiveBtnNext(results);
         return results;
       });
   },
@@ -133,7 +134,6 @@ const movieApi = {
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();
 
-console.log('totalResults', movieApi.totalResults);
 // console.log(window);
 fetch(
   'https://api.themoviedb.org/3/configuration?api_key=0757258023265e845275de2a564555e9',
