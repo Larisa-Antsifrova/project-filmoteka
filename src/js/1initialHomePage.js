@@ -136,6 +136,7 @@ const homePageRef = document.querySelector('[data-home-gallery]');
 
 // Глобальные переменные, которые требуются по инструкции
 let renderFilms = movieApi.fetchPopularMoviesList();
+// let renderFilms;
 const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
 let pageNumber = 1; // можно заменить свойством в АПИШКЕ
 
