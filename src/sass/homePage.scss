@@ -183,6 +183,8 @@ input::placeholder {
   }
 }
 .error__area {
+  visibility: hidden;
+
   padding-top: 8px;
   @include fontBasicStyles(14px);
 
@@ -215,7 +217,8 @@ input::placeholder {
     margin: 10px;
   }
 }
-.current__page {
+.current__page,
+.total__page {
   padding: 8px 10px;
   margin: 5px;
   border: 1px solid $primaryTextColor;
