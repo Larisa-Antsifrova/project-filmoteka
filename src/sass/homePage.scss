@@ -31,7 +31,7 @@
 
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: $stillBoxShadow;
+  // box-shadow: $stillBoxShadow;
   transform: scale(1, 1);
   transition: transform $primaryTransition, box-shadow $primaryTransition;
   cursor: pointer;
@@ -39,7 +39,7 @@
   &:hover,
   :focus {
     transform: scale(1.08, 1.08);
-    box-shadow: $hoverBoxShadow;
+    // box-shadow: $hoverBoxShadow;
   }
 
   @media screen and (max-width: 319px) {

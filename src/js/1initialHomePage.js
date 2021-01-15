@@ -66,10 +66,10 @@ const movieApi = {
           // тут еще черновик
           // createPaginationMarkup(resp);
           totalPage.textContent = this.totalPages;
-          delimiter.textContent = ". . ."
+          delimiter.textContent = '. . .';
           disactiveBtnNext(resp.results);
         }
-        return resp
+        return resp;
       })
       .then(({ results }) => {
         // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
@@ -185,6 +185,7 @@ function createCardFunc(movie) {
 
   const galleryItemCard = document.createElement('li');
   galleryItemCard.classList.add('gallery-item-card');
+  galleryItemCard.classList.add('z-depth-3');
   galleryItemCard.setAttribute('data-id', movieId);
 
   const galleryItemImage = document.createElement('img');
