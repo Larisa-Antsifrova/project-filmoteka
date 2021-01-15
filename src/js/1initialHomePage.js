@@ -14,19 +14,21 @@ const movieApi = {
   isLastPage: false,
   images: {
     baseImageUrl: 'https://image.tmdb.org/t/p/',
+    defaultBackdropImg: '',
+    defaultPosterImg: '',
     currentSizes: {
       backdropSize: '',
       posterSize: '',
     },
     backdropSizes: {
       mobile: 'w780',
-      tablet: 'w1280',
-      desktop: 'original',
+      tablet: 'w780',
+      desktop: 'w780',
     },
     posterSizes: {
-      mobile: 'w500',
-      tablet: 'w780',
-      desktop: 'original',
+      mobile: 'w342',
+      tablet: 'w500',
+      desktop: 'w780',
     },
   },
 
@@ -80,24 +82,41 @@ const movieApi = {
     return this.images.currentSizes.posterSize;
   },
   calculateBackdropImgSize() {
-    if (window.screen.availWidth >= 1024) {
+    if (window.visualViewport.width >= 1024) {
       this.images.currentSizes.backdropSize = this.images.backdropSizes.desktop;
+      this.images.defaultBackdropImg = '../images/default/backdrop-desktop.jpg';
+      return;
     }
-    if (window.screen.availWidth >= 768) {
+    if (
+      window.visualViewport.width >= 768 &&
+      window.visualViewport.width < 1024
+    ) {
       this.images.currentSizes.backdropSize = this.images.backdropSizes.tablet;
+      this.images.defaultBackdropImg = '../images/default/backdrop-tablet.jpg';
+      return;
     }
-
-    this.images.currentSizes.backdropSize = this.images.backdropSizes.mobile;
+    if (window.visualViewport.width < 768) {
+      this.images.currentSizes.backdropSize = this.images.backdropSizes.mobile;
+      this.images.defaultBackdropImg = '../images/default/backdrop-mobile.jpg';
+      return;
+    }
   },
   calculatePosterImgSize() {
-    if (window.screen.availWidth >= 1024) {
+    if (window.visualViewport.width >= 1024) {
       this.images.currentSizes.posterSize = this.images.posterSizes.desktop;
+      this.images.defaultPosterImg = '../images/default/poster-desktop.jpg';
     }
-    if (window.screen.availWidth >= 768) {
+    if (
+      window.visualViewport.width >= 768 &&
+      window.visualViewport.width < 1024
+    ) {
       this.images.currentSizes.posterSize = this.images.posterSizes.tablet;
+      this.images.defaultPosterImg = '../images/default/poster-tablet.jpg';
     }
-
-    this.images.currentSizes.posterSize = this.images.posterSizes.mobile;
+    if (window.visualViewport.width < 768) {
+      this.images.currentSizes.posterSize = this.images.posterSizes.mobile;
+      this.images.defaultPosterImg = '../images/default/poster-mobile.jpg';
+    }
   },
 };
 
@@ -105,6 +124,13 @@ const movieApi = {
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();
 
+console.log('movieAPI', movieApi);
+console.log(window);
+fetch(
+  'https://api.themoviedb.org/3/configuration?api_key=0757258023265e845275de2a564555e9',
+)
+  .then(r => r.json())
+  .then(console.log);
 // Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы при загрузке страницы, и фильмы - результат поиска.
 const homePageRef = document.querySelector('[data-home-gallery]');
 
@@ -135,10 +161,11 @@ function createGallery(movies) {
 
 // Функция, которая создаёт одну карточку для фильма. Принимает один объект фильма.
 function createCardFunc(movie) {
-  const imgPath =
-    movieApi.images.baseImageUrl +
-    movieApi.imageBackdropSize +
-    movie.backdrop_path;
+  const imgPath = movie.backdrop_path
+    ? movieApi.images.baseImageUrl +
+      movieApi.imageBackdropSize +
+      movie.backdrop_path
+    : movieApi.images.defaultBackdropImg;
   const filmYear = movie.release_date
     ? `(${movie.release_date.slice(0, 4)})`
     : '';
