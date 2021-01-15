@@ -3,6 +3,8 @@ const errorArea = document.querySelector('.error__area');
 const paginationBar = document.querySelector('.pagination');
 const prevBtn = document.querySelector('#previous__page');
 const currentPage = document.querySelector('.current__page');
+const delimiter = document.querySelector('.delimiter');
+const totalPage = document.querySelector('.total__page');
 const nextBtn = document.querySelector('#next__page');
 
 // глобальная переменная inputVaue
@@ -18,9 +20,11 @@ nextBtn.addEventListener('click', paginationNavigation);
 // функция-слушатель инпута и отображения страницы согласно запросу
 function searchFilms(e) {
   e.preventDefault();
+  showCurrentPage();
+  disabledPrevBtn();
   inputVaue = e.target.elements.query.value;
   fetchFilms(movieApi.pageNumber, inputVaue);
-
+  
   // условие заполнения глобальной переменной renderFilms
   if (inputVaue.length === 0) {
     renderFilms = movieApi.fetchPopularMoviesList();
@@ -49,9 +53,7 @@ function paginationNavigation(e) {
   const activeBtn = e.currentTarget.id;
   if (activeBtn === 'previous__page') {
     movieApi.decrementPage();
-    if (movieApi.pageNumber === 1) {
-      prevBtn.setAttribute('disabled', '');
-    }
+    disabledPrevBtn();
     clearHomePage();
     toggleRenderPage();
   }
@@ -64,7 +66,7 @@ function paginationNavigation(e) {
       clearHomePage();
       toggleRenderPage();
   }
-  currentPage.textContent = movieApi.pageNumber;
+  showCurrentPage();
 };
 
 // функция очистки инпута и параграфа ошибки при фокусе
@@ -73,15 +75,30 @@ function focusFunction() {
     searchForm.elements.query.value = '';
     movieApi.resetPage();
 };
-
+//  функция дезактивации кнопки prevBtn если номер страницы 1
+function disabledPrevBtn() {
+   if (movieApi.pageNumber === 1) {
+      prevBtn.setAttribute('disabled', '');
+    }
+};
+// функция отображения в параграфе пагинации содержимого movieApi.pageNumber
+function showCurrentPage() {
+    currentPage.textContent = movieApi.pageNumber;
+};
+// функция обнуления totalPages
+function resetTotalPages() {
+  totalPage.textContent = '';
+  delimiter.textContent = '';
+};
 function notFound() {
-  errorArea.insertAdjacentHTML(
-    'afterbegin',
-    '<span>Not Found. Please enter a more correct query!</span>',
-  );
+  errorArea.style.visibility = "visible";
+  const timeOfVisibleError = setTimeout(clearError, 2000);
+  searchForm.elements.query.value = '';
+  movieApi.resetPage();
+  resetTotalPages();
 };
 function clearError() {
-  errorArea.innerHTML = '';
+  errorArea.style.visibility = "hidden";
 };
 function clearHomePage() {
   homePageRef.innerHTML = '';
@@ -104,4 +121,12 @@ function toggleRenderPage() {
       renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
     }
 };
+// функция создания группы кнопок пагинации (черновик)
+// function createPaginationMarkup(resp) {
+//   return resp.map(({ results }, idx) => {
+//     return `
+//     ${idx}
+//     `
+//   })
+// }
 

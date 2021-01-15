@@ -60,13 +60,23 @@ const movieApi = {
       `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
     )
       .then(res => res.json())
+      .then(resp => {
+        this.totalPages = resp.total_pages;
+        if (this.totalPages > 1) {
+          // тут еще черновик
+          // createPaginationMarkup(resp);
+          totalPage.textContent = this.totalPages;
+          delimiter.textContent = ". . ."
+          disactiveBtnNext(resp.results);
+        }
+        return resp
+      })
       .then(({ results }) => {
         // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
         if (results.length === 0) {
           notFound();
           renderPopularMoviesList();
         }
-        disactiveBtnNext(results);
         return results;
       });
   },
@@ -124,6 +134,12 @@ const movieApi = {
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();
 
+// console.log(window);
+fetch(
+  'https://api.themoviedb.org/3/configuration?api_key=0757258023265e845275de2a564555e9',
+)
+  .then(r => r.json())
+  .then(console.log);
 // Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы при загрузке страницы, и фильмы - результат поиска.
 const homePageRef = document.querySelector('[data-home-gallery]');
 
