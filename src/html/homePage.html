@@ -1,7 +1,7 @@
 <!-- Список на домашней странице, куда будет рендерится изначальный
 список популярных фильмов и список результата при поиске.
 Класс для оформления в CSS, data атрибут - для работы в JS -->
-<section class="home-page-section" data-home-section>
+<section data-home-section>
   <div class="search-container indigo">
     <div class="container">
       <form class="search__form" id="search-form">
@@ -16,15 +16,18 @@
           >
         </div>
       </form>
-      <p class="error__area center red-text text-lighten-3">
-        Hello, here is en error :)
+      <p class="error__area">
+        <span class="error__area__text red-text text-lighten-3">
+          No matches found. Try again!
+        </span>
       </p>
     </div>
   </div>
 
   <div class="container">
     <ul class="home-page-gallery" data-home-gallery></ul>
-
+  </div>
+  <div class="container">
     <div class="pagination">
       <button
         type="button"
@@ -35,6 +38,8 @@
         Prev
       </button>
       <span class="current__page">1</span>
+      <span class="delimiter"></span>
+      <span class="total__page"></span>
       <button type="button" class="pagination__button" id="next__page">
         Next
       </button>

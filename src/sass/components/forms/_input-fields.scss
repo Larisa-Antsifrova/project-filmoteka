@@ -234,9 +234,9 @@ textarea.materialize-textarea {
   .prefix ~ .validate ~ label,
   .prefix ~ .helper-text,
   .prefix ~ .autocomplete-content {
-    margin-left: 3rem;
+    margin-left: 4rem;
     width: 92%;
-    width: calc(100% - 3rem);
+    width: calc(100% - 4rem);
   }
 
   .prefix ~ label {
