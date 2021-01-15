@@ -114,8 +114,8 @@ img {
 // создаем добавляем стили кнокпи вверх
 .back__to__top {
   position: fixed;
-  bottom: 80px;
-  right: 40px;
+  bottom: 40px;
+  right: 20px;
   z-index: 9999;
   font-size: 30px;
   width: 50px;
@@ -138,30 +138,30 @@ img {
 }
 
 // Стили для контейнера по брейкпойнтам
-.container {
-  // outline: 2px solid tomato;
+// .container {
+//   // outline: 2px solid tomato;
 
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+//   width: 100%;
+//   padding-right: 15px;
+//   padding-left: 15px;
+//   margin-right: auto;
+//   margin-left: auto;
 
-  @media screen and (min-width: 320px) {
-    width: 320px;
-    padding-right: 20;
-    padding-left: 20;
-  }
+//   @media screen and (min-width: 320px) {
+//     width: 320px;
+//     padding-right: 20;
+//     padding-left: 20;
+//   }
 
-  @media screen and (min-width: 768px) {
-    width: 768px;
-    padding-right: 25;
-    padding-left: 25;
-  }
+//   @media screen and (min-width: 768px) {
+//     width: 768px;
+//     padding-right: 25;
+//     padding-left: 25;
+//   }
 
-  @media screen and (min-width: 1024px) {
-    width: 1024px;
-    padding-right: 30;
-    padding-left: 30;
-  }
-}
+//   @media screen and (min-width: 1024px) {
+//     width: 1024px;
+//     padding-right: 30;
+//     padding-left: 30;
+//   }
+// }

@@ -235,3 +235,20 @@
 .error__area {
   text-align: center;
 }
+
+// создаем добавляем стили кнокпи вверх
+.back__to__top {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 9999;
+
+  cursor: pointer;
+
+  display: none;
+}
+
+// показываем кнопку при выполнении скрипта
+.back__to__top-show {
+  display: block;
+}
