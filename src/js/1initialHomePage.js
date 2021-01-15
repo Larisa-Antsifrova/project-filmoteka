@@ -139,8 +139,10 @@ function createCardFunc(movie) {
     movieApi.images.baseImageUrl +
     movieApi.imageBackdropSize +
     movie.backdrop_path;
-  const filmYear = movie.release_date.slice(0, 4);
-  const filmTitle = `${movie.title} (${filmYear})`;
+  const filmYear = movie.release_date
+    ? `(${movie.release_date.slice(0, 4)})`
+    : '';
+  const filmTitle = `${movie.title} ${filmYear}`;
   const movieId = movie.id;
   const movieRaiting = movie.vote_average;
 
@@ -156,11 +158,13 @@ function createCardFunc(movie) {
   galleryItemTitle.classList.add('gallery-card-title');
   galleryItemTitle.textContent = filmTitle;
 
-  const galleryItemRating = document.createElement('p');
-  galleryItemRating.classList.add('gallery-card-raiting');
-  galleryItemRating.textContent = movieRaiting;
+  if (movieRaiting) {
+    const galleryItemRating = document.createElement('p');
+    galleryItemRating.classList.add('gallery-card-raiting');
+    galleryItemRating.textContent = movieRaiting;
+    galleryItemCard.appendChild(galleryItemRating);
+  }
 
-  galleryItemCard.appendChild(galleryItemRating);
   galleryItemCard.appendChild(galleryItemImage);
   galleryItemCard.appendChild(galleryItemTitle);
 
