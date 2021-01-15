@@ -60,7 +60,16 @@ const movieApi = {
       `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
     )
       .then(res => res.json())
+      .then(resp => {
+        this.totalPages = resp.total_pages;
+        if (this.totalPages > 1) {
+          totalPage.textContent = this.totalPages;
+          delimiter.textContent = ". . ."
+        }
+        return resp
+      })
       .then(({ results }) => {
+        console.log(results);
         // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
         if (results.length === 0) {
           notFound();
@@ -124,8 +133,8 @@ const movieApi = {
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();
 
-console.log('movieAPI', movieApi);
-console.log(window);
+console.log('totalResults', movieApi.totalResults);
+// console.log(window);
 fetch(
   'https://api.themoviedb.org/3/configuration?api_key=0757258023265e845275de2a564555e9',
 )
