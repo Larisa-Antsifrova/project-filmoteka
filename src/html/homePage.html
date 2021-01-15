@@ -2,8 +2,48 @@
 список популярных фильмов и список результата при поиске.
 Класс для оформления в CSS, data атрибут - для работы в JS -->
 <section class="home-page-section" data-home-section>
+  <div class="search-container indigo">
+    <div class="container">
+      <form class="search__form" id="search-form">
+        <div class="input-field">
+          <!-- <a href="#" class="btn-floating indigo small lighten-4 pulse prefix"
+            ><i class="material-icons">search</i></a
+          > -->
+          <i class="material-icons prefix">search</i>
+          <input type="text" name="query" id="search" class="input" />
+          <label for="search" class="rigth text-white"
+            >Let's find a movie for you!</label
+          >
+        </div>
+      </form>
+      <p class="error__area center red-text text-lighten-3">
+        Hello, here is en error :)
+      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <ul class="home-page-gallery" data-home-gallery></ul>
+
+    <div class="pagination">
+      <button
+        type="button"
+        class="pagination__button"
+        disabled
+        id="previous__page"
+      >
+        Prev
+      </button>
+      <span class="current__page">1</span>
+      <button type="button" class="pagination__button" id="next__page">
+        Next
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="home-page-section" data-home-section>
   <div class="search__container">
-    <i class="material-icons large">face</i>
     <form class="search__form" id="search-form">
       <div class="input__container">
         <input
@@ -43,4 +83,4 @@
       </button>
     </div>
   </div>
-</section>
+</section> -->

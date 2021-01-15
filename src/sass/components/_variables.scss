@@ -162,7 +162,7 @@ $dropdown-item-height: 50px !default;
 
 // Text Inputs + Textarea
 $input-height: 3rem !default;
-$input-border-color: color('grey', 'base') !default;
+$input-border-color: color('indigo', 'lighten-5') !default;
 $input-border: 1px solid $input-border-color !default;
 $input-background: #fff !default;
 $input-error-color: $error-color !default;
@@ -251,11 +251,11 @@ $navbar-brand-font-size: 2.1rem !default;
 // 14. Side Navigation
 // ==========================================================================
 
-$sidenav-width: 300px !default;
+$sidenav-width: 250px !default;
 $sidenav-font-size: 14px !default;
 $sidenav-font-color: rgba(0, 0, 0, 0.87) !default;
 $sidenav-bg-color: #fff !default;
-$sidenav-padding: 16px !default;
+$sidenav-padding: 5px !default;
 $sidenav-item-height: 48px !default;
 $sidenav-line-height: $sidenav-item-height !default;
 

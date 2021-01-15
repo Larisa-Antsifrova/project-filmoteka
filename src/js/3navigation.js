@@ -14,9 +14,9 @@ const navigationRefs = document.querySelector('.navigation');
 let selectFilm = {};
 
 //вешаем слушатели
-homeRef.addEventListener('click', activeHomePage);
-logoRefs.addEventListener('click', activeHomePage);
-libraryRef.addEventListener('click', activeLibraryPage);
+// homeRef.addEventListener('click', activeHomePage);
+// logoRefs.addEventListener('click', activeHomePage);
+// libraryRef.addEventListener('click', activeLibraryPage);
 
 //создаем функцию activeHomePage которая показывает домашнюю страницу и прячет остальные
 function activeHomePage(e) {
