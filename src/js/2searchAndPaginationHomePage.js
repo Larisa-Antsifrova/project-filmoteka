@@ -85,9 +85,17 @@ function disabledPrevBtn() {
 function showCurrentPage() {
     currentPage.textContent = movieApi.pageNumber;
 };
+// функция обнуления totalPages
+function resetTotalPages() {
+  totalPage.textContent = '';
+  delimiter.textContent = '';
+};
 function notFound() {
   errorArea.style.visibility = "visible";
+  const timeOfVisibleError = setTimeout(clearError, 2000);
   searchForm.elements.query.value = '';
+  movieApi.resetPage();
+  resetTotalPages();
 };
 function clearError() {
   errorArea.style.visibility = "hidden";
@@ -113,4 +121,12 @@ function toggleRenderPage() {
       renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
     }
 };
+// функция создания группы кнопок пагинации (черновик)
+// function createPaginationMarkup(resp) {
+//   return resp.map(({ results }, idx) => {
+//     return `
+//     ${idx}
+//     `
+//   })
+// }
 
