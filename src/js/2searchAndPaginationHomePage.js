@@ -20,10 +20,14 @@ function searchFilms(e) {
   e.preventDefault();
   inputVaue = e.target.elements.query.value;
   fetchFilms(movieApi.pageNumber, inputVaue);
-  renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
-  console.log(renderFilms.then(console.log));
 
-}
+  // условие заполнения глобальной переменной renderFilms
+  if (inputVaue.length == 0) {
+    renderFilms = movieApi.fetchPopularMoviesList();
+  } else {
+    renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
+  }
+};
 // функция рендера страницы запроса
 function fetchFilms(pageNumber, inputVaue) {
   let query = '';
@@ -40,8 +44,6 @@ function fetchFilms(pageNumber, inputVaue) {
   
   
 }
-// проверка на отзыв
-console.log(renderFilms.then(console.log));
 // функция отображения страниц зарпосов
 function paginationNavigation(e) {
   const activeBtn = e.currentTarget.id;
