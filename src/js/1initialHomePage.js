@@ -158,11 +158,13 @@ function createCardFunc(movie) {
   galleryItemTitle.classList.add('gallery-card-title');
   galleryItemTitle.textContent = filmTitle;
 
-  const galleryItemRating = document.createElement('p');
-  galleryItemRating.classList.add('gallery-card-raiting');
-  galleryItemRating.textContent = movieRaiting;
+  if (movieRaiting) {
+    const galleryItemRating = document.createElement('p');
+    galleryItemRating.classList.add('gallery-card-raiting');
+    galleryItemRating.textContent = movieRaiting;
+    galleryItemCard.appendChild(galleryItemRating);
+  }
 
-  galleryItemCard.appendChild(galleryItemRating);
   galleryItemCard.appendChild(galleryItemImage);
   galleryItemCard.appendChild(galleryItemTitle);
 
