@@ -1,12 +1,35 @@
+// function toggleToQueue() {
+//   let filmsQueueArr = [];
+//   let localStorageData = localStorage.getItem('filmsQueue');
+//   if (localStorageData === []) {
+//     // filmsQueueArr.push(JSON.parse(localStorageData));
+//     filmsQueueArr.push('nice');
+//   }
+//   if (filmsQueueArr.find(el => el.id === selectFilm.id)) {
+//     filmsQueueArr = filmsQueueArr.filter(el => el.id !== selectFilm.id);
+//   } else {
+//     // filmsQueueArr.push('nice');
+//     // filmsQueueArr.push(JSON.parse(localStorageData));
+//   }
+//   localStorage.setItem('filmsQueue', JSON.stringify(filmsQueueArr));
+//   monitorButtonStatusText();
+//   console.log(localStorageData);
+// }
+
+let filmsQueueArr = JSON.parse(localStorage.getItem('filmsQueue'));
+let filmsWatchedArr = JSON.parse(localStorage.getItem('filmsWatched'));
+if (!filmsQueueArr) {
+  filmsQueueArr = [];
+}
+if (!filmsWatchedArr) {
+  filmsWatchedArr = [];
+}
+
 function toggleToQueue() {
-  let filmsQueueArr = [];
-  let localStorageData = localStorage.getItem('filmsQueue');
-  if (localStorageData) {
-    filmsQueueArr.push(JSON.parse(localStorageData));
-  }
-  if (filmsQueueArr.includes(selectFilm)) {
-    filmsQueueArr.indexOf(selectFilm);
-    filmsQueueArr.splice(filmsQueueArr.indexOf(selectFilm));
+  let findFilm = filmsQueueArr.find(el => el.id === selectFilm.id);
+  if (findFilm) {
+    let index = filmsQueueArr.indexOf(findFilm);
+    filmsQueueArr.splice(index, 1);
   } else {
     filmsQueueArr.push(selectFilm);
   }
@@ -15,13 +38,10 @@ function toggleToQueue() {
 }
 
 function toggleToWatched() {
-  let filmsWatchedArr = [];
-  let localStorageData = localStorage.getItem('filmsWatched');
-  if (localStorageData) {
-    filmsWatchedArr.push(JSON.parse(localStorageData));
-  }
-  if (filmsWatchedArr.find(el => el.id === selectFilm.id)) {
-    filmsWatchedArr = filmsWatchedArr.filter(el => el.id !== selectFilm.id);
+  let findFilm = filmsWatchedArr.find(el => el.id === selectFilm.id);
+  if (findFilm) {
+    let index = filmsWatchedArr.indexOf(findFilm);
+    filmsWatchedArr.splice(index, 1);
   } else {
     filmsWatchedArr.push(selectFilm);
   }
@@ -36,21 +56,46 @@ function showDetails(selectFilm) {
   const popularity = document.querySelector('#details__popularity');
   const originalTitle = document.querySelector('#original__title');
   const detailsAbout = document.querySelector('#details__about');
-
+  const selectGenres = document.querySelector('#details__genre');
   selectFilm.then(el => {
     img.setAttribute(
       'src',
-      `${movieApi.images.baseImageUrl}${movieApi.images.posterSizes.mobile}${el.poster_path}`,
+      `${movieApi.images.baseImageUrl}${movieApi.images.currentSizes.posterSize}${el.poster_path}`,
     );
     title.textContent = el.title;
-    vote.textContent = el.vote_average;
+    vote.textContent = `${el.vote_average} / ${el.vote_count}`;
     popularity.textContent = el.popularity;
     originalTitle.textContent = el.original_title;
     detailsAbout.textContent = el.overview;
-    let genre;
-  });
 
+    let genresIdArr = el.genre_ids;
+    // console.log(genresIdArr);
+    genres.then(genresArr => {
+      let thisMovieGenres = genresArr.reduce((acc, genre) => {
+        if (genresIdArr.includes(genre.id)) {
+          acc.push(genre.name);
+        }
+        return acc;
+      }, []);
+      selectGenres.textContent = thisMovieGenres.join(', ');
+      console.log(thisMovieGenres.join(', '));
+    });
+  });
   monitorButtonStatusText();
 }
+// genres.then(console.log);
+function monitorButtonStatusText() {
+  let localStorageFilmsQueue = localStorage.getItem('filmsQueue');
+  localStorageFilmsQueue === null
+    ? (toggleQueueBtn.textContent = 'Add to queue')
+    : JSON.parse(localStorageFilmsQueue).find(el => el.id === selectFilm.id)
+    ? (toggleQueueBtn.textContent = 'Delete from queue')
+    : (toggleQueueBtn.textContent = 'Add to queue');
 
-function monitorButtonStatusText() {}
+  let localStorageFilmsWatch = localStorage.getItem('filmsWatched');
+  localStorageFilmsWatch === null
+    ? (toggleWatchedBtn.textContent = 'Add to watched')
+    : JSON.parse(localStorageFilmsWatch).find(el => el.id === selectFilm.id)
+    ? (toggleWatchedBtn.textContent = 'Delete from watched')
+    : (toggleWatchedBtn.textContent = 'Add to watched');
+}
