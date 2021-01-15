@@ -22,7 +22,7 @@ function searchFilms(e) {
   fetchFilms(movieApi.pageNumber, inputVaue);
 
   // условие заполнения глобальной переменной renderFilms
-  if (inputVaue.length == 0) {
+  if (inputVaue.length === 0) {
     renderFilms = movieApi.fetchPopularMoviesList();
   } else {
     renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
@@ -98,8 +98,10 @@ function disactiveBtnNext(params) {
 function toggleRenderPage() {
     if (inputVaue.length === 0) {
       renderPopularMoviesList();
+      renderFilms = movieApi.fetchPopularMoviesList();
     } else {
       fetchFilms(movieApi.pageNumber, inputVaue);
+      renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
     }
 };
 

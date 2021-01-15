@@ -150,8 +150,8 @@ function getPaneById(id) {
 /////////////////////////////////
 // Testing area. No tresspassing!
 /////////////////////////////////
-localStorage.setItem('filmsQueue', JSON.stringify(filmObjArray));
+// localStorage.setItem('filmsQueue', JSON.stringify(filmObjArray));
 
-renderFilms.then(results =>
-  localStorage.setItem('filmsQueue', JSON.stringify(results)),
-);
+// renderFilms.then(results =>
+//   localStorage.setItem('filmsQueue', JSON.stringify(results)),
+// );
