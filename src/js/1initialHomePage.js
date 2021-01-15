@@ -124,13 +124,6 @@ const movieApi = {
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();
 
-console.log('movieAPI', movieApi);
-console.log(window);
-fetch(
-  'https://api.themoviedb.org/3/configuration?api_key=0757258023265e845275de2a564555e9',
-)
-  .then(r => r.json())
-  .then(console.log);
 // Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы при загрузке страницы, и фильмы - результат поиска.
 const homePageRef = document.querySelector('[data-home-gallery]');
 

@@ -3,10 +3,17 @@
 Класс для оформления в CSS, data атрибут - для работы в JS -->
 <section class="home-page-section" data-home-section>
   <div class="search__container">
+    <i class="material-icons large">face</i>
     <form class="search__form" id="search-form">
       <div class="input__container">
-        <input type="text" name="query" class="input" onfocus="this.value=''" autocomplete="off"
-          placeholder="Write movie name and click Enter" />
+        <input
+          type="text"
+          name="query"
+          class="input"
+          onfocus="this.value=''"
+          autocomplete="off"
+          placeholder="Write movie name and click Enter"
+        />
         <div class="search__form__icon">
           <svg class="search-icon" width="18" height="18">
             <use href="../images/sprite.svg#icon-search"></use>
@@ -14,13 +21,11 @@
         </div>
       </div>
     </form>
-  
+
     <p class="error__area"></p>
   </div>
 
   <div class="container">
-  
-
     <ul class="home-page-gallery" data-home-gallery></ul>
 
     <div class="pagination">
