@@ -98,3 +98,23 @@ function showDetails(selectFilm) {
   });
   monitorButtonStatusText();
 }
+// genres.then(console.log);
+function monitorButtonStatusText() {
+  let localStorageFilmsQueue = localStorage.getItem('filmsQueue');
+  localStorageFilmsQueue === null
+    ? (toggleQueueBtn.textContent = 'Add to queue')
+    : JSON.parse(localStorageFilmsQueue).find(el => el.id === selectFilm.id)
+    ? (toggleQueueBtn.innerHTML =
+        '<i class="material-icons left">delete</i><span>queue</span>')
+    : (toggleQueueBtn.innerHTML =
+        '<i class="material-icons left">add</i><span>queue</span>');
+
+  let localStorageFilmsWatch = localStorage.getItem('filmsWatched');
+  localStorageFilmsWatch === null
+    ? (toggleWatchedBtn.textContent = 'Add to watched')
+    : JSON.parse(localStorageFilmsWatch).find(el => el.id === selectFilm.id)
+    ? (toggleWatchedBtn.innerHTML =
+        '<i class="material-icons left">delete</i><span>watched</span>')
+    : (toggleWatchedBtn.innerHTML =
+        '<i class="material-icons left">add</i><span>watched</span>');
+}

@@ -9,7 +9,7 @@ const nextBtn = document.querySelector('#next__page');
 
 // глобальная переменная inputVaue
 let inputVaue = '';
-
+clearError();
 // слушатели событий
 searchForm.addEventListener('click', focusFunction);
 searchForm.addEventListener('submit', searchFilms);
@@ -24,14 +24,14 @@ function searchFilms(e) {
   disabledPrevBtn();
   inputVaue = e.target.elements.query.value;
   fetchFilms(movieApi.pageNumber, inputVaue);
-  
+
   // условие заполнения глобальной переменной renderFilms
   if (inputVaue.length === 0) {
     renderFilms = movieApi.fetchPopularMoviesList();
   } else {
     renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
   }
-};
+}
 // функция рендера страницы запроса
 function fetchFilms(pageNumber, inputVaue) {
   let query = '';
@@ -39,14 +39,12 @@ function fetchFilms(pageNumber, inputVaue) {
     query = inputVaue.trim();
   } else {
     return;
-    };
-    
-    movieApi
-        .fetchSearchFilmsList(query)
-        .then(createGallery)
-      .then(fragment => renderGallery(fragment, homePageRef));
-  
-  
+  }
+
+  movieApi
+    .fetchSearchFilmsList(query)
+    .then(createGallery)
+    .then(fragment => renderGallery(fragment, homePageRef));
 }
 // функция отображения страниц зарпосов
 function paginationNavigation(e) {
@@ -63,64 +61,64 @@ function paginationNavigation(e) {
     if (movieApi.pageNumber > 1) {
       prevBtn.removeAttribute('disabled');
     }
-      clearHomePage();
-      toggleRenderPage();
+    clearHomePage();
+    toggleRenderPage();
   }
   showCurrentPage();
-};
+}
 
 // функция очистки инпута и параграфа ошибки при фокусе
 function focusFunction() {
   clearError();
-    searchForm.elements.query.value = '';
-    movieApi.resetPage();
-};
+  searchForm.elements.query.value = '';
+  movieApi.resetPage();
+}
 //  функция дезактивации кнопки prevBtn если номер страницы 1
 function disabledPrevBtn() {
-   if (movieApi.pageNumber === 1) {
-      prevBtn.setAttribute('disabled', '');
-    }
-};
+  if (movieApi.pageNumber === 1) {
+    prevBtn.setAttribute('disabled', '');
+  }
+}
 // функция отображения в параграфе пагинации содержимого movieApi.pageNumber
 function showCurrentPage() {
-    currentPage.textContent = movieApi.pageNumber;
-};
+  currentPage.textContent = movieApi.pageNumber;
+}
 // функция обнуления totalPages
 function resetTotalPages() {
   totalPage.textContent = '';
   delimiter.textContent = '';
-};
+}
 function notFound() {
-  errorArea.style.visibility = "visible";
+  errorArea.style.visibility = 'visible';
   const timeOfVisibleError = setTimeout(clearError, 2000);
   searchForm.elements.query.value = '';
   movieApi.resetPage();
   resetTotalPages();
-};
+}
 function clearError() {
-  errorArea.style.visibility = "hidden";
-};
+  errorArea.style.visibility = 'hidden';
+}
 function clearHomePage() {
   homePageRef.innerHTML = '';
-};
+}
 // функция дезактивации кнопки "next" в ответ на рендер
 function disactiveBtnNext(params) {
-      if (params.length === movieApi.perPage) {
-        nextBtn.removeAttribute('disabled');
-      } else {
-        nextBtn.setAttribute('disabled', '');
-      }
-};
+  if (params.length === movieApi.perPage) {
+    nextBtn.removeAttribute('disabled');
+  } else {
+    nextBtn.setAttribute('disabled', '');
+  }
+}
 // функция выбора отображения страницы в зависимости от наличия текст в инпуте
 function toggleRenderPage() {
-    if (inputVaue.length === 0) {
-      renderPopularMoviesList();
-      renderFilms = movieApi.fetchPopularMoviesList();
-    } else {
-      fetchFilms(movieApi.pageNumber, inputVaue);
-      renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
-    }
-};
+  if (inputVaue.length === 0) {
+    renderPopularMoviesList();
+    renderFilms = movieApi.fetchPopularMoviesList();
+  } else {
+    fetchFilms(movieApi.pageNumber, inputVaue);
+    renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
+  }
+}
 // функция создания группы кнопок пагинации (черновик)
 // function createPaginationMarkup(resp) {
 //   return resp.map(({ results }, idx) => {
@@ -129,4 +127,3 @@ function toggleRenderPage() {
 //     `
 //   })
 // }
-

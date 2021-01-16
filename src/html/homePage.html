@@ -2,29 +2,52 @@
 список популярных фильмов и список результата при поиске.
 Класс для оформления в CSS, data атрибут - для работы в JS -->
 <section class="home-page-section" data-home-section>
-  <div class="search__container">
-    <form class="search__form" id="search-form">
-      <div class="input__container">
-        <input type="text" name="query" class="input" onfocus="this.value=''" autocomplete="off"
-          placeholder="Write movie name and click Enter" />
-        <div class="search__form__icon">
-          <svg class="search-icon" width="18" height="18">
-            <use href="../images/sprite.svg#icon-search"></use>
-          </svg>
+  <div class="search-container indigo">
+    <div class="container">
+      <div class="center">
+        <form class="search__form" id="search-form">
+          <div class="input-field">
+            <a href="#" class="btn-floating indigo small lighten-4 pulse prefix"
+              ><i class="material-icons">search</i></a
+            >
+            <input type="text" name="query" id="search" class="input" />
+            <label for="search" class="rigth text-white"
+              >Let's find a movie for you!</label
+            >
+          </div>
+        </form>
+        <p class="error__area">
+          <span class="error__area__text red-text text-lighten-3">
+            No matches found. Try again!
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Spinner -->
+  <div class="container">
+    <div class="col s12 center">
+      <div class="preloader-wrapper active" data-spiner>
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
         </div>
       </div>
-    </form>
-  
-    <p class="error__area">
-      <span class="error__area__text"> Not Found. Please enter a more correct query! </span>
-    </p>
+    </div>
+    <!-- Home page gallery -->
+    <ul class="home-page-gallery" data-home-gallery></ul>
   </div>
 
+  <!-- Pagination Kingdom -->
   <div class="container">
-  
-
-    <ul class="home-page-gallery" data-home-gallery></ul>
-
+    <!-- Pagination Initial -->
     <div class="pagination">
       <button
         type="button"
@@ -41,5 +64,27 @@
         Next
       </button>
     </div>
+
+    <!-- Pagination Materialize -->
+    <!-- <div class="col s12 center">
+      <ul class="pagination">
+        <li class="disabled">
+          <a href="#!"><i class="material-icons">chevron_left</i></a>
+        </li>
+        <li class="active indigo"><a href="#!">1</a></li>
+        <li class="waves-effect"><a href="#!">2</a></li>
+        <li class="waves-effect"><a href="#!">3</a></li>
+        <li class="waves-effect"><a href="#!">4</a></li>
+        <li class="waves-effect"><a href="#!">5</a></li>
+        <li class="waves-effect">
+          <a href="#!"><i class="material-icons">chevron_right</i></a>
+        </li>
+      </ul>
+    </div> -->
+
+    <!-- UP button -->
+    <a class="back__to__top btn-floating pulse pink right">
+      <i class="material-icons">arrow_upward</i>
+    </a>
   </div>
 </section>
