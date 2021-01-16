@@ -23,6 +23,7 @@ libraryRef.addEventListener('click', activeLibraryPage);
 function activeHomePage(e) {
   e.preventDefault();
   movieApi.resetPage();
+  renderFilms = movieApi.fetchPopularMoviesList();
   renderPopularMoviesList();
   toggleActiveLink(homeRef);
 
