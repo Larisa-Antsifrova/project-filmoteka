@@ -33,10 +33,10 @@ const movieApi = {
   },
 
   incrementPage() {
-    this.pageNumber += 1;
+    this.pageNumber = +this.pageNumber + 5;
   },
   decrementPage() {
-    this.pageNumber -= 1;
+    this.pageNumber -= 5;
   },
   resetPage() {
     this.pageNumber = 1;
@@ -52,6 +52,11 @@ const movieApi = {
       `${this.baseUrl}movie/popular?api_key=${this.apiKey}&language=en-US&page=${this.pageNumber}`,
     )
       .then(response => response.json())
+      .then(resp => {
+        createPaginationMarkup(resp);
+        lastPage.style.visibility = "hidden";
+        return resp;
+      })
       .then(({ results }) => results);
   },
   fetchSearchFilmsList(query) {
@@ -64,13 +69,12 @@ const movieApi = {
       .then(resp => {
         this.totalPages = resp.total_pages;
         if (this.totalPages > 1) {
-          // тут еще черновик
-          // createPaginationMarkup(resp);
-          totalPage.textContent = this.totalPages;
-          delimiter.textContent = '. . .';
-          disactiveBtnNext(resp.results);
+          createPaginationMarkup(resp);
+          lastPage.style.visibility = "visible";
+          disactiveBtnNext(resp);
+          disactivePaginationBtn(resp);
         }
-        return resp;
+        return resp
       })
       .then(({ results }) => {
         // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер

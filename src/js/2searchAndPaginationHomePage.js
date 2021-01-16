@@ -30,7 +30,6 @@ lastPage.addEventListener('click', getLastPage);
 // функция-слушатель инпута и отображения страницы согласно запросу
 function searchFilms(e) {
   e.preventDefault();
-  // showCurrentPage();
   disabledPrevBtn();
   inputVaue = e.target.elements.query.value;
   fetchFilms(movieApi.pageNumber, inputVaue);
@@ -72,18 +71,17 @@ function paginationNavigation(e) {
     movieApi.incrementPage();
     if (movieApi.pageNumber > 1) {
       prevBtn.removeAttribute('disabled');
-
     }
-      clearHomePage();
-      toggleRenderPage();
+    clearHomePage();
+    toggleRenderPage();
   }
 };
 
 // функция очистки инпута и параграфа ошибки при фокусе
 function focusFunction() {
   clearError();
-    searchForm.elements.query.value = '';
-    movieApi.resetPage();
+  searchForm.elements.query.value = '';
+  movieApi.resetPage();
 };
 //  функция дезактивации кнопки prevBtn если номер страницы 1
 function disabledPrevBtn() {
@@ -122,13 +120,13 @@ function clearHomePage() {
 };
 // функция дезактивации кнопки "next" в ответ на рендер
 function disactiveBtnNext(params) {
-      if (params.results.length === movieApi.perPage) {
-        nextBtn.setAttribute('disabled', '');
-      } if (params.total_pages < 5) {
-        nextBtn.setAttribute('disabled', '');
-      } else {
-        nextBtn.removeAttribute('disabled');
-      }
+  if (params.results.length === movieApi.perPage) {
+    nextBtn.setAttribute('disabled', '');
+  } if (params.total_pages < 5) {
+    nextBtn.setAttribute('disabled', '');
+  } else {
+    nextBtn.removeAttribute('disabled');
+  }
 };
 // функция дезактивации кнопок пагинации в ответ на рендер
 function disactivePaginationBtn(params) {
