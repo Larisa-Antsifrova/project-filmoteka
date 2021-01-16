@@ -34,7 +34,7 @@ function activeLibraryPage(e) {
   librarySectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');
   detailisSectionRef.classList.add('is-hidden');
-  drawQueueFilmList();
+  // drawQueueFilmList();
 }
 
 // создаем функцию activeDetailsPage которая показывает страницу детальной отрисовки фильма
