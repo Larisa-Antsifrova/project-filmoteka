@@ -8,7 +8,7 @@
           data-action-watched
         >
           <i class="small material-icons circle green">done</i>
-          <span>WHATCHED</span></a
+          <span>WATCHED</span></a
         >
       </li>
       <li class="tab">
@@ -24,25 +24,31 @@
         <a
           href="#favorite"
           class="indigo-text text-darken-4"
-          data-action-favorit
+          data-action-favorite
           ><i class="material-icons circle pink">favorite_border</i
           ><span>FAVORITE</span></a
         >
       </li>
     </ul>
-
-    <div id="watched" class="tab-pane">
-      <p class="message">'You do not have watched movies yet. Add them.'</p>
-      <ul class="library-page-gallery" data-library-gallery-watched></ul>
-    </div>
-    <div id="queue" class="tab-pane">
-      <p class="message">'You do not have favorite movies yet. Add them.'</p>
-      <ul class="library-page-gallery" data-library-gallery-favorite></ul>
-    </div>
-
-    <div id="favorite" class="tab-pane">
-      <p class="message">'You do not have queued movies to watch. Add them.'</p>
-      <ul class="library-page-gallery" data-library-gallery-queue></ul>
+    <div class="tab-panes">
+      <div id="watched" class="tab-pane">
+        <p class="message message--hidden">
+          'You do not have watched movies yet. Add them.'
+        </p>
+        <ul class="library-page-gallery" data-library-gallery-watched></ul>
+      </div>
+      <div id="queue" class="tab-pane">
+        <p class="message message--hidden">
+          'You do not have queued movies yet. Add them.'
+        </p>
+        <ul class="library-page-gallery" data-library-gallery-favorite></ul>
+      </div>
+      <div id="favorite" class="tab-pane">
+        <p class="message message--hidden">
+          'You have not selected your favorite movies yet. Add them.'
+        </p>
+        <ul class="library-page-gallery" data-library-gallery-queue></ul>
+      </div>
     </div>
   </div>
 </section>

@@ -36,16 +36,6 @@
 //     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 //   // animation: fadeEffect 500ms;
 // }
-
-// .pane--active,
-// .message--active {
-//   display: block;
-// }
-
-// .message--hidden {
-//   display: none;
-// }
-
 .library-page-section {
   padding-top: 20px;
 }
@@ -66,6 +56,19 @@
   padding-top: 20px;
 }
 
+.tab-pane--hidden {
+  display: none;
+}
+
+.tab-pane--active,
+.message--active {
+  display: block;
+}
+
 .message {
   text-align: center;
+}
+
+.message--hidden {
+  display: none;
 }
