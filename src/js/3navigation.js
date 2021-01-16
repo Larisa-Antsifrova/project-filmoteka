@@ -22,6 +22,8 @@ libraryRef.addEventListener('click', activeLibraryPage);
 //создаем функцию activeHomePage которая показывает домашнюю страницу и прячет остальные
 function activeHomePage(e) {
   e.preventDefault();
+  movieApi.resetPage();
+  renderPopularMoviesList();
   toggleActiveLink(homeRef);
 
   homePageSectionRef.classList.remove('is-hidden');
