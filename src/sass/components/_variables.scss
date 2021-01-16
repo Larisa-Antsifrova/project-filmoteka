@@ -215,12 +215,12 @@ $switch-radius: 15px !default;
 // ==========================================================================
 
 // Media Query Ranges
-$small-screen-up: 321px !default;
-$medium-screen-up: 769px !default;
-$large-screen-up: 1025px !default;
-$small-screen: 320px !default;
-$medium-screen: 768px !default;
-$large-screen: 1024px !default;
+$small-screen-up: 320px !default;
+$medium-screen-up: 768px !default;
+$large-screen-up: 1024px !default;
+$small-screen: 319px !default;
+$medium-screen: 767px !default;
+$large-screen: 1023px !default;
 
 $medium-and-up: 'only screen and (min-width : #{$small-screen-up})' !default;
 $large-and-up: 'only screen and (min-width : #{$medium-screen-up})' !default;
