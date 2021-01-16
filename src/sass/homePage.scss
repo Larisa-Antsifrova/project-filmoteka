@@ -19,6 +19,7 @@
 }
 
 .home-page-gallery {
+  margin-bottom: 20px;
   @media screen and (min-width: 320px) {
     display: flex;
     flex-wrap: wrap;
@@ -252,3 +253,7 @@
 .back__to__top-show {
   display: block;
 }
+
+// .home-page-section {
+//   position: relative;
+// }
