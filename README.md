@@ -1,4 +1,4 @@
-![Banner](./banner.png)
+![Banner](./new-banner.png)
 
 # Filmoteka project
 
