@@ -7,6 +7,7 @@ const toggleQueueBtn = document.querySelector('[data-toggle-queue]');
 const toggleWatchedBtn = document.querySelector('[data-toggle-watched]');
 const watchedBtn = document.querySelector('[data-action-watched]');
 const queueBtn = document.querySelector('[data-action-queue]');
+const favoritBtn = document.querySelector('[data-action-favorit]');
 const logoRefs = document.querySelector('.logo__js');
 const navigationRefs = document.querySelector('.navigation');
 
