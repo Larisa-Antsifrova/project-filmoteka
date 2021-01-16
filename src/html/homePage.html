@@ -48,9 +48,28 @@
   <!-- Pagination Kingdom -->
   <div class="container">
     <!-- Pagination Initial -->
-
-    <!-- Pagination Materialize -->
     <div class="col s12 center">
+      <div class="pagination">
+        <button class="first__page pagination__button">First</button>
+        <button type="button" class="pagination__button" disabled id="previous__page">
+          Prev
+        </button>
+        <p class="delimiter">
+          <button class="spread__page first pagination__button"></button>
+          <button class="spread__page second pagination__button"></button>
+          <button class="spread__page third pagination__button"></button>
+          <button class="spread__page fourth pagination__button"></button>
+          <button class="spread__page fifth pagination__button"></button>
+        </p>
+        <button type="button" class="pagination__button" id="next__page">
+          Next
+        </button>
+        <button class="total__page pagination__button">Last</button>
+      </div>
+    </div>
+    
+    <!-- Pagination Materialize -->
+    <!-- <div class="col s12 center">
       <ul class="pagination">
         <li class="disabled">
           <a href="#!"><i class="material-icons">chevron_left</i></a>
@@ -64,7 +83,7 @@
           <a href="#!"><i class="material-icons">chevron_right</i></a>
         </li>
       </ul>
-    </div>
+    </div> -->
 
     <!-- UP button -->
     <a class="back__to__top btn-floating pulse pink right">
