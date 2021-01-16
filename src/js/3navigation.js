@@ -7,7 +7,7 @@ const toggleQueueBtn = document.querySelector('[data-toggle-queue]');
 const toggleWatchedBtn = document.querySelector('[data-toggle-watched]');
 const watchedBtn = document.querySelector('[data-action-watched]');
 const queueBtn = document.querySelector('[data-action-queue]');
-const favoritBtn = document.querySelector('[data-action-favorit]');
+const favoriteBtn = document.querySelector('[data-toggle-favorite]');
 const logoRefs = document.querySelector('.logo__js');
 const navigationRefs = document.querySelector('.navigation');
 
@@ -66,6 +66,7 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
   showDetails(selectFilm);
   toggleQueueBtn.addEventListener('click', toggleToQueue);
   toggleWatchedBtn.addEventListener('click', toggleToWatched);
+  favoriteBtn.addEventListener('click', toggleToFavorite);
 }
 
 function toggleActiveLink(link) {

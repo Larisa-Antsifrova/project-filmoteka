@@ -35,6 +35,24 @@ function toggleToWatched() {
   });
 }
 
+function toggleToFavorite() {
+  let filmsFavoriteArr = [];
+  let localStorageData = localStorage.getItem('favoriteList');
+  if (localStorageData) {
+    filmsFavoriteArr = [...JSON.parse(localStorageData)];
+  }
+  selectFilm.then(obj => {
+    let entryIndex = filmsFavoriteArr.findIndex(el => el.id === obj.id);
+    if (entryIndex !== -1) {
+      filmsFavoriteArr.splice(entryIndex, 1);
+    } else {
+      filmsFavoriteArr.push(obj);
+    }
+    localStorage.setItem('favoriteList', JSON.stringify(filmsFavoriteArr));
+    monitorButtonStatusText();
+  });
+}
+
 function monitorButtonStatusText() {
   let filmsQueueArr = [];
   let localStorageData = localStorage.getItem('filmsQueue');
@@ -61,6 +79,20 @@ function monitorButtonStatusText() {
       toggleWatchedBtn.textContent = 'Delete from watched';
     } else {
       toggleWatchedBtn.textContent = 'Add to watched';
+    }
+  });
+
+  let filmsFavoriteArr = [];
+  let localStorageDataF = localStorage.getItem('favoriteList');
+  if (localStorageDataF) {
+    filmsFavoriteArr = [...JSON.parse(localStorageDataF)];
+  }
+  selectFilm.then(obj => {
+    let entryIndex = filmsFavoriteArr.findIndex(el => el.id === obj.id);
+    if (entryIndex !== -1) {
+      favoriteBtn.textContent = 'Delete from favorite';
+    } else {
+      favoriteBtn.textContent = 'Add to favorite';
     }
   });
 }
