@@ -55,6 +55,7 @@ const movieApi = {
       .then(({ results }) => results);
   },
   fetchSearchFilmsList(query) {
+    showSpinner(spinerRef);
     this.searchQuery = query;
     return fetch(
       `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
@@ -78,7 +79,8 @@ const movieApi = {
           renderPopularMoviesList();
         }
         return results;
-      });
+      })
+      .finally(() => hideSpinner(spinerRef));
   },
   fetchGenres() {
     return fetch(`${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`)
@@ -134,15 +136,19 @@ const movieApi = {
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();
 
-// console.log(window);
-fetch(
-  'https://api.themoviedb.org/3/configuration?api_key=0757258023265e845275de2a564555e9',
-)
-  .then(r => r.json())
-  .then(console.log);
 // Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы при загрузке страницы, и фильмы - результат поиска.
 const homePageRef = document.querySelector('[data-home-gallery]');
 
+// Access to spinner wraper
+const spinerRef = document.querySelector('[data-spiner]');
+// Funtions to hide or show spinner
+function showSpinner(spinner) {
+  spinner.style.display = 'inline-block';
+}
+function hideSpinner(spinner) {
+  spinner.style.display = 'none';
+}
+hideSpinner(spinerRef);
 // Глобальные переменные, которые требуются по инструкции
 let renderFilms = movieApi.fetchPopularMoviesList();
 // let renderFilms;
