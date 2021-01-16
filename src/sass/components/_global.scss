@@ -128,7 +128,7 @@ i {
 
   &.left {
     float: left;
-    margin-right: 15px;
+    margin-right: 5px;
   }
   &.right {
     float: right;
@@ -525,7 +525,7 @@ th {
   .collection-item {
     background-color: $collection-bg-color;
     line-height: $collection-line-height;
-    padding: 10px 20px;
+    padding: 5px 0;
     margin: 0;
     border-bottom: 1px solid $collection-border-color;
 

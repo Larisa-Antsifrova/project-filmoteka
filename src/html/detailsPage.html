@@ -1,4 +1,79 @@
 <section class="details-page is-hidden" data-detailis-section>
+  <div class="container">
+    <div class="row">
+      <!-- Movie poster -->
+      <div class="col s12 m6">
+        <img id="details__img" class="details-img" />
+      </div>
+      <!-- Movie info -->
+      <div class="col s12 m6">
+        <h2 id="details__title" class="indigo-text">Title</h2>
+
+        <ul class="details-description collection col s12">
+          <li class="collection-item">
+            <span class="static-description title">vote / votes</span>
+            <span
+              id="details__vote"
+              class="dynamic-description secondary-content"
+            >
+              avarage / total
+            </span>
+          </li>
+
+          <li class="collection-item">
+            <span class="static-description title">popularity</span>
+            <span
+              id="details__popularity"
+              class="dynamic-description secondary-content"
+              >100.2</span
+            >
+          </li>
+          <li class="collection-item">
+            <span class="static-description title">original title</span>
+            <span
+              id="original__title"
+              class="dynamic-description secondary-content"
+              >Dumbo</span
+            >
+          </li>
+          <li class="collection-item">
+            <span class="static-description title">genre</span>
+            <span
+              id="details__genre"
+              class="dynamic-description secondary-content"
+            >
+              drama, geography, history
+            </span>
+          </li>
+        </ul>
+
+        <a
+          data-toggle-watched="add"
+          class="col s12 m4 waves-effect waves-light btn-small green"
+          ><i class="material-icons left">add</i>to watched</a
+        >
+        <a
+          data-toggle-queue="add"
+          class="col s12 m4 waves-effect waves-light btn-small yellow darken-2"
+          ><i class="material-icons left">add</i>to queue</a
+        >
+        <a
+          data-toggle-favorite="add"
+          class="col s12 m4 waves-effect waves-light btn-small pink"
+          ><i class="material-icons left">add</i><span>fav</span></a
+        >
+        <h3 class="details-about indigo-text">About</h3>
+        <p id="details__about" class="details-about-text">
+          A young elephant, whose oversized ears enable him to fly, helps save a
+          struggling circus, but when the circus plans a new venture, Dumbo and
+          his friends discover dark secrets beneath its shiny veneer
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="details-page is-hidden" data-detailis-section>
   <div class="details-container">
     <div class="img-container">
       <img id="details__img" class="details-img" />
@@ -41,4 +116,4 @@
       </ul>
     </div>
   </div>
-</section>
+</section> -->
