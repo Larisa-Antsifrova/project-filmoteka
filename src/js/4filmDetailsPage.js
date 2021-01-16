@@ -60,7 +60,7 @@ function monitorButtonStatusText() {
     if (entryIndex !== -1) {
       toggleWatchedBtn.textContent = 'Delete from watched';
     } else {
-      toggleWatchedBtn.textContent = 'Add to queue';
+      toggleWatchedBtn.textContent = 'Add to watched';
     }
   });
 }
