@@ -246,14 +246,14 @@ textarea.materialize-textarea {
   @media #{$medium-and-down} {
     .prefix ~ input {
       width: 86%;
-      width: calc(100% - 3rem);
+      width: calc(100% - 4rem);
     }
   }
 
   @media #{$small-and-down} {
     .prefix ~ input {
       width: 80%;
-      width: calc(100% - 3rem);
+      width: calc(100% - 4rem);
     }
   }
 }

@@ -4,25 +4,27 @@
 <section class="home-page-section" data-home-section>
   <div class="search-container indigo">
     <div class="container">
-      <form class="search__form" id="search-form">
-        <div class="input-field">
-          <a href="#" class="btn-floating indigo small lighten-4 pulse prefix"
-            ><i class="material-icons">search</i></a
-          >
-          <input type="text" name="query" id="search" class="input" />
-          <label for="search" class="rigth text-white"
-            >Let's find a movie for you!</label
-          >
-        </div>
-      </form>
-      <p class="error__area">
-        <span class="error__area__text red-text text-lighten-3">
-          No matches found. Try again!
-        </span>
-      </p>
+      <div class="center">
+        <form class="search__form" id="search-form">
+          <div class="input-field">
+            <a href="#" class="btn-floating indigo small lighten-4 pulse prefix"
+              ><i class="material-icons">search</i></a
+            >
+            <input type="text" name="query" id="search" class="input" />
+            <label for="search" class="rigth text-white"
+              >Let's find a movie for you!</label
+            >
+          </div>
+        </form>
+        <p class="error__area">
+          <span class="error__area__text red-text text-lighten-3">
+            No matches found. Try again!
+          </span>
+        </p>
+      </div>
     </div>
   </div>
-
+  <!-- Spinner -->
   <div class="container">
     <div class="col s12 center">
       <div class="preloader-wrapper active" data-spiner>
@@ -39,10 +41,11 @@
         </div>
       </div>
     </div>
-
+    <!-- Home page gallery -->
     <ul class="home-page-gallery" data-home-gallery></ul>
   </div>
 
+  <!-- Pagination Kingdom -->
   <div class="container">
     <!-- Pagination Initial -->
     <div class="pagination">
@@ -61,7 +64,6 @@
         Next
       </button>
     </div>
-
     <!-- Pagination Materialize -->
     <!-- <div class="col s12 center">
       <ul class="pagination">
@@ -79,7 +81,8 @@
       </ul>
     </div> -->
 
-    <a class="back__to__top btn-floating pulse pink right" title="Наверх">
+    <!-- UP button -->
+    <a class="back__to__top btn-floating pulse pink right">
       <i class="material-icons">arrow_upward</i>
     </a>
   </div>

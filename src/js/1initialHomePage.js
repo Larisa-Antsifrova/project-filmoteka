@@ -191,6 +191,7 @@ function createCardFunc(movie) {
 
   const galleryItemCard = document.createElement('li');
   galleryItemCard.classList.add('gallery-item-card');
+  galleryItemCard.classList.add('hoverable');
   galleryItemCard.classList.add('z-depth-3');
   galleryItemCard.setAttribute('data-id', movieId);
 
@@ -205,7 +206,20 @@ function createCardFunc(movie) {
   if (movieRaiting) {
     const galleryItemRating = document.createElement('p');
     galleryItemRating.classList.add('gallery-card-raiting');
-    galleryItemRating.textContent = movieRaiting;
+    galleryItemRating.classList.add('valign-wrapper');
+
+    const movieRatingSpan = document.createElement('span');
+    movieRatingSpan.textContent = movieRaiting;
+
+    const star = document.createElement('i');
+    star.classList.add('material-icons');
+    star.classList.add('yellow-text');
+    star.classList.add('text-darken-1');
+    star.classList.add('tiny');
+    star.textContent = 'star';
+    galleryItemRating.appendChild(movieRatingSpan);
+    galleryItemRating.appendChild(star);
+
     galleryItemCard.appendChild(galleryItemRating);
   }
 
