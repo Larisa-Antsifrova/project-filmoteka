@@ -1,5 +1,3 @@
-![Banner](./banner.png)
-
 # Filmoteka project
 
 ## Team
