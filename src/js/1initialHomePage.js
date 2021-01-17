@@ -33,10 +33,10 @@ const movieApi = {
   },
 
   incrementPage() {
-    this.pageNumber += 1;
+    this.pageNumber = +this.pageNumber + 5;
   },
   decrementPage() {
-    this.pageNumber -= 1;
+    this.pageNumber -= 5;
   },
   resetPage() {
     this.pageNumber = 1;
@@ -52,6 +52,14 @@ const movieApi = {
       `${this.baseUrl}movie/popular?api_key=${this.apiKey}&language=en-US&page=${this.pageNumber}`,
     )
       .then(response => response.json())
+      .then(resp => {
+        createPaginationMarkup(resp);
+        lastPage.style.visibility = "hidden";
+        deactivationBtnNext(resp);
+        deactivationPaginationBtn(resp);
+
+        return resp;
+      })
       .then(({ results }) => results);
   },
   fetchSearchFilmsList(query) {
@@ -63,20 +71,23 @@ const movieApi = {
       .then(res => res.json())
       .then(resp => {
         this.totalPages = resp.total_pages;
-        if (this.totalPages > 1) {
-          // тут еще черновик
-          // createPaginationMarkup(resp);
-          totalPage.textContent = this.totalPages;
-          delimiter.textContent = '. . .';
-          disactiveBtnNext(resp.results);
+        if (resp.total_pages > 1) {
+          createPaginationMarkup(resp);
+          lastPage.style.visibility = "visible";
+          deactivationBtnNext(resp);
+          deactivationPaginationBtn(resp);
         }
-        return resp;
+        // =============================================
+        // if (resp.page === 1 && resp.total_pages === 0) {
+        //   notFound();
+        // }
+        // =============================================
+        return resp
       })
       .then(({ results }) => {
-        // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
+        // тут прописана логика вывода ошибки
         if (results.length === 0) {
           notFound();
-          renderPopularMoviesList();
         }
         return results;
       })
