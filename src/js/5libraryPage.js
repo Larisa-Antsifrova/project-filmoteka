@@ -1,5 +1,4 @@
 console.log('5');
-// console.dir(document.querySelector('.tab a'));
 // Создание ссылок
 const refs = {
   tabs: document.querySelector('.tabs'),
@@ -23,11 +22,6 @@ refs.galleryList.addEventListener('click', activeDetailsPage); // делегир
 // Поля в local storage надо согласовать с Яриком
 // Делала функцию по патерну Ларисы
 function createLibraryCardFunc(movie) {
-  // const imgPath = filmObj.img;
-  // const filmYear = filmObj.year;
-  // const filmTitle = `${filmObj.title} (${filmYear})`;
-  // const filmId = filmObj.id;
-  // const filmRaiting = filmObj.voteAverage;
   const imgPath =
     movieApi.images.baseImageUrl +
     movieApi.imageBackdropSize +
@@ -122,7 +116,7 @@ function createFilmListFragment(filmsArray) {
   return docFragmentRef;
 }
 
-// Panes Queue/Watched => мастерская Саши Репеты
+// Pane-tabs Queue/Watched/Favorite =>
 
 function onControlsClick(event) {
   event.preventDefault();
@@ -156,12 +150,3 @@ function getTabPaneId(tab) {
 function getTabPaneById(id) {
   return refs.tabPanes.querySelector(`#${id}`);
 }
-
-/////////////////////////////////
-// Testing area. No tresspassing!
-/////////////////////////////////
-// localStorage.setItem('filmsQueue', JSON.stringify(filmObjArray));
-
-// renderFilms.then(results =>
-//   localStorage.setItem('filmsQueue', JSON.stringify(results)),
-// );
