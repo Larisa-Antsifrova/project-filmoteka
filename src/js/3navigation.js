@@ -26,7 +26,7 @@ const togleSwitchTheme = {
     detailsH3Ref: detailisSectionRef.querySelector('h3'),
     detailsAboutRef: detailisSectionRef.querySelector('#details__about'),
     detailsDescriptionRef: detailisSectionRef.querySelector(
-      '.details-description',
+      '.details-about-text',
     ),
   },
 
