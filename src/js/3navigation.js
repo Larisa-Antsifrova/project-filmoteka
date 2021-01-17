@@ -99,10 +99,6 @@ const togleSwitchTheme = {
         'text-lighten-2',
       );
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsDescriptionRef,
-        'collection',
-      );
       togleSwitchTheme.addClass(
         togleSwitchTheme.refs.detailsDescriptionRef,
         'text-lighten-2',
@@ -173,10 +169,6 @@ const togleSwitchTheme = {
         togleSwitchTheme.refs.detailsDescriptionRef,
         'blue-grey-text',
       );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsDescriptionRef,
-        'collection',
-      );
 
       togleSwitchTheme.removeClass(
         togleSwitchTheme.refs.detailsAboutRef,
@@ -228,10 +220,7 @@ if (localStorage.getItem('Theme') === 'DARK') {
     togleSwitchTheme.refs.detailsH3Ref,
     'text-accent-3',
   );
-  togleSwitchTheme.removeClass(
-    togleSwitchTheme.refs.detailsDescriptionRef,
-    'collection',
-  );
+
   togleSwitchTheme.addClass(
     togleSwitchTheme.refs.detailsDescriptionRef,
     'blue-grey-text',
