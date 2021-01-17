@@ -116,6 +116,14 @@ img {
   height: auto;
 }
 
+.light-theme {
+  background-color: white;
+}
+
+.dark-theme {
+  background-color: black;
+}
+
 //создаем класс чтобы скрывать секции
 .is-hidden {
   display: none;
