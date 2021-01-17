@@ -55,6 +55,9 @@ const movieApi = {
       .then(resp => {
         createPaginationMarkup(resp);
         lastPage.style.visibility = "hidden";
+        disactiveBtnNext(resp);
+        disactivePaginationBtn(resp);
+
         return resp;
       })
       .then(({ results }) => results);
@@ -67,21 +70,26 @@ const movieApi = {
     )
       .then(res => res.json())
       .then(resp => {
+        console.log(resp);
         this.totalPages = resp.total_pages;
-        if (this.totalPages > 1) {
+        if (resp.total_pages > 1) {
           createPaginationMarkup(resp);
           lastPage.style.visibility = "visible";
           disactiveBtnNext(resp);
           disactivePaginationBtn(resp);
         }
+        // =============================================
+        if (resp.page === 1 && resp.total_pages === 0) {
+          notFound();
+        }
+        // =============================================
         return resp
       })
       .then(({ results }) => {
-        // тут прописана логика вывода ошибки и активности кнопки "next" в ответ на рендер
-        if (results.length === 0) {
-          notFound();
-          renderPopularMoviesList();
-        }
+        // тут прописана логика вывода ошибки
+        // if (results.length === 0) {
+        //   notFound();
+        // }
         return results;
       })
       .finally(() => hideSpinner(spinerRef));

@@ -105,12 +105,16 @@ function getLastPage() {
   clearHomePage();
   toggleRenderPage();
 };
+
 function notFound() {
   errorArea.style.visibility = "visible";
   const timeOfVisibleError = setTimeout(clearError, 2000);
   searchForm.elements.query.value = '';
+  movieApi.searchQuery = '';
   movieApi.resetPage();
   disabledPrevBtn();
+  return renderPopularMoviesList();
+
 };
 function clearError() {
   errorArea.style.visibility = "hidden";
@@ -120,17 +124,16 @@ function clearHomePage() {
 };
 // функция дезактивации кнопки "next" в ответ на рендер
 function disactiveBtnNext(params) {
-  if (params.results.length === movieApi.perPage) {
+  if (params.results.length < movieApi.perPage || params.total_pages < 5) {
     nextBtn.setAttribute('disabled', '');
-  } if (params.total_pages < 5) {
-    nextBtn.setAttribute('disabled', '');
-  } else {
+    } else {
     nextBtn.removeAttribute('disabled');
   }
 };
 // функция дезактивации кнопок пагинации в ответ на рендер
 function disactivePaginationBtn(params) {
-  if (params.total_pages < 5) {
+  if (params.total_pages < 5
+    || params.total_pages === movieApi.pageNumber) {
     [...document.getElementsByClassName('spread__page')].map(e => {
       if (e.textContent > params.total_pages) {
         e.setAttribute('disabled', '');
@@ -139,10 +142,10 @@ function disactivePaginationBtn(params) {
       }
     })
   } else {
-    [...document.getElementsByClassName('spread__page')].map(e => { e.removeAttribute('disabled') })
+    [...document.getElementsByClassName('spread__page')].map(e => e.removeAttribute('disabled'))
   }
 };
-// функция выбора отображения страницы в зависимости от наличия текст в инпуте
+// функция выбора отображения страницы в зависимости от наличия текстa в инпуте
 function toggleRenderPage() {
     if (inputVaue.length === 0) {
       renderPopularMoviesList();
@@ -162,7 +165,20 @@ function createPaginationMarkup(resp) {
 }
 // функция отзыва кнопок и рендера страницы по номеру кнопки
 function renderPageOnNumBtn(evt) {
-  movieApi.pageNumber = evt.target.textContent
+  movieApi.pageNumber = evt.target.textContent;
+  // ===================================================================
+  // if (movieApi.pageNumber > movieApi.totalPages) {
+  //   [...document.getElementsByClassName('spread__page')].map(e => {
+  //     if (e.textContent > movieApi.totalPages) {
+  //       e.setAttribute('disabled', '');
+  //     } else {
+  //       e.removeAttribute('disabled');
+  //     }
+  //   })
+  // } else {
+  //   [...document.getElementsByClassName('spread__page')].map(e => e.removeAttribute('disabled'))
+  // }
+  // =====================================================================
   clearHomePage();
   toggleRenderPage();
 };
