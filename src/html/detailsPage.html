@@ -3,117 +3,52 @@
     <div class="row">
       <!-- Movie poster -->
       <div class="col s12 l6">
-        <img id="details__img" class="details-img center" />
+        <img id="details__img" class="details-img col s12" />
       </div>
       <!-- Movie info -->
-      <div class="col s12 l6">
-        <h2 id="details__title" class="indigo-text">Title</h2>
+      <div class="col s12 l6 movie-description">
+        <div class="col s12 center">
+          <h2 id="details__title" class="indigo-text">Movie Title</h2>
+        </div>
+        <table>
+          <tbody>
+            <tr class="indigo lighten-4">
+              <td class="indigo lighten-3">vote / votes</td>
+              <td id="details__vote">average/total</td>
+            </tr>
+            <tr class="indigo lighten-5">
+              <td class="indigo lighten-4">popularity</td>
+              <td id="details__popularity">popularity</td>
+            </tr>
+            <tr class="indigo lighten-4">
+              <td class="indigo lighten-3">original title</td>
+              <td id="original__title">title</td>
+            </tr>
+            <tr class="indigo lighten-5">
+              <td class="indigo lighten-4">genre</td>
+              <td id="details__genre">genres</td>
+            </tr>
+          </tbody>
+        </table>
 
-        <ul class="details-description collection col s12">
-          <li class="collection-item">
-            <span class="static-description title">vote / votes</span>
-            <span
-              id="details__vote"
-              class="dynamic-description secondary-content"
-            >
-              avarage / total
-            </span>
-          </li>
-
-          <li class="collection-item">
-            <span class="static-description title">popularity</span>
-            <span
-              id="details__popularity"
-              class="dynamic-description secondary-content"
-              >100.2</span
-            >
-          </li>
-          <li class="collection-item">
-            <span class="static-description title">original title</span>
-            <span
-              id="original__title"
-              class="dynamic-description secondary-content"
-              >Dumbo</span
-            >
-          </li>
-          <li class="collection-item">
-            <span class="static-description title">genre</span>
-            <span
-              id="details__genre"
-              class="dynamic-description secondary-content"
-            >
-              drama, geography, history
-            </span>
-          </li>
-        </ul>
-
-        <a
-          data-toggle-watched="add"
-          class="col s12 l4 waves-effect waves-light btn-small green"
-          ><i class="material-icons left">add</i>to watched</a
-        >
-        <a
-          data-toggle-queue="add"
-          class="col s12 l4 waves-effect waves-light btn-small yellow darken-2"
-          ><i class="material-icons left">add</i>to queue</a
-        >
-        <a
-          data-toggle-favorite="add"
-          class="col s12 l4 waves-effect waves-light btn-small pink"
-          ><i class="material-icons left">add</i><span>fav</span></a
-        >
-        <h3 class="details-about indigo-text">About</h3>
-        <p id="details__about" class="details-about-text">
-          A young elephant, whose oversized ears enable him to fly, helps save a
-          struggling circus, but when the circus plans a new venture, Dumbo and
-          his friends discover dark secrets beneath its shiny veneer
-        </p>
+        <div class="col s12">
+          <a class="col s6 waves-effect waves-light btn-small green offset-s3"
+            ><i class="material-icons left">add</i
+            ><span data-toggle-watched="add">to watched</span></a
+          >
+          <a
+            class="col s6 waves-effect waves-light btn-small yellow darken-2 offset-s3 middle-btn"
+            ><i class="material-icons left">add</i
+            ><span data-toggle-queue="add">to queue</span></a
+          >
+          <a class="col s6 waves-effect waves-light btn-small pink offset-s3"
+            ><i class="material-icons left">add</i
+            ><span data-toggle-favorite="add">fav</span></a
+          >
+        </div>
+        <h3 class="details-about indigo-text text-lighten-2 center">About</h3>
+        <p id="details__about" class="details-about-text">description</p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- <section class="details-page is-hidden" data-detailis-section>
-  <div class="details-container">
-    <div class="img-container">
-      <img id="details__img" class="details-img" />
-    </div>
-    <div class="text-container">
-      <h2 id="details__title" class="details-title">Dumbo (2019)</h2>
-
-      <ul class="details-description">
-        <li class="description-info">
-          <p class="static-description">vote / votes</p>
-          <p id="details__vote" class="dynamic-description">6.5 / 1422</p>
-        </li>
-        <li class="description-info">
-          <p class="static-description">popularity</p>
-          <p id="details__popularity" class="dynamic-description">100.2</p>
-        </li>
-        <li class="description-info">
-          <p class="static-description">original title</p>
-          <p id="original__title" class="dynamic-description">Dumbo</p>
-        </li>
-        <li class="description-info">
-          <p class="static-description">genre</p>
-          <p id="details__genre" class="dynamic-description">
-            drama, geography, history
-          </p>
-        </li>
-      </ul>
-
-      <h3 class="details-about">About</h3>
-      <p id="details__about" class="details-about-text">
-        A young elephant, whose oversized ears enable him to fly, helps save a
-        struggling circus, but when the circus plans a new venture, Dumbo and
-        his friends discover dark secrets beneath its shiny veneer
-      </p>
-      <p></p>
-
-      <ul class="details-buttons">
-        <li><button data-toggle-queue="add">Add to queue</button></li>
-        <li><button data-toggle-watched="add">Add to watched</button></li>
-      </ul>
-    </div>
-  </div>
-</section> -->
