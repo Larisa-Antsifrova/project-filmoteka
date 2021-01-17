@@ -8,11 +8,7 @@ const totalPage = document.querySelector('.total__page');
 const nextBtn = document.querySelector('#next__page');
 const lastPage = document.querySelector('.total__page');
 
-const firstBtn = delimiter.children[0];
-const secondBtn = delimiter.children[1];
-const thirdBtn = delimiter.children[2];
-const fourthBtn = delimiter.children[3];
-const fifthBtn = delimiter.children[4];
+const paginationBtn = [...document.getElementsByClassName('spread__page')];
 
 // глобальная переменная inputVaue
 let inputVaue = '';
@@ -122,8 +118,8 @@ function clearError() {
 function clearHomePage() {
   homePageRef.innerHTML = '';
 };
-// функция дезактивации кнопки "next" в ответ на рендер
-function disactiveBtnNext(params) {
+// функция c кнопки "next" в ответ на рендер
+function deactivationBtnNext(params) {
   if (params.results.length < movieApi.perPage || params.total_pages < 5) {
     nextBtn.setAttribute('disabled', '');
     } else {
@@ -131,10 +127,11 @@ function disactiveBtnNext(params) {
   }
 };
 // функция дезактивации кнопок пагинации в ответ на рендер
-function disactivePaginationBtn(params) {
+function deactivationPaginationBtn(params) {
   if (params.total_pages < 5
-    || params.total_pages === movieApi.pageNumber) {
-    [...document.getElementsByClassName('spread__page')].map(e => {
+    || params.total_pages === movieApi.pageNumber
+    || movieApi.pageNumber >= (movieApi.totalPages - 4)) {
+    paginationBtn.map(e => {
       if (e.textContent > params.total_pages) {
         e.setAttribute('disabled', '');
       } else {
@@ -142,7 +139,7 @@ function disactivePaginationBtn(params) {
       }
     })
   } else {
-    [...document.getElementsByClassName('spread__page')].map(e => e.removeAttribute('disabled'))
+    paginationBtn.map(e => e.removeAttribute('disabled'))
   }
 };
 // функция выбора отображения страницы в зависимости от наличия текстa в инпуте
@@ -157,28 +154,14 @@ function toggleRenderPage() {
 };
 // функция рендера содержимого группы кнопок пагинации
 function createPaginationMarkup(resp) {
-  firstBtn.textContent = resp.page;
-  secondBtn.textContent = resp.page + 1;
-  thirdBtn.textContent = resp.page + 2;
-  fourthBtn.textContent = resp.page + 3;
-  fifthBtn.textContent = resp.page + 4;
+  paginationBtn.map(e => {
+    e.textContent = resp.page++;
+  })
 }
 // функция отзыва кнопок и рендера страницы по номеру кнопки
 function renderPageOnNumBtn(evt) {
   movieApi.pageNumber = evt.target.textContent;
-  // ===================================================================
-  // if (movieApi.pageNumber > movieApi.totalPages) {
-  //   [...document.getElementsByClassName('spread__page')].map(e => {
-  //     if (e.textContent > movieApi.totalPages) {
-  //       e.setAttribute('disabled', '');
-  //     } else {
-  //       e.removeAttribute('disabled');
-  //     }
-  //   })
-  // } else {
-  //   [...document.getElementsByClassName('spread__page')].map(e => e.removeAttribute('disabled'))
-  // }
-  // =====================================================================
+  deactivationPaginationBtn(evt);
   clearHomePage();
   toggleRenderPage();
 };

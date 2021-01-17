@@ -55,8 +55,8 @@ const movieApi = {
       .then(resp => {
         createPaginationMarkup(resp);
         lastPage.style.visibility = "hidden";
-        disactiveBtnNext(resp);
-        disactivePaginationBtn(resp);
+        deactivationBtnNext(resp);
+        deactivationPaginationBtn(resp);
 
         return resp;
       })
@@ -70,26 +70,25 @@ const movieApi = {
     )
       .then(res => res.json())
       .then(resp => {
-        console.log(resp);
         this.totalPages = resp.total_pages;
         if (resp.total_pages > 1) {
           createPaginationMarkup(resp);
           lastPage.style.visibility = "visible";
-          disactiveBtnNext(resp);
-          disactivePaginationBtn(resp);
+          deactivationBtnNext(resp);
+          deactivationPaginationBtn(resp);
         }
         // =============================================
-        if (resp.page === 1 && resp.total_pages === 0) {
-          notFound();
-        }
+        // if (resp.page === 1 && resp.total_pages === 0) {
+        //   notFound();
+        // }
         // =============================================
         return resp
       })
       .then(({ results }) => {
         // тут прописана логика вывода ошибки
-        // if (results.length === 0) {
-        //   notFound();
-        // }
+        if (results.length === 0) {
+          notFound();
+        }
         return results;
       })
       .finally(() => hideSpinner(spinerRef));

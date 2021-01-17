@@ -198,18 +198,21 @@
   display: flex;
   justify-content: center;
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
   @media screen and (min-width: 768px) {
     padding-top: 30px;
   }
 }
 .pagination__button {
-  padding: 8px 10px;
-  margin: 5px;
+  height: 28px;
+  padding: 4px 5px;
+  margin: 4px;
 
   @media screen and (min-width: 768px) {
+    height: auto;
+    padding: 8px 10px;
     margin: 10px;
   }
 }
@@ -221,6 +224,12 @@
   border-radius: 2px;
   outline: 0;
 }
+.delimiter {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
 .search-container {
   padding: 15px 0 20px 0;
   margin-bottom: 15px;
