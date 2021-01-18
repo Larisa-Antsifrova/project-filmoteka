@@ -54,9 +54,12 @@ const movieApi = {
       .then(response => response.json())
       .then(resp => {
         createPaginationMarkup(resp);
-        lastPage.style.visibility = 'hidden';
+        // lastPage.style.visibility = 'hidden';
         deactivationBtnNext(resp);
         deactivationPaginationBtn(resp);
+        this.totalPages = resp.total_pages;
+        // console.log('TOTALPAGES', this.totalPages);
+        // console.log('RESPONSE', resp);
         return resp;
       })
       .then(({ results }) => results);

@@ -29,7 +29,7 @@ function searchFilms(e) {
   disabledPrevBtn();
   inputVaue = e.target.elements.query.value;
   toggleRenderPage();
-};
+}
 // функция рендера страницы запроса
 function fetchFilms(pageNumber, inputVaue) {
   let query = '';
@@ -37,12 +37,12 @@ function fetchFilms(pageNumber, inputVaue) {
     query = inputVaue.trim();
   } else {
     return;
-    };
-    
-    movieApi
-        .fetchSearchFilmsList(query)
-        .then(createGallery)
-      .then(fragment => renderGallery(fragment, homePageRef));
+  }
+
+  movieApi
+    .fetchSearchFilmsList(query)
+    .then(createGallery)
+    .then(fragment => renderGallery(fragment, homePageRef));
 }
 // функция отображения страниц зарпосов
 function paginationNavigation(e) {
@@ -62,31 +62,31 @@ function paginationNavigation(e) {
     clearHomePage();
     toggleRenderPage();
   }
-};
+}
 // функция выбора отображения страницы в зависимости от наличия текстa в инпуте
 function toggleRenderPage() {
-    if (inputVaue.length === 0) {
-      renderPopularMoviesList();
-      renderFilms = movieApi.fetchPopularMoviesList();
-    } else {
-      fetchFilms(movieApi.pageNumber, inputVaue);
-      renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
-    }
-};
+  if (inputVaue.length === 0) {
+    renderPopularMoviesList();
+    renderFilms = movieApi.fetchPopularMoviesList();
+  } else {
+    fetchFilms(movieApi.pageNumber, inputVaue);
+    renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
+  }
+}
 // функция очистки инпута и параграфа ошибки при фокусе
 function onInputFocus() {
   clearError();
   clearInput();
   movieApi.resetPage();
-};
+}
 //  функция дезактивации кнопки prevBtn если номер страницы 1
 function disabledPrevBtn() {
-   if (movieApi.pageNumber < 6) {
-      prevBtn.setAttribute('disabled', '');
-   } else {
-     prevBtn.removeAttribute('disabled');
-    }
-};
+  if (movieApi.pageNumber < 6) {
+    prevBtn.setAttribute('disabled', '');
+  } else {
+    prevBtn.removeAttribute('disabled');
+  }
+}
 // функция перехода на первую страницу
 function getFirstPage() {
   movieApi.pageNumber = 1;
@@ -100,59 +100,61 @@ function getLastPage() {
   disabledPrevBtn();
   clearHomePage();
   toggleRenderPage();
-};
+}
 // функция очистки инпута и запроса
 function clearInput() {
   searchForm.elements.query.value = '';
   movieApi.searchQuery = '';
   inputVaue = '';
-};
+}
 // функция реагирования на некорректный запрос
 function notFound() {
-  errorArea.style.visibility = "visible";
+  errorArea.style.visibility = 'visible';
   const timeOfVisibleError = setTimeout(clearError, 2000);
   clearInput();
   movieApi.resetPage();
   disabledPrevBtn();
   return renderPopularMoviesList();
-};
+}
 // функция сокрытия строки ошибки
 function clearError() {
-  errorArea.style.visibility = "hidden";
-};
+  errorArea.style.visibility = 'hidden';
+}
 // функция очистки стартовой страницы
 function clearHomePage() {
   homePageRef.innerHTML = '';
-};
+}
 // функция c кнопки "next" в ответ на рендер
 function deactivationBtnNext(params) {
   if (params.results.length < movieApi.perPage || params.total_pages < 5) {
     nextBtn.setAttribute('disabled', '');
-    } else {
+  } else {
     nextBtn.removeAttribute('disabled');
   }
-};
+}
 // функция дезактивации кнопок пагинации в ответ на рендер
 function deactivationPaginationBtn(params) {
-  if (params.total_pages < 5
-    || params.total_pages === movieApi.pageNumber
-    || movieApi.pageNumber >= (movieApi.totalPages - 4)) {
+  if (
+    params.total_pages < 5 ||
+    params.total_pages === movieApi.pageNumber ||
+    movieApi.pageNumber >= movieApi.totalPages - 4
+  ) {
     paginationBtn.map(e => {
       if (e.textContent > params.total_pages) {
         e.setAttribute('disabled', '');
       } else {
         e.removeAttribute('disabled');
       }
-    })
+    });
   } else {
-    paginationBtn.map(e => e.removeAttribute('disabled'))
+    paginationBtn.map(e => e.removeAttribute('disabled'));
   }
-};
+}
 // функция рендера содержимого группы кнопок пагинации
 function createPaginationMarkup(resp) {
   paginationBtn.map(e => {
     e.textContent = resp.page++;
-  })
+  });
 }
 // функция отзыва кнопок и рендера страницы по номеру кнопки
 function renderPageOnNumBtn(evt) {
@@ -161,4 +163,82 @@ function renderPageOnNumBtn(evt) {
   disabledPrevBtn();
   clearHomePage();
   toggleRenderPage();
+}
+
+// PAGINATION with MATERIALIZE
+// References
+const paginationRefs = {
+  paginationPageItemsContainerRef: document.querySelector('.pagination-page-items-container'),
+  paginationToBeginningBtnRef: document.querySelector('.pagination-beginning'),
+  paginationPreviousPageRef: document.querySelector('.pagination-previous-page'),
+  paginationNextPageRef: document.querySelector('.pagination-next-page'),
+  paginationToEndBtnRef: document.querySelector('.pagination-end'),
 };
+
+// Destructuring references
+const {
+  paginationPageItemsContainerRef,
+  paginationToBeginningBtnRef,
+  paginationPreviousPageRef,
+  paginationNextPageRef,
+  paginationToEndBtnRef,
+} = paginationRefs;
+
+// Variables common to some functions
+const totalPages = 500;
+const displayNumber = 5;
+let lowRange = 1;
+let upRange = totalPages > displayNumber ? lowRange + displayNumber - 1 : totalPages;
+
+console.log('Global', lowRange, upRange);
+
+// Event Listeners
+paginationPageItemsContainerRef.addEventListener('click', e => {
+  movieApi.pageNumber = e.target.dataset.page;
+});
+
+paginationToBeginningBtnRef.addEventListener('click', () => {
+  console.log('You want to go to the very beginning');
+  lowRange = 1;
+  upRange = totalPages > displayNumber ? lowRange + displayNumber - 1 : totalPages;
+  console.log('To beginning', lowRange, upRange);
+  clearPaginationPageItems();
+  renderPaginationPageItems();
+  paginationToBeginningBtnRef.classList.add('disabled');
+  paginationToEndBtnRef.classList.remove('disabled');
+});
+
+paginationToEndBtnRef.addEventListener('click', () => {
+  console.log('You want to go to the very end');
+  upRange = totalPages;
+  lowRange = totalPages > 5 ? upRange - displayNumber + 1 : 1;
+  console.log('To end', lowRange, upRange);
+  clearPaginationPageItems();
+  renderPaginationPageItems();
+  paginationToEndBtnRef.classList.add('disabled');
+  paginationToBeginningBtnRef.classList.remove('disabled');
+});
+
+// Functions
+
+function createPaginationPageItemsMarkup() {
+  let paginationPageItemsMarkup = '';
+  for (let i = lowRange; i <= upRange; i++) {
+    paginationPageItemsMarkup += `<li class="waves-effect">
+              <a href="#!" class="paginator-page-item" data-page ='${i}'>${i}</a>
+            </li>`;
+  }
+  return paginationPageItemsMarkup;
+}
+
+function renderPaginationPageItems() {
+  const paginationPageItemsMarkup = createPaginationPageItemsMarkup();
+  paginationPageItemsContainerRef.insertAdjacentHTML('afterbegin', paginationPageItemsMarkup);
+}
+
+function clearPaginationPageItems() {
+  paginationPageItemsContainerRef.innerHTML = '';
+}
+
+// Evoking funcitons
+renderPaginationPageItems();
