@@ -19,7 +19,7 @@
 }
 
 .home-page-gallery {
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   @media screen and (min-width: 320px) {
     display: flex;
     flex-wrap: wrap;
@@ -44,23 +44,17 @@
   }
 
   @media screen and (max-width: 319px) {
-    &:not(:last-child) {
-      margin-bottom: 15px;
-    }
+    margin-bottom: 15px;
   }
 
   @media screen and (max-width: 767px) {
-    &:not(:last-child) {
-      margin-bottom: 20px;
-    }
+    margin-bottom: 20px;
   }
 
   @media screen and (min-width: 768px) {
     width: calc((100% - 30px) / 2);
 
-    &:not(:nth-last-child(-n + 2)) {
-      margin-bottom: 25px;
-    }
+    margin-bottom: 25px;
   }
 }
 
