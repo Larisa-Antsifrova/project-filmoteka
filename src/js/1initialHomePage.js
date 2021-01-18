@@ -155,7 +155,7 @@ function hideSpinner(spinner) {
 }
 hideSpinner(spinerRef);
 // Глобальные переменные, которые требуются по инструкции
-let renderFilms;
+let renderFilms = movieApi.fetchPopularMoviesList();
 const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
 let pageNumber = 1; // можно заменить свойством в АПИШКЕ
 
