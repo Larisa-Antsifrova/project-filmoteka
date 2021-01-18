@@ -19,7 +19,7 @@ const readMoreBtn = document.getElementById('read__more');
 const aboutContent = document.querySelector('.about__content');
 const ditailsDescription = document.querySelector('#details__about');
 
-// создаем глобальную переменную selectFilm
+// создаем  переменную в глобальной области видимости selectFilm (Лариса Привет)
 let selectFilm = {};
 
 // создаем обьект с методами переключения темы
