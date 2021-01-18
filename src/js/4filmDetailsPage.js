@@ -105,6 +105,7 @@ function showDetails(selectFilm) {
   const originalTitle = document.querySelector('#original__title');
   const detailsAbout = document.querySelector('#details__about');
   const selectGenres = document.querySelector('#details__genre');
+
   selectFilm.then(el => {
     img.setAttribute(
       'src',
@@ -116,8 +117,14 @@ function showDetails(selectFilm) {
     originalTitle.textContent = el.original_title;
     detailsAbout.textContent = el.overview;
 
+    // условие для скрытия и показа кнопки Read More по длине текста
+    if (ditailsDescription.textContent.length < 150) {
+      readMoreBtn.classList.add('is__hidden-btn');
+      aboutContent.classList.remove('hidden__content');
+    }
+
     let genresIdArr = el.genre_ids;
-    // console.log(genresIdArr);
+
     genres.then(genresArr => {
       let thisMovieGenres = genresArr.reduce((acc, genre) => {
         if (genresIdArr.includes(genre.id)) {
@@ -127,6 +134,15 @@ function showDetails(selectFilm) {
       }, []);
       selectGenres.textContent = thisMovieGenres.join(', ');
     });
+  });
+  // показывает больше контента в About при клике на кнопку
+  if (!document.querySelector('.hidden__content')) {
+    readMoreBtn.classList.remove('is__hidden-btn');
+    aboutContent.classList.add('hidden__content');
+  }
+  readMoreBtn.addEventListener('click', () => {
+    aboutContent.classList.remove('hidden__content');
+    readMoreBtn.classList.add('is__hidden-btn');
   });
   monitorButtonStatusText();
 }
@@ -150,3 +166,4 @@ function showDetails(selectFilm) {
 //     : (toggleWatchedBtn.innerHTML =
 //         '<i class="material-icons left">add</i><span>watched</span>');
 // }
+//Larisa canonized

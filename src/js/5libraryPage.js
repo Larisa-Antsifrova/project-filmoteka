@@ -16,8 +16,8 @@ refs.watchedBtn.addEventListener('click', drawWatchedFilmList);
 refs.favoriteBtn.addEventListener('click', drawFavoriteFilmList);
 refs.galleryList.addEventListener('click', activeDetailsPage); // делегирование при клике на фильм на список <ul>
 
-// Функция для создания карточки фильма в  МОЕЙ ГАЛЕРЕЕ.
-// Принимает один объект фильма from local storage  по инструкции.
+// Функция для создания карточки фильма в библиотеке.
+// Принимает один объект фильма from local storage по инструкции.
 // В данный момент для тестирования получила фильмы с помощью renderFilms.then()
 // Поля в local storage надо согласовать с Яриком
 // Делала функцию по патерну Ларисы
