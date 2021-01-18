@@ -14,7 +14,7 @@ const paginationBtn = [...document.getElementsByClassName('spread__page')];
 let inputVaue = '';
 
 // слушатели событий
-searchForm.addEventListener('click', focusFunction);
+searchForm.addEventListener('click', onInputFocus);
 searchForm.addEventListener('submit', searchFilms);
 firstPage.addEventListener('click', getFirstPage);
 delimiter.addEventListener('click', renderPageOnNumBtn);
@@ -28,14 +28,7 @@ function searchFilms(e) {
   e.preventDefault();
   disabledPrevBtn();
   inputVaue = e.target.elements.query.value;
-  fetchFilms(movieApi.pageNumber, inputVaue);
-  
-  // условие заполнения глобальной переменной renderFilms
-  if (inputVaue.length === 0) {
-    renderFilms = movieApi.fetchPopularMoviesList();
-  } else {
-    renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
-  }
+  toggleRenderPage();
 };
 // функция рендера страницы запроса
 function fetchFilms(pageNumber, inputVaue) {
@@ -50,8 +43,6 @@ function fetchFilms(pageNumber, inputVaue) {
         .fetchSearchFilmsList(query)
         .then(createGallery)
       .then(fragment => renderGallery(fragment, homePageRef));
-  
-  
 }
 // функция отображения страниц зарпосов
 function paginationNavigation(e) {
@@ -72,9 +63,18 @@ function paginationNavigation(e) {
     toggleRenderPage();
   }
 };
-
+// функция выбора отображения страницы в зависимости от наличия текстa в инпуте
+function toggleRenderPage() {
+    if (inputVaue.length === 0) {
+      renderPopularMoviesList();
+      renderFilms = movieApi.fetchPopularMoviesList();
+    } else {
+      fetchFilms(movieApi.pageNumber, inputVaue);
+      renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
+    }
+};
 // функция очистки инпута и параграфа ошибки при фокусе
-function focusFunction() {
+function onInputFocus() {
   clearError();
   clearInput();
   movieApi.resetPage();
@@ -147,16 +147,6 @@ function deactivationPaginationBtn(params) {
   } else {
     paginationBtn.map(e => e.removeAttribute('disabled'))
   }
-};
-// функция выбора отображения страницы в зависимости от наличия текстa в инпуте
-function toggleRenderPage() {
-    if (inputVaue.length === 0) {
-      renderPopularMoviesList();
-      renderFilms = movieApi.fetchPopularMoviesList();
-    } else {
-      fetchFilms(movieApi.pageNumber, inputVaue);
-      renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
-    }
 };
 // функция рендера содержимого группы кнопок пагинации
 function createPaginationMarkup(resp) {

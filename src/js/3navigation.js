@@ -253,7 +253,6 @@ function activeHomePage(e) {
   renderFilms = movieApi.fetchPopularMoviesList();
   renderPopularMoviesList();
   toggleActiveLink(homeRef);
-  // searchForm.removeEventListener('submit', searchFilms);
 
   homePageSectionRef.classList.remove('is-hidden');
   librarySectionRef.classList.add('is-hidden');

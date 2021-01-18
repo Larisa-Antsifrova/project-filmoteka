@@ -57,6 +57,7 @@ const movieApi = {
         lastPage.style.visibility = 'hidden';
         deactivationBtnNext(resp);
         deactivationPaginationBtn(resp);
+        console.log(resp);
         return resp;
       })
       .then(({ results }) => results);
@@ -76,6 +77,7 @@ const movieApi = {
           deactivationBtnNext(resp);
           deactivationPaginationBtn(resp);
         }
+        console.log(resp);
         return resp;
       })
       .then(({ results }) => {
@@ -155,8 +157,7 @@ function hideSpinner(spinner) {
 }
 hideSpinner(spinerRef);
 // Глобальные переменные, которые требуются по инструкции
-let renderFilms = movieApi.fetchPopularMoviesList();
-// let renderFilms;
+let renderFilms;
 const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
 let pageNumber = 1; // можно заменить свойством в АПИШКЕ
 
