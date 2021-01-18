@@ -54,7 +54,7 @@ const movieApi = {
       .then(response => response.json())
       .then(resp => {
         createPaginationMarkup(resp);
-        lastPage.style.visibility = "hidden";
+        lastPage.style.visibility = 'hidden';
         deactivationBtnNext(resp);
         deactivationPaginationBtn(resp);
 
@@ -73,7 +73,7 @@ const movieApi = {
         this.totalPages = resp.total_pages;
         if (resp.total_pages > 1) {
           createPaginationMarkup(resp);
-          lastPage.style.visibility = "visible";
+          lastPage.style.visibility = 'visible';
           deactivationBtnNext(resp);
           deactivationPaginationBtn(resp);
         }
@@ -82,12 +82,13 @@ const movieApi = {
         //   notFound();
         // }
         // =============================================
-        return resp
+        return resp;
       })
       .then(({ results }) => {
         // тут прописана логика вывода ошибки
         if (results.length === 0) {
           notFound();
+          inputVaue = '';
         }
         return results;
       })

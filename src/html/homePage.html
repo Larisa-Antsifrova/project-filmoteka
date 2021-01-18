@@ -10,7 +10,13 @@
             <a href="#" class="btn-floating indigo small lighten-4 pulse prefix"
               ><i class="material-icons">search</i></a
             >
-            <input type="text" name="query" id="search" class="input" />
+            <input
+              type="text"
+              name="query"
+              id="search"
+              class="input"
+              autocomplete="off"
+            />
             <label for="search" class="rigth text-white"
               >Let's find a movie for you!</label
             >
@@ -51,7 +57,12 @@
     <div class="col s12 center">
       <div class="pagination">
         <button class="first__page pagination__button">&lt;&lt;</button>
-        <button type="button" class="pagination__button" disabled id="previous__page">
+        <button
+          type="button"
+          class="pagination__button"
+          disabled
+          id="previous__page"
+        >
           &lt;
         </button>
         <p class="delimiter">
@@ -67,7 +78,7 @@
         <button class="total__page pagination__button">&gt;&gt;</button>
       </div>
     </div>
-    
+
     <!-- UP button -->
     <a class="back__to__top btn-floating pulse pink right">
       <i class="material-icons">arrow_upward</i>
