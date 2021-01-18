@@ -57,7 +57,6 @@ const movieApi = {
         lastPage.style.visibility = 'hidden';
         deactivationBtnNext(resp);
         deactivationPaginationBtn(resp);
-        console.log(resp);
         return resp;
       })
       .then(({ results }) => results);
@@ -77,7 +76,6 @@ const movieApi = {
           deactivationBtnNext(resp);
           deactivationPaginationBtn(resp);
         }
-        console.log(resp);
         return resp;
       })
       .then(({ results }) => {
