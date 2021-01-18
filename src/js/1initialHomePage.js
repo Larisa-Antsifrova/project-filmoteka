@@ -4,7 +4,7 @@ console.log('1');
 
 // Объект с данными и методами для работы с The MovieDB.
 const movieApi = {
-  apiKey: '0757258023265e845275de2a564555e9',
+  apiKey: API_KEY,
   baseUrl: 'https://api.themoviedb.org/3/',
   searchQuery: '',
   totalResults: 0,
@@ -253,5 +253,3 @@ function renderPopularMoviesList() {
     .then(fragment => renderGallery(fragment, homePageRef));
 }
 renderPopularMoviesList();
-
-console.log(testingVar);
