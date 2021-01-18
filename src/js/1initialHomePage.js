@@ -57,7 +57,6 @@ const movieApi = {
         lastPage.style.visibility = 'hidden';
         deactivationBtnNext(resp);
         deactivationPaginationBtn(resp);
-
         return resp;
       })
       .then(({ results }) => results);
@@ -77,18 +76,12 @@ const movieApi = {
           deactivationBtnNext(resp);
           deactivationPaginationBtn(resp);
         }
-        // =============================================
-        // if (resp.page === 1 && resp.total_pages === 0) {
-        //   notFound();
-        // }
-        // =============================================
         return resp;
       })
       .then(({ results }) => {
         // тут прописана логика вывода ошибки
         if (results.length === 0) {
           notFound();
-          inputVaue = '';
         }
         return results;
       })
