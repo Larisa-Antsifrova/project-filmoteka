@@ -37,7 +37,7 @@ function toggleToWatched() {
 
 function toggleToFavorite() {
   let filmsFavoriteArr = [];
-  let localStorageData = localStorage.getItem('favoriteList');
+  let localStorageData = localStorage.getItem('filmsFavorite');
   if (localStorageData) {
     filmsFavoriteArr = [...JSON.parse(localStorageData)];
   }
@@ -48,7 +48,7 @@ function toggleToFavorite() {
     } else {
       filmsFavoriteArr.push(obj);
     }
-    localStorage.setItem('favoriteList', JSON.stringify(filmsFavoriteArr));
+    localStorage.setItem('filmsFavorite', JSON.stringify(filmsFavoriteArr));
     monitorButtonStatusText();
   });
 }
@@ -62,9 +62,11 @@ function monitorButtonStatusText() {
   selectFilm.then(obj => {
     let entryIndex = filmsQueueArr.findIndex(el => el.id === obj.id);
     if (entryIndex !== -1) {
-      toggleQueueBtn.textContent = 'Delete from queue';
+      queuePreTextIconRef.textContent = 'delete';
+      queueSpanTextRef.textContent = 'from queue';
     } else {
-      toggleQueueBtn.textContent = 'Add to queue';
+      queueSpanTextRef.textContent = 'to queue';
+      queuePreTextIconRef.textContent = 'add';
     }
   });
 
@@ -76,23 +78,27 @@ function monitorButtonStatusText() {
   selectFilm.then(obj => {
     let entryIndex = filmsWatchedArr.findIndex(el => el.id === obj.id);
     if (entryIndex !== -1) {
-      toggleWatchedBtn.textContent = 'Delete from watched';
+      watchedPreTextIconRef.textContent = 'delete';
+      watchedSpanTextRef.textContent = 'from watched';
     } else {
-      toggleWatchedBtn.textContent = 'Add to watched';
+      watchedSpanTextRef.textContent = 'to watched';
+      watchedPreTextIconRef.textContent = 'add';
     }
   });
 
   let filmsFavoriteArr = [];
-  let localStorageDataF = localStorage.getItem('favoriteList');
+  let localStorageDataF = localStorage.getItem('filmsFavorite');
   if (localStorageDataF) {
     filmsFavoriteArr = [...JSON.parse(localStorageDataF)];
   }
   selectFilm.then(obj => {
     let entryIndex = filmsFavoriteArr.findIndex(el => el.id === obj.id);
     if (entryIndex !== -1) {
-      favoriteBtn.textContent = 'Delete from favorite';
+      favoritePreTextIconRef.textContent = 'delete';
+      favoriteSpanTextRef.textContent = 'from favorite';
     } else {
-      favoriteBtn.textContent = 'Add to favorite';
+      favoriteSpanTextRef.textContent = 'to favorite';
+      favoritePreTextIconRef.textContent = 'add';
     }
   });
 }
