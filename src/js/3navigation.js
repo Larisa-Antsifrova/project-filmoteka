@@ -11,6 +11,9 @@ const favoriteBtn = document.querySelector('[data-toggle-favorite]');
 const logoRefs = document.querySelector('.logo__js');
 const navigationRefs = document.querySelector('.navigation');
 const togleSwitchBtn = document.querySelector('[data-action-togle]');
+// получаем доступ к mobile-menu
+const homeMobileRef = document.querySelector('.home__link-mobile');
+const libraryMobileRef = document.querySelector('.library__link-mobile');
 
 // создаем глобальную переменную selectFilm
 let selectFilm = {};
@@ -239,6 +242,8 @@ homeRef.addEventListener('click', activeHomePage);
 logoRefs.addEventListener('click', activeHomePage);
 libraryRef.addEventListener('click', activeLibraryPage);
 togleSwitchBtn.addEventListener('click', togleSwitchTheme.switchTheme);
+homeMobileRef.addEventListener('click', activeHomePage);
+libraryMobileRef.addEventListener('click', activeLibraryPage);
 
 //создаем функцию activeHomePage которая показывает домашнюю страницу и прячет остальные
 function activeHomePage(e) {
