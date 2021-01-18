@@ -218,7 +218,7 @@ textarea.materialize-textarea {
   // Prefix Icons
   .prefix {
     position: absolute;
-    width: $input-height;
+    // width: $input-height;
     font-size: $input-icon-size;
     transition: color 0.2s;
     top: ($input-height - $input-icon-size) / 2;
