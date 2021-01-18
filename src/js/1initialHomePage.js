@@ -53,6 +53,7 @@ const movieApi = {
     )
       .then(response => response.json())
       .then(resp => {
+        this.totalPages = resp.total_pages;
         createPaginationMarkup(resp);
         lastPage.style.visibility = 'hidden';
         deactivationBtnNext(resp);
@@ -243,8 +244,6 @@ function createCardFunc(movie) {
 }
 
 // Вызов функций, которые фетчат популярные фильмы, создают фразмент с карточками галереи для каждого фильма и рендерят весь фрагмент в DOM
-
-// Alex add - вывел фетч в функцию, во избежание дублирования кода т.к. она нужна для рендера страницы при выводе ошибки (стр 65)
 function renderPopularMoviesList() {
   movieApi
     .fetchPopularMoviesList()
