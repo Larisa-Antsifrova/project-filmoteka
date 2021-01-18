@@ -249,10 +249,11 @@ libraryMobileRef.addEventListener('click', activeLibraryPage);
 function activeHomePage(e) {
   e.preventDefault();
   movieApi.resetPage();
+  clearInput();
   renderFilms = movieApi.fetchPopularMoviesList();
   renderPopularMoviesList();
   toggleActiveLink(homeRef);
-  searchForm.removeEventListener('submit', searchFilms);
+  // searchForm.removeEventListener('submit', searchFilms);
 
   homePageSectionRef.classList.remove('is-hidden');
   librarySectionRef.classList.add('is-hidden');
@@ -261,6 +262,7 @@ function activeHomePage(e) {
 //создаем функцию activeLibraryPage которая показывает домашнюю страницу и прячет остальные
 function activeLibraryPage(e) {
   e.preventDefault();
+  clearInput();
   toggleActiveLink(libraryRef);
   librarySectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');

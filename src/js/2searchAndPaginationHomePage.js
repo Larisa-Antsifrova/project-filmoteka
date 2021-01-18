@@ -76,12 +76,12 @@ function paginationNavigation(e) {
 // функция очистки инпута и параграфа ошибки при фокусе
 function focusFunction() {
   clearError();
-  searchForm.elements.query.value = '';
+  clearInput();
   movieApi.resetPage();
 };
 //  функция дезактивации кнопки prevBtn если номер страницы 1
 function disabledPrevBtn() {
-   if (movieApi.pageNumber === 1) {
+   if (movieApi.pageNumber < 6) {
       prevBtn.setAttribute('disabled', '');
    } else {
      prevBtn.removeAttribute('disabled');
@@ -101,20 +101,26 @@ function getLastPage() {
   clearHomePage();
   toggleRenderPage();
 };
-
+// функция очистки инпута и запроса
+function clearInput() {
+  searchForm.elements.query.value = '';
+  movieApi.searchQuery = '';
+  inputVaue = '';
+};
+// функция реагирования на некорректный запрос
 function notFound() {
   errorArea.style.visibility = "visible";
   const timeOfVisibleError = setTimeout(clearError, 2000);
-  searchForm.elements.query.value = '';
-  movieApi.searchQuery = '';
+  clearInput();
   movieApi.resetPage();
   disabledPrevBtn();
   return renderPopularMoviesList();
-
 };
+// функция сокрытия строки ошибки
 function clearError() {
   errorArea.style.visibility = "hidden";
 };
+// функция очистки стартовой страницы
 function clearHomePage() {
   homePageRef.innerHTML = '';
 };
@@ -162,6 +168,7 @@ function createPaginationMarkup(resp) {
 function renderPageOnNumBtn(evt) {
   movieApi.pageNumber = evt.target.textContent;
   deactivationPaginationBtn(evt);
+  disabledPrevBtn();
   clearHomePage();
   toggleRenderPage();
 };
