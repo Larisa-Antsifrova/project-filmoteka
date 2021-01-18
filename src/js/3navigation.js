@@ -14,6 +14,10 @@ const togleSwitchBtn = document.querySelector('[data-action-togle]');
 // получаем доступ к mobile-menu
 const homeMobileRef = document.querySelector('.home__link-mobile');
 const libraryMobileRef = document.querySelector('.library__link-mobile');
+// получаем доступ к details About и кнопке Read More
+const readMoreBtn = document.getElementById('read__more');
+const aboutContent = document.querySelector('.about__content');
+const ditailsDescription = document.querySelector('#details__about');
 
 // создаем глобальную переменную selectFilm
 let selectFilm = {};
