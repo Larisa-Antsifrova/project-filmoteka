@@ -30,10 +30,15 @@ $stillBoxShadow: 0px 10px 34px -10px rgba(0, 0, 0, 0.74);
 $hoverBoxShadow: 0px 10px 34px -10px rgba(0, 0, 0, 0.92);
 
 // Переменная для градиента
-$titleBackgroundGradient: linear-gradient(
+$titleBackgroundGradientLT: linear-gradient(
   360deg,
-  rgba(0, 0, 0, 1) 0%,
-  rgba(0, 0, 0, 0) 100%
+  rgba(26, 35, 126, 1) 0%,
+  rgba(26, 35, 126, 0) 100%
+);
+$titleBackgroundGradientDT: linear-gradient(
+  360deg,
+  rgba(66, 66, 66, 1) 0%,
+  rgba(66, 66, 66, 0) 100%
 );
 
 // Миксин для шрифтов
