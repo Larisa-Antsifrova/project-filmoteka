@@ -185,28 +185,61 @@ const {
 } = paginationRefs;
 
 // Variables common to some functions
-const totalPages = 20;
+const totalPages = 7;
 const displayNumber = 5;
 let lowRange = 1;
 let upRange = totalPages > displayNumber ? lowRange + displayNumber - 1 : totalPages;
-
+let currentActivePage = null;
+console.log('Global currentActivePage', currentActivePage);
 console.log('Global', lowRange, upRange);
 
 // Event Listeners
 paginationPageItemsContainerRef.addEventListener('click', e => {
   movieApi.pageNumber = e.target.dataset.page;
+  console.log('Container Page Number: ', movieApi.pageNumber);
+  console.log('Container Target: ', e.target);
 });
 
 paginationToBeginningBtnRef.addEventListener('click', goToBeginning);
 
 paginationToEndBtnRef.addEventListener('click', goToEnd);
 
+paginationNextPageRef.addEventListener('click', e => {
+  console.log(' movieApi.pageNumber in Next Page', movieApi.pageNumber);
+  console.log('Nex Page listener', currentActivePage.dataset.page);
+
+  movieApi.pageNumber += 1;
+
+  if (movieApi.pageNumber === totalPages) {
+    paginationToEndBtnRef.classList.add('disabled');
+    paginationNextPageRef.classList.add('disabled');
+    movieApi.pageNumber = totalPages;
+  }
+
+  if (movieApi.pageNumber > upRange) {
+    console.log('You cannot see me');
+    lowRange = upRange + 1;
+    upRange = totalPages > displayNumber ? lowRange + displayNumber - 1 : totalPages;
+    console.log('low and up inside condition: ', lowRange, upRange);
+
+    clearPaginationPageItems();
+    renderPaginationPageItems();
+  }
+
+  const paginationPageItems = paginationPageItemsContainerRef.querySelectorAll('li');
+  const activeTarget = [...paginationPageItems].find(node => node.dataset.page == movieApi.pageNumber);
+  currentActivePage.classList.remove('active');
+  activeTarget.classList.add('active');
+  currentActivePage = activeTarget;
+  console.log('Nex Page listener', currentActivePage.dataset.page);
+});
+
 // Functions
 function createPaginationPageItemsMarkup() {
   let paginationPageItemsMarkup = '';
   for (let i = lowRange; i <= upRange; i++) {
     paginationPageItemsMarkup += `<li class="waves-effect" data-page ='${i}'>
-              <a href="#!" class="paginator-page-item" >${i}</a>
+              <a href="#!" class="paginator-page-item" data-page ='${i}'>${i}</a>
             </li>`;
   }
   return paginationPageItemsMarkup;
@@ -215,6 +248,27 @@ function createPaginationPageItemsMarkup() {
 function renderPaginationPageItems() {
   const paginationPageItemsMarkup = createPaginationPageItemsMarkup();
   paginationPageItemsContainerRef.insertAdjacentHTML('afterbegin', paginationPageItemsMarkup);
+
+  if (movieApi.pageNumber === 1) {
+    paginationToBeginningBtnRef.classList.add('disabled');
+    paginationPreviousPageRef.classList.add('disabled');
+
+    paginationToEndBtnRef.classList.remove('disabled');
+    paginationNextPageRef.classList.remove('disabled');
+  }
+
+  if (movieApi.pageNumber === totalPages) {
+    paginationToEndBtnRef.classList.add('disabled');
+    paginationNextPageRef.classList.add('disabled');
+
+    paginationToBeginningBtnRef.classList.remove('disabled');
+    paginationPreviousPageRef.classList.remove('disabled');
+  }
+
+  const paginationPageItems = paginationPageItemsContainerRef.querySelectorAll('li');
+  const activeTarget = [...paginationPageItems].find(node => node.dataset.page == movieApi.pageNumber);
+  activeTarget.classList.add('active');
+  currentActivePage = activeTarget;
 }
 
 function clearPaginationPageItems() {
@@ -226,19 +280,24 @@ function goToBeginning() {
   movieApi.pageNumber = 1;
   lowRange = 1;
   upRange = totalPages > displayNumber ? lowRange + displayNumber - 1 : totalPages;
-  console.log('To beginning', lowRange, upRange);
+
   clearPaginationPageItems();
   renderPaginationPageItems();
 
   paginationToBeginningBtnRef.classList.add('disabled');
+  paginationPreviousPageRef.classList.add('disabled');
+
   paginationToEndBtnRef.classList.remove('disabled');
+  paginationNextPageRef.classList.remove('disabled');
 
   const paginationPageItems = paginationPageItemsContainerRef.querySelectorAll('li');
   const activeTarget = [...paginationPageItems].find(node => node.dataset.page == movieApi.pageNumber);
   activeTarget.classList.add('active');
+  currentActivePage = activeTarget;
 
-  console.log('currentPageRef in Beginning, ', paginationPageItems);
-  console.log('Current page Ref ', activeTarget);
+  // console.log('currentActivePage in Beginning, ', currentActivePage);
+  // console.log('currentPageRef in Beginning, ', paginationPageItems);
+  // console.log('Current page Ref ', activeTarget);
 }
 
 function goToEnd() {
@@ -246,18 +305,24 @@ function goToEnd() {
   movieApi.pageNumber = totalPages;
   upRange = totalPages;
   lowRange = totalPages > 5 ? upRange - displayNumber + 1 : 1;
-  console.log('To end', lowRange, upRange);
+
   clearPaginationPageItems();
   renderPaginationPageItems();
+
   paginationToEndBtnRef.classList.add('disabled');
+  paginationNextPageRef.classList.add('disabled');
+
   paginationToBeginningBtnRef.classList.remove('disabled');
+  paginationPreviousPageRef.classList.remove('disabled');
 
   const paginationPageItems = paginationPageItemsContainerRef.querySelectorAll('li');
   const activeTarget = [...paginationPageItems].find(node => node.dataset.page == movieApi.pageNumber);
   activeTarget.classList.add('active');
+  currentActivePage = activeTarget;
 
-  console.log('currentPageRef in End, ', paginationPageItems);
-  console.log('Current page Ref ', activeTarget);
+  // console.log('currentActivePage in End, ', currentActivePage);
+  // console.log('currentPageRef in End, ', paginationPageItems);
+  // console.log('Current page Ref ', activeTarget);
 }
 
 // Evoking funcitons
