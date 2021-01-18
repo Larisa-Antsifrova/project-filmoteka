@@ -166,3 +166,4 @@ function showDetails(selectFilm) {
 //     : (toggleWatchedBtn.innerHTML =
 //         '<i class="material-icons left">add</i><span>watched</span>');
 // }
+//Larisa canonized
