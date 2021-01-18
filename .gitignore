@@ -65,3 +65,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+#api key test
+src/js/00apiKey.js

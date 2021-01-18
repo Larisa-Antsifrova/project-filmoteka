@@ -253,3 +253,5 @@ function renderPopularMoviesList() {
     .then(fragment => renderGallery(fragment, homePageRef));
 }
 renderPopularMoviesList();
+
+console.log(testingVar);
