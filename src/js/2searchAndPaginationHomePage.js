@@ -167,14 +167,14 @@ function renderPageOnNumBtn(evt) {
 
 // PAGINATION with MATERIALIZE
 class PaginationApi {
-  constructor() {
+  constructor(totalPages) {
     this.paginationContainerRef = document.querySelector('.pagination-container');
     this.paginationPageItemsContainerRef = document.querySelector('.pagination-page-items-container');
     this.paginationToBeginningBtnRef = document.querySelector('.pagination-beginning');
     this.paginationPreviousPageRef = document.querySelector('.pagination-previous-page');
     this.paginationNextPageRef = document.querySelector('.pagination-next-page');
     this.paginationToEndBtnRef = document.querySelector('.pagination-end');
-    this.totalPages = 12;
+    this.totalPages = totalPages;
     this.displayNumber = 5;
     this.lowRange = 1;
     this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
@@ -183,6 +183,12 @@ class PaginationApi {
     this.isLastPaginationBatch = false;
     this.isFirstPaginationBatch = true;
     this.currentActivePage = null;
+    this.paginationPageItemsContainerRef.addEventListener('click', this.goToSelectedPage.bind(this));
+    this.paginationToEndBtnRef.addEventListener('click', this.goToEnd.bind(this));
+    this.paginationToBeginningBtnRef.addEventListener('click', this.goToBeginning.bind(this));
+    this.paginationNextPageRef.addEventListener('click', this.goToNextPage.bind(this));
+    this.paginationPreviousPageRef.addEventListener('click', this.goToPreviousPage.bind(this));
+    this.renderPaginationPageItems();
   }
   clearPaginationPageItems() {
     this.paginationPageItemsContainerRef.innerHTML = '';
@@ -412,23 +418,10 @@ class PaginationApi {
 }
 
 // Pagination instance creation
-const paginator = new PaginationApi();
-
-// Evoking funcitons
-paginator.renderPaginationPageItems();
+const paginator = new PaginationApi(20);
 
 // Event Listeners
 paginator.paginationContainerRef.addEventListener('click', e => {
   console.log('EVENT TARGET ON CONTAINER', e.target);
   console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
 });
-
-paginator.paginationPageItemsContainerRef.addEventListener('click', paginator.goToSelectedPage.bind(paginator));
-
-paginator.paginationToEndBtnRef.addEventListener('click', paginator.goToEnd.bind(paginator));
-
-paginator.paginationToBeginningBtnRef.addEventListener('click', paginator.goToBeginning.bind(paginator));
-
-paginator.paginationNextPageRef.addEventListener('click', paginator.goToNextPage.bind(paginator));
-
-paginator.paginationPreviousPageRef.addEventListener('click', paginator.goToPreviousPage.bind(paginator));
