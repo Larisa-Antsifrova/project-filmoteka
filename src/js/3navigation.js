@@ -279,7 +279,7 @@ function activeHomePage(e) {
   e.preventDefault();
   movieApi.resetPage();
   clearInput();
-  renderFilms = movieApi.fetchPopularMoviesList();
+  renderFilms = movieApi.fetchPopularFilmsList();
   renderPopularMoviesList();
   toggleActiveLink(homeRef);
 

@@ -1,169 +1,81 @@
-const searchForm = document.querySelector('.search__form');
-const errorArea = document.querySelector('.error__area');
-const paginationBar = document.querySelector('.pagination');
-const prevBtn = document.querySelector('#previous__page');
-const firstPage = document.querySelector('.first__page');
-const delimiter = document.querySelector('.delimiter');
-const totalPage = document.querySelector('.total__page');
-const nextBtn = document.querySelector('#next__page');
-const lastPage = document.querySelector('.total__page');
-
-const paginationBtn = [...document.getElementsByClassName('spread__page')];
-
-// глобальная переменная inputVaue
-let inputVaue = '';
+// глобальная переменная inputValue
+let inputValue = '';
 
 // слушатели событий
 searchForm.addEventListener('click', onInputFocus);
 searchForm.addEventListener('submit', searchFilms);
-firstPage.addEventListener('click', getFirstPage);
-delimiter.addEventListener('click', renderPageOnNumBtn);
-prevBtn.addEventListener('click', paginationNavigation);
-nextBtn.addEventListener('click', paginationNavigation);
-lastPage.addEventListener('click', getLastPage);
 
 // функции
+// функция выбора отображения страницы в зависимости от наличия текстa в инпуте
+function toggleRenderPage() {
+  if (!inputValue.length) {
+    renderPopularMoviesList();
+    renderFilms = movieApi.fetchPopularFilmsList();
+  } else {
+    renderSearchedFilms(inputValue);
+    renderFilms = movieApi.fetchSearchFilmsList(inputValue);
+  }
+}
+
 // функция-слушатель инпута и отображения страницы согласно запросу
 function searchFilms(e) {
   e.preventDefault();
-  disabledPrevBtn();
-  inputVaue = e.target.elements.query.value;
+  inputValue = e.target.elements.query.value.trim();
   toggleRenderPage();
 }
-// функция рендера страницы запроса
-function fetchFilms(pageNumber, inputVaue) {
-  let query = '';
-  if (inputVaue.length > 0 && inputVaue.trim() !== '') {
-    query = inputVaue.trim();
-  } else {
-    return;
-  }
 
+// функция рендера страницы запроса
+function renderSearchedFilms(inputValue) {
   movieApi
-    .fetchSearchFilmsList(query)
+    .fetchSearchFilmsList(inputValue)
     .then(createGallery)
     .then(fragment => renderGallery(fragment, homePageRef));
 }
-// функция отображения страниц зарпосов
-function paginationNavigation(e) {
-  const activeBtn = e.currentTarget.id;
-  if (activeBtn === 'previous__page') {
-    movieApi.decrementPage();
-    disabledPrevBtn();
-    clearHomePage();
-    toggleRenderPage();
-  }
 
-  if (activeBtn === 'next__page') {
-    movieApi.incrementPage();
-    if (movieApi.pageNumber > 1) {
-      prevBtn.removeAttribute('disabled');
-    }
-    clearHomePage();
-    toggleRenderPage();
-  }
-}
-// функция выбора отображения страницы в зависимости от наличия текстa в инпуте
-function toggleRenderPage() {
-  if (inputVaue.length === 0) {
-    renderPopularMoviesList();
-    renderFilms = movieApi.fetchPopularMoviesList();
-  } else {
-    fetchFilms(movieApi.pageNumber, inputVaue);
-    renderFilms = movieApi.fetchSearchFilmsList(inputVaue);
-  }
-}
 // функция очистки инпута и параграфа ошибки при фокусе
 function onInputFocus() {
   clearError();
   clearInput();
   movieApi.resetPage();
 }
-//  функция дезактивации кнопки prevBtn если номер страницы 1
-function disabledPrevBtn() {
-  if (movieApi.pageNumber < 6) {
-    prevBtn.setAttribute('disabled', '');
-  } else {
-    prevBtn.removeAttribute('disabled');
-  }
-}
-// функция перехода на первую страницу
-function getFirstPage() {
-  movieApi.pageNumber = 1;
-  disabledPrevBtn();
-  clearHomePage();
-  toggleRenderPage();
-}
-// функция перехода на последнюю страницу
-function getLastPage() {
-  movieApi.pageNumber = +movieApi.totalPages;
-  disabledPrevBtn();
-  clearHomePage();
-  toggleRenderPage();
-}
+
 // функция очистки инпута и запроса
 function clearInput() {
   searchForm.elements.query.value = '';
   movieApi.searchQuery = '';
-  inputVaue = '';
+  inputValue = '';
 }
+
 // функция реагирования на некорректный запрос
 function notFound() {
   errorArea.style.visibility = 'visible';
+
   const timeOfVisibleError = setTimeout(clearError, 2000);
+
   clearInput();
   movieApi.resetPage();
-  disabledPrevBtn();
+
   return renderPopularMoviesList();
 }
+
 // функция сокрытия строки ошибки
 function clearError() {
   errorArea.style.visibility = 'hidden';
 }
+
 // функция очистки стартовой страницы
 function clearHomePage() {
   homePageRef.innerHTML = '';
 }
-// функция c кнопки "next" в ответ на рендер
-function deactivationBtnNext(params) {
-  if (params.results.length < movieApi.perPage || params.total_pages < 5) {
-    nextBtn.setAttribute('disabled', '');
-  } else {
-    nextBtn.removeAttribute('disabled');
-  }
-}
-// функция дезактивации кнопок пагинации в ответ на рендер
-function deactivationPaginationBtn(params) {
-  if (
-    params.total_pages < 5 ||
-    params.total_pages === movieApi.pageNumber ||
-    movieApi.pageNumber >= movieApi.totalPages - 4
-  ) {
-    paginationBtn.map(e => {
-      if (e.textContent > params.total_pages) {
-        e.setAttribute('disabled', '');
-      } else {
-        e.removeAttribute('disabled');
-      }
-    });
-  } else {
-    paginationBtn.map(e => e.removeAttribute('disabled'));
-  }
-}
-// функция рендера содержимого группы кнопок пагинации
-function createPaginationMarkup(resp) {
-  paginationBtn.map(e => {
-    e.textContent = resp.page++;
-  });
-}
+
 // функция отзыва кнопок и рендера страницы по номеру кнопки
-function renderPageOnNumBtn(evt) {
-  movieApi.pageNumber = +evt.target.textContent;
-  deactivationPaginationBtn(evt);
-  disabledPrevBtn();
-  clearHomePage();
-  toggleRenderPage();
-}
+// function renderPageOnNumBtn(evt) {
+//   movieApi.pageNumber = +evt.target.textContent;
+//   deactivationPaginationBtn(evt);
+//   disabledPrevBtn();
+//   clearHomePage();
+//   toggleRenderPage();
+// }
 
 // PAGINATION with MATERIALIZE
 class PaginationApi {
@@ -425,19 +337,19 @@ class PaginationApi {
       console.log('YOU MISSED THE PAGINATION BUTTONS');
       return;
     }
-    toggleRenderPage();
+    // toggleRenderPage();
 
-    // movieApi
-    //   .fetchPopularMoviesList()
-    //   .then(createGallery)
-    //   .then(fragment => {
-    //     renderGallery(fragment, homePageRef);
+    movieApi
+      .fetchPopularFilmsList()
+      .then(createGallery)
+      .then(fragment => {
+        renderGallery(fragment, homePageRef);
 
-    //     console.log('TOTAL PAGES INSIDE FENTCH: ', movieApi.totalPages, movieApi.pageNumber);
-    //   });
+        console.log('TOTAL PAGES INSIDE FENTCH: ', movieApi.totalPages, movieApi.pageNumber);
+      });
 
-    // console.log('EVENT TARGET ON CONTAINER', e.target);
-    // console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
+    console.log('EVENT TARGET ON CONTAINER', e.target);
+    console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
   }
 }
 

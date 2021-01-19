@@ -1,131 +1,7 @@
 console.log('1');
-
-// Объект с данными и методами для работы с The MovieDB.
-const movieApi = {
-  apiKey: API_KEY,
-  baseUrl: 'https://api.themoviedb.org/3/',
-  searchQuery: '',
-  perPage: 20,
-  totalPages: 0,
-  pageNumber: 1,
-  images: {
-    baseImageUrl: 'https://image.tmdb.org/t/p/',
-    defaultBackdropImg: '',
-    defaultPosterImg: '',
-    currentSizes: {
-      backdropSize: '',
-      posterSize: '',
-    },
-    backdropSizes: {
-      mobile: 'w780',
-      tablet: 'w780',
-      desktop: 'w780',
-    },
-    posterSizes: {
-      mobile: 'w342',
-      tablet: 'w500',
-      desktop: 'w780',
-    },
-  },
-
-  incrementPage() {
-    this.pageNumber += 1;
-  },
-  decrementPage() {
-    this.pageNumber -= 1;
-  },
-  resetPage() {
-    this.pageNumber = 1;
-  },
-  get imageBackdropSize() {
-    return this.images.currentSizes.backdropSize;
-  },
-  get imagePosterSize() {
-    return this.images.currentSizes.posterSize;
-  },
-  calculateBackdropImgSize() {
-    if (window.visualViewport.width >= 1024) {
-      this.images.currentSizes.backdropSize = this.images.backdropSizes.desktop;
-      this.images.defaultBackdropImg = '../images/default/backdrop-desktop.jpg';
-      return;
-    }
-    if (window.visualViewport.width >= 768 && window.visualViewport.width < 1024) {
-      this.images.currentSizes.backdropSize = this.images.backdropSizes.tablet;
-      this.images.defaultBackdropImg = '../images/default/backdrop-tablet.jpg';
-      return;
-    }
-    if (window.visualViewport.width < 768) {
-      this.images.currentSizes.backdropSize = this.images.backdropSizes.mobile;
-      this.images.defaultBackdropImg = '../images/default/backdrop-mobile.jpg';
-      return;
-    }
-  },
-  calculatePosterImgSize() {
-    if (window.visualViewport.width >= 1024) {
-      this.images.currentSizes.posterSize = this.images.posterSizes.desktop;
-      this.images.defaultPosterImg = '../images/default/poster-desktop.jpg';
-    }
-    if (window.visualViewport.width >= 768 && window.visualViewport.width < 1024) {
-      this.images.currentSizes.posterSize = this.images.posterSizes.tablet;
-      this.images.defaultPosterImg = '../images/default/poster-tablet.jpg';
-    }
-    if (window.visualViewport.width < 768) {
-      this.images.currentSizes.posterSize = this.images.posterSizes.mobile;
-      this.images.defaultPosterImg = '../images/default/poster-mobile.jpg';
-    }
-  },
-  fetchPopularMoviesList() {
-    return fetch(`${this.baseUrl}movie/popular?api_key=${this.apiKey}&language=en-US&page=${this.pageNumber}`)
-      .then(response => response.json())
-      .then(resp => {
-        createPaginationMarkup(resp);
-        // lastPage.style.visibility = 'hidden';
-        deactivationBtnNext(resp);
-        deactivationPaginationBtn(resp);
-        this.totalPages = resp.total_pages;
-
-        return resp;
-      })
-      .then(({ results }) => results);
-  },
-  fetchSearchFilmsList(query) {
-    spinner.show();
-    this.searchQuery = query;
-    return fetch(
-      `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
-    )
-      .then(res => res.json())
-      .then(resp => {
-        this.totalPages = resp.total_pages;
-        if (resp.total_pages > 1) {
-          createPaginationMarkup(resp);
-          lastPage.style.visibility = 'visible';
-          deactivationBtnNext(resp);
-          deactivationPaginationBtn(resp);
-        }
-        return resp;
-      })
-      .then(({ results }) => {
-        // тут прописана логика вывода ошибки
-        if (results.length === 0) {
-          notFound();
-        }
-        return results;
-      })
-      .finally(() => {
-        spinner.hide();
-      });
-  },
-  fetchGenres() {
-    return fetch(`${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`)
-      .then(response => response.json())
-      .then(data => data.genres);
-  },
-};
-
 // Глобальные переменные которые требуются по инструкции
-const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
-let renderFilms = movieApi.fetchPopularMoviesList(); // содержит массив с объектами фильмов
+const genres = movieApi.fetchGenresList(); // содержит промис с массивом объектов жанров
+let renderFilms = movieApi.fetchPopularFilmsList(); // содержит массив с объектами фильмов
 
 // Объект спиннера и его методы
 const spinner = {
@@ -147,12 +23,6 @@ movieApi.calculatePosterImgSize();
 
 // Вызов функции, чтобы сразу спрятать спиннер
 spinner.hide();
-
-// Доступы к ДОМ-элементам и их деструктуризация
-const refs = {
-  homePageRef: document.querySelector('[data-home-gallery]'),
-};
-const { homePageRef } = refs;
 
 // Функции
 // Функция, которая рендерит (вставляет в DOM) всю страницу галереи. Принимает фрагмент и ссылку, куда надо вставить фрагмент.
@@ -227,19 +97,17 @@ function createCardFunc(movie) {
   return galleryItemCard;
 }
 
-// Вызов функций, которые фетчат популярные фильмы, создают фразмент с карточками галереи для каждого фильма и рендерят весь фрагмент в DOM
-
 // Alex add - вывел фетч в функцию, во избежание дублирования кода т.к. она нужна для рендера страницы при выводе ошибки (стр 65)
 function renderPopularMoviesList() {
   movieApi
-    .fetchPopularMoviesList()
+    .fetchPopularFilmsList()
     .then(createGallery)
     .then(fragment => renderGallery(fragment, homePageRef));
 }
 
 // Самый первый фетч по популярным и инизиализация пагинатора для результата
 movieApi
-  .fetchPopularMoviesList()
+  .fetchPopularFilmsList()
   .then(createGallery)
   .then(fragment => {
     renderGallery(fragment, homePageRef);
