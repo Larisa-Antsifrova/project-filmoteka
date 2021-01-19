@@ -180,10 +180,14 @@ function showDetails(selectFilm) {
 
   if (selectFilm instanceof Promise) {
     selectFilm.then(el => {
-      img.setAttribute(
-        'src',
-        `${movieApi.images.baseImageUrl}${movieApi.images.currentSizes.posterSize}${el.poster_path}`,
-      );
+      const imgPath = el.poster_path
+        ? movieApi.images.baseImageUrl +
+          movieApi.imagePosterSize +
+          el.poster_path
+        : movieApi.images.defaultPosterImg;
+
+      img.setAttribute('src', imgPath);
+
       title.textContent = el.title;
       vote.textContent = `${el.vote_average} / ${el.vote_count}`;
       popularity.textContent = el.popularity;
@@ -209,10 +213,13 @@ function showDetails(selectFilm) {
       });
     });
   } else {
-    img.setAttribute(
-      'src',
-      `${movieApi.images.baseImageUrl}${movieApi.images.currentSizes.posterSize}${selectFilm.poster_path}`,
-    );
+    const imgPath = selectFilm.poster_path
+      ? movieApi.images.baseImageUrl +
+        movieApi.imagePosterSize +
+        selectFilm.poster_path
+      : movieApi.images.defaultPosterImg;
+
+    img.setAttribute('src', imgPath);
     title.textContent = selectFilm.title;
     vote.textContent = `${selectFilm.vote_average} / ${selectFilm.vote_count}`;
     popularity.textContent = selectFilm.popularity;
