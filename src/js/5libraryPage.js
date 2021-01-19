@@ -61,7 +61,6 @@ function createLibraryCardFunc(movie) {
 // Вешается class message--shown на <p> с текстом, который до этого
 // был скрыт с помощью class message--hidden'
 function drawFilmList(key, paneId) {
-  console.log(key, paneId);
   const paneRef = getTabPaneById(paneId);
   const messageRef = paneRef.querySelector('.message');
   const listRef = paneRef.querySelector('.library-page-gallery');
@@ -71,7 +70,6 @@ function drawFilmList(key, paneId) {
   const parsedFilms = getFilmListFromLocalStorage(key);
 
   if (parsedFilms === null || parsedFilms.length === 0) {
-    console.log('showing message');
     messageRef.classList.remove('message--hidden');
     messageRef.classList.add('message--shown');
     return;
@@ -79,7 +77,7 @@ function drawFilmList(key, paneId) {
 
   messageRef.classList.add('message--hidden');
   messageRef.classList.remove('message--shown');
-  console.log('Drawing films');
+
   const filmsList = createFilmListFragment(parsedFilms);
   listRef.appendChild(filmsList);
 }
