@@ -5,9 +5,9 @@ const librarySectionRef = document.querySelector('[data-library-section]');
 const detailisSectionRef = document.querySelector('[data-detailis-section]');
 const toggleQueueBtn = document.querySelector('[data-toggle-queue]');
 const toggleWatchedBtn = document.querySelector('[data-toggle-watched]');
+const favoriteBtn = document.querySelector('[data-toggle-favorite]');
 const watchedBtn = document.querySelector('[data-action-watched]');
 const queueBtn = document.querySelector('[data-action-queue]');
-const favoriteBtn = document.querySelector('[data-toggle-favorite]');
 const logoRefs = document.querySelector('.logo__js');
 const navigationRefs = document.querySelector('.navigation');
 const togleSwitchBtn = document.querySelector('[data-action-togle]');
@@ -18,6 +18,30 @@ const libraryMobileRef = document.querySelector('.library__link-mobile');
 const readMoreBtn = document.getElementById('read__more');
 const aboutContent = document.querySelector('.about__content');
 const ditailsDescription = document.querySelector('#details__about');
+// переменные для измнения иконок и текста в кнопках в detailsPage
+const favoritePreTextIconRef = document.querySelector(
+  '[data-icon-favorite="addPlus"]',
+);
+const favoriteSpanTextRef = document.querySelector(
+  '[data-favorite-text="textButton"]',
+);
+
+const queuePreTextIconRef = document.querySelector(
+  '[data-icon-queue="addPlus"]',
+);
+const watchedSpanTextRef = document.querySelector(
+  '[data-watched-text="textButton"]',
+);
+const watchedPreTextIconRef = document.querySelector(
+  '[data-icon-watched="addPlus"]',
+);
+
+const queueSpanTextRef = document.querySelector(
+  '[data-queue-text="textButton"]',
+);
+
+// получаем доступ к кнопке НАЗАД
+const returnBtn = detailisSectionRef.querySelector('#return__btn');
 
 // создаем глобальную переменную selectFilm
 let selectFilm = {};
@@ -248,6 +272,7 @@ libraryRef.addEventListener('click', activeLibraryPage);
 togleSwitchBtn.addEventListener('click', togleSwitchTheme.switchTheme);
 homeMobileRef.addEventListener('click', activeHomePage);
 libraryMobileRef.addEventListener('click', activeLibraryPage);
+returnBtn.addEventListener('click', isReturnBtn);
 
 //создаем функцию activeHomePage которая показывает домашнюю страницу и прячет остальные
 function activeHomePage(e) {
@@ -270,7 +295,7 @@ function activeLibraryPage(e) {
   librarySectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');
   detailisSectionRef.classList.add('is-hidden');
-  // drawQueueFilmList();
+  queueBtn.focus();
 }
 
 // создаем функцию activeDetailsPage которая показывает страницу детальной отрисовки фильма
@@ -332,5 +357,18 @@ function backToTop() {
   if (window.pageYOffset > 0) {
     window.scrollBy(0, -80);
     setTimeout(backToTop, 20);
+  }
+}
+
+// функция возврата на предыдущую страницу
+function isReturnBtn() {
+  if (libraryRef.classList.contains('active')) {
+    librarySectionRef.classList.remove('is-hidden');
+    homePageSectionRef.classList.add('is-hidden');
+    detailisSectionRef.classList.add('is-hidden');
+  } else {
+    homePageSectionRef.classList.remove('is-hidden');
+    librarySectionRef.classList.add('is-hidden');
+    detailisSectionRef.classList.add('is-hidden');
   }
 }
