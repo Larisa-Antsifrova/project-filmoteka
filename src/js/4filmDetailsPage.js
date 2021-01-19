@@ -4,17 +4,27 @@ function toggleToQueue() {
   if (localStorageData) {
     filmsQueueArr = [...JSON.parse(localStorageData)];
   }
-
-  selectFilm.then(obj => {
-    let entryIndex = filmsQueueArr.findIndex(el => el.id === obj.id);
+  if (selectFilm instanceof Promise) {
+    selectFilm.then(obj => {
+      let entryIndex = filmsQueueArr.findIndex(el => el.id === obj.id);
+      if (entryIndex !== -1) {
+        filmsQueueArr.splice(entryIndex, 1);
+      } else {
+        filmsQueueArr.push(obj);
+      }
+      localStorage.setItem('filmsQueue', JSON.stringify(filmsQueueArr));
+      monitorButtonStatusText();
+    });
+  } else {
+    let entryIndex = filmsQueueArr.findIndex(el => el.id === selectFilm.id);
     if (entryIndex !== -1) {
       filmsQueueArr.splice(entryIndex, 1);
     } else {
-      filmsQueueArr.push(obj);
+      filmsQueueArr.push(selectFilm);
     }
     localStorage.setItem('filmsQueue', JSON.stringify(filmsQueueArr));
     monitorButtonStatusText();
-  });
+  }
 }
 
 function toggleToWatched() {
@@ -23,16 +33,27 @@ function toggleToWatched() {
   if (localStorageData) {
     filmsWatchedArr = [...JSON.parse(localStorageData)];
   }
-  selectFilm.then(obj => {
-    let entryIndex = filmsWatchedArr.findIndex(el => el.id === obj.id);
+  if (selectFilm instanceof Promise) {
+    selectFilm.then(obj => {
+      let entryIndex = filmsWatchedArr.findIndex(el => el.id === obj.id);
+      if (entryIndex !== -1) {
+        filmsWatchedArr.splice(entryIndex, 1);
+      } else {
+        filmsWatchedArr.push(obj);
+      }
+      localStorage.setItem('filmsWatched', JSON.stringify(filmsWatchedArr));
+      monitorButtonStatusText();
+    });
+  } else {
+    let entryIndex = filmsWatchedArr.findIndex(el => el.id === selectFilm.id);
     if (entryIndex !== -1) {
       filmsWatchedArr.splice(entryIndex, 1);
     } else {
-      filmsWatchedArr.push(obj);
+      filmsWatchedArr.push(selectFilm);
     }
     localStorage.setItem('filmsWatched', JSON.stringify(filmsWatchedArr));
     monitorButtonStatusText();
-  });
+  }
 }
 
 function toggleToFavorite() {
@@ -41,16 +62,27 @@ function toggleToFavorite() {
   if (localStorageData) {
     filmsFavoriteArr = [...JSON.parse(localStorageData)];
   }
-  selectFilm.then(obj => {
-    let entryIndex = filmsFavoriteArr.findIndex(el => el.id === obj.id);
+  if (selectFilm instanceof Promise) {
+    selectFilm.then(obj => {
+      let entryIndex = filmsFavoriteArr.findIndex(el => el.id === obj.id);
+      if (entryIndex !== -1) {
+        filmsFavoriteArr.splice(entryIndex, 1);
+      } else {
+        filmsFavoriteArr.push(obj);
+      }
+      localStorage.setItem('filmsFavorite', JSON.stringify(filmsFavoriteArr));
+      monitorButtonStatusText();
+    });
+  } else {
+    let entryIndex = filmsFavoriteArr.findIndex(el => el.id === selectFilm.id);
     if (entryIndex !== -1) {
       filmsFavoriteArr.splice(entryIndex, 1);
     } else {
-      filmsFavoriteArr.push(obj);
+      filmsFavoriteArr.push(selectFilm);
     }
     localStorage.setItem('filmsFavorite', JSON.stringify(filmsFavoriteArr));
     monitorButtonStatusText();
-  });
+  }
 }
 
 function monitorButtonStatusText() {
@@ -59,8 +91,20 @@ function monitorButtonStatusText() {
   if (localStorageData) {
     filmsQueueArr = [...JSON.parse(localStorageData)];
   }
-  selectFilm.then(obj => {
-    let entryIndex = filmsQueueArr.findIndex(el => el.id === obj.id);
+
+  if (selectFilm instanceof Promise) {
+    selectFilm.then(obj => {
+      let entryIndex = filmsQueueArr.findIndex(el => el.id === obj.id);
+      if (entryIndex !== -1) {
+        queuePreTextIconRef.textContent = 'delete';
+        queueSpanTextRef.textContent = 'from queue';
+      } else {
+        queueSpanTextRef.textContent = 'to queue';
+        queuePreTextIconRef.textContent = 'add';
+      }
+    });
+  } else {
+    let entryIndex = filmsQueueArr.findIndex(el => el.id === selectFilm.id);
     if (entryIndex !== -1) {
       queuePreTextIconRef.textContent = 'delete';
       queueSpanTextRef.textContent = 'from queue';
@@ -68,15 +112,26 @@ function monitorButtonStatusText() {
       queueSpanTextRef.textContent = 'to queue';
       queuePreTextIconRef.textContent = 'add';
     }
-  });
+  }
 
   let filmsWatchedArr = [];
   let localStorageDataW = localStorage.getItem('filmsWatched');
   if (localStorageDataW) {
     filmsWatchedArr = [...JSON.parse(localStorageDataW)];
   }
-  selectFilm.then(obj => {
-    let entryIndex = filmsWatchedArr.findIndex(el => el.id === obj.id);
+  if (selectFilm instanceof Promise) {
+    selectFilm.then(obj => {
+      let entryIndex = filmsWatchedArr.findIndex(el => el.id === obj.id);
+      if (entryIndex !== -1) {
+        watchedPreTextIconRef.textContent = 'delete';
+        watchedSpanTextRef.textContent = 'from watched';
+      } else {
+        watchedSpanTextRef.textContent = 'to watched';
+        watchedPreTextIconRef.textContent = 'add';
+      }
+    });
+  } else {
+    let entryIndex = filmsWatchedArr.findIndex(el => el.id === selectFilm.id);
     if (entryIndex !== -1) {
       watchedPreTextIconRef.textContent = 'delete';
       watchedSpanTextRef.textContent = 'from watched';
@@ -84,15 +139,26 @@ function monitorButtonStatusText() {
       watchedSpanTextRef.textContent = 'to watched';
       watchedPreTextIconRef.textContent = 'add';
     }
-  });
+  }
 
   let filmsFavoriteArr = [];
   let localStorageDataF = localStorage.getItem('filmsFavorite');
   if (localStorageDataF) {
     filmsFavoriteArr = [...JSON.parse(localStorageDataF)];
   }
-  selectFilm.then(obj => {
-    let entryIndex = filmsFavoriteArr.findIndex(el => el.id === obj.id);
+  if (selectFilm instanceof Promise) {
+    selectFilm.then(obj => {
+      let entryIndex = filmsFavoriteArr.findIndex(el => el.id === obj.id);
+      if (entryIndex !== -1) {
+        favoritePreTextIconRef.textContent = 'delete';
+        favoriteSpanTextRef.textContent = 'from favorite';
+      } else {
+        favoriteSpanTextRef.textContent = 'to favorite';
+        favoritePreTextIconRef.textContent = 'add';
+      }
+    });
+  } else {
+    let entryIndex = filmsFavoriteArr.findIndex(el => el.id === selectFilm.id);
     if (entryIndex !== -1) {
       favoritePreTextIconRef.textContent = 'delete';
       favoriteSpanTextRef.textContent = 'from favorite';
@@ -100,7 +166,7 @@ function monitorButtonStatusText() {
       favoriteSpanTextRef.textContent = 'to favorite';
       favoritePreTextIconRef.textContent = 'add';
     }
-  });
+  }
 }
 
 function showDetails(selectFilm) {
@@ -112,24 +178,48 @@ function showDetails(selectFilm) {
   const detailsAbout = document.querySelector('#details__about');
   const selectGenres = document.querySelector('#details__genre');
 
-  selectFilm.then(el => {
+  if (selectFilm instanceof Promise) {
+    selectFilm.then(el => {
+      img.setAttribute(
+        'src',
+        `${movieApi.images.baseImageUrl}${movieApi.images.currentSizes.posterSize}${el.poster_path}`,
+      );
+      title.textContent = el.title;
+      vote.textContent = `${el.vote_average} / ${el.vote_count}`;
+      popularity.textContent = el.popularity;
+      originalTitle.textContent = el.original_title;
+      detailsAbout.textContent = el.overview;
+
+      // условие для скрытия и показа кнопки Read More по длине текста
+      if (ditailsDescription.textContent.length < 150) {
+        readMoreBtn.classList.add('is__hidden-btn');
+        aboutContent.classList.remove('hidden__content');
+      }
+
+      let genresIdArr = el.genre_ids;
+
+      genres.then(genresArr => {
+        let thisMovieGenres = genresArr.reduce((acc, genre) => {
+          if (genresIdArr.includes(genre.id)) {
+            acc.push(genre.name);
+          }
+          return acc;
+        }, []);
+        selectGenres.textContent = thisMovieGenres.join(', ');
+      });
+    });
+  } else {
     img.setAttribute(
       'src',
-      `${movieApi.images.baseImageUrl}${movieApi.images.currentSizes.posterSize}${el.poster_path}`,
+      `${movieApi.images.baseImageUrl}${movieApi.images.currentSizes.posterSize}${selectFilm.poster_path}`,
     );
-    title.textContent = el.title;
-    vote.textContent = `${el.vote_average} / ${el.vote_count}`;
-    popularity.textContent = el.popularity;
-    originalTitle.textContent = el.original_title;
-    detailsAbout.textContent = el.overview;
+    title.textContent = selectFilm.title;
+    vote.textContent = `${selectFilm.vote_average} / ${selectFilm.vote_count}`;
+    popularity.textContent = selectFilm.popularity;
+    originalTitle.textContent = selectFilm.original_title;
+    detailsAbout.textContent = selectFilm.overview;
 
-    // условие для скрытия и показа кнопки Read More по длине текста
-    if (ditailsDescription.textContent.length < 150) {
-      readMoreBtn.classList.add('is__hidden-btn');
-      aboutContent.classList.remove('hidden__content');
-    }
-
-    let genresIdArr = el.genre_ids;
+    let genresIdArr = selectFilm.genre_ids;
 
     genres.then(genresArr => {
       let thisMovieGenres = genresArr.reduce((acc, genre) => {
@@ -139,8 +229,15 @@ function showDetails(selectFilm) {
         return acc;
       }, []);
       selectGenres.textContent = thisMovieGenres.join(', ');
+
+      // условие для скрытия и показа кнопки Read More по длине текста
+      if (selectFilm.overview.length < 150) {
+        readMoreBtn.classList.add('is__hidden-btn');
+        aboutContent.classList.remove('hidden__content');
+      }
     });
-  });
+  }
+
   // показывает больше контента в About при клике на кнопку
   if (!document.querySelector('.hidden__content')) {
     readMoreBtn.classList.remove('is__hidden-btn');
