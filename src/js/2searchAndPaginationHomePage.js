@@ -271,7 +271,7 @@ class PaginationApi {
     this.currentPaginationBatch = 1;
     this.isFirstPaginationBatch = true;
 
-    movieApi.pageNumber = 1;
+    movieApi.resetPage();
 
     this.lowRange = 1;
     this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
@@ -314,7 +314,7 @@ class PaginationApi {
     this.enableToBeginningBtn();
     this.enablePreviousPageBtn();
 
-    movieApi.pageNumber += 1;
+    movieApi.incrementPage();
 
     if (movieApi.pageNumber > this.totalPages) {
       movieApi.pageNumber = this.totalPages;
@@ -358,10 +358,10 @@ class PaginationApi {
     this.enableToEndBtn();
     this.enableNextPageBtn();
 
-    movieApi.pageNumber -= 1;
+    movieApi.decrementPage();
 
     if (movieApi.pageNumber < 1) {
-      movieApi.pageNumber = 1;
+      movieApi.resetPage();
       return;
     }
 

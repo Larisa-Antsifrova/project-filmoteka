@@ -1,5 +1,9 @@
 console.log('1');
 
+// Глобальные переменные которые требуются по инструкции
+const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
+let renderFilms = movieApi.fetchPopularMoviesList(); // содержит массив с объектами фильмов
+
 // Объект с данными и методами для работы с The MovieDB.
 const movieApi = {
   apiKey: API_KEY,
@@ -29,64 +33,13 @@ const movieApi = {
   },
 
   incrementPage() {
-    this.pageNumber = +this.pageNumber + 5;
+    this.pageNumber += 1;
   },
   decrementPage() {
-    this.pageNumber -= 5;
+    this.pageNumber -= 1;
   },
   resetPage() {
     this.pageNumber = 1;
-  },
-  get query() {
-    return this.searchQuery;
-  },
-  set query(newSearchQuery) {
-    this.searchQuery = newSearchQuery;
-  },
-  fetchPopularMoviesList() {
-    return fetch(`${this.baseUrl}movie/popular?api_key=${this.apiKey}&language=en-US&page=${this.pageNumber}`)
-      .then(response => response.json())
-      .then(resp => {
-        createPaginationMarkup(resp);
-        // lastPage.style.visibility = 'hidden';
-        deactivationBtnNext(resp);
-        deactivationPaginationBtn(resp);
-        this.totalPages = resp.total_pages;
-
-        return resp;
-      })
-      .then(({ results }) => results);
-  },
-  fetchSearchFilmsList(query) {
-    showSpinner(spinerRef);
-    this.searchQuery = query;
-    return fetch(
-      `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
-    )
-      .then(res => res.json())
-      .then(resp => {
-        this.totalPages = resp.total_pages;
-        if (resp.total_pages > 1) {
-          createPaginationMarkup(resp);
-          lastPage.style.visibility = 'visible';
-          deactivationBtnNext(resp);
-          deactivationPaginationBtn(resp);
-        }
-        return resp;
-      })
-      .then(({ results }) => {
-        // тут прописана логика вывода ошибки
-        if (results.length === 0) {
-          notFound();
-        }
-        return results;
-      })
-      .finally(() => hideSpinner(spinerRef));
-  },
-  fetchGenres() {
-    return fetch(`${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`)
-      .then(response => response.json())
-      .then(data => data.genres);
   },
   get imageBackdropSize() {
     return this.images.currentSizes.backdropSize;
@@ -125,29 +78,81 @@ const movieApi = {
       this.images.defaultPosterImg = '../images/default/poster-mobile.jpg';
     }
   },
+  fetchPopularMoviesList() {
+    return fetch(`${this.baseUrl}movie/popular?api_key=${this.apiKey}&language=en-US&page=${this.pageNumber}`)
+      .then(response => response.json())
+      .then(resp => {
+        createPaginationMarkup(resp);
+        // lastPage.style.visibility = 'hidden';
+        deactivationBtnNext(resp);
+        deactivationPaginationBtn(resp);
+        this.totalPages = resp.total_pages;
+
+        return resp;
+      })
+      .then(({ results }) => results);
+  },
+  fetchSearchFilmsList(query) {
+    spinner.show();
+    this.searchQuery = query;
+    return fetch(
+      `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
+    )
+      .then(res => res.json())
+      .then(resp => {
+        this.totalPages = resp.total_pages;
+        if (resp.total_pages > 1) {
+          createPaginationMarkup(resp);
+          lastPage.style.visibility = 'visible';
+          deactivationBtnNext(resp);
+          deactivationPaginationBtn(resp);
+        }
+        return resp;
+      })
+      .then(({ results }) => {
+        // тут прописана логика вывода ошибки
+        if (results.length === 0) {
+          notFound();
+        }
+        return results;
+      })
+      .finally(() => {
+        spinner.hide();
+      });
+  },
+  fetchGenres() {
+    return fetch(`${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`)
+      .then(response => response.json())
+      .then(data => data.genres);
+  },
+};
+
+// Объект спиннера и его методы
+const spinner = {
+  spinnerRef: document.querySelector('[data-spinner]'),
+
+  show() {
+    console.log('SPINNER SHOW', this.spinnerRef);
+    this.spinnerRef.style.display = 'inline-block';
+  },
+  hide() {
+    console.log('SPINNER HIDE', this.spinnerRef);
+    this.spinnerRef.style.display = 'none';
+  },
 };
 
 // Вызов функций для высчета размеров изображений для карточек и постера
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();
 
-// Доступ к списку на домашней странице. В этот список будут рендерится популярные фильмы при загрузке страницы, и фильмы - результат поиска.
-const homePageRef = document.querySelector('[data-home-gallery]');
+// Вызов функции, чтобы сразу спрятать спиннер
+spinner.hide();
 
-// Access to spinner wraper
-const spinerRef = document.querySelector('[data-spiner]');
-// Funtions to hide or show spinner
-function showSpinner(spinner) {
-  spinner.style.display = 'inline-block';
-}
-function hideSpinner(spinner) {
-  spinner.style.display = 'none';
-}
-hideSpinner(spinerRef);
-// Глобальные переменные, которые требуются по инструкции
-let renderFilms = movieApi.fetchPopularMoviesList();
-const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
-let pageNumber = 1; // можно заменить свойством в АПИШКЕ
+// =============== ДОСТУПЫ К ДОМ-ЭЛЕМЕНТАМ И ИХ ДЕСТРУКТУРИЗАЦИЯ ===============
+const refs = {
+  homePageRef: document.querySelector('[data-home-gallery]'),
+};
+const { homePageRef } = refs;
 
 // Функции
 // Функция, которая рендерит (вставляет в DOM) всю страницу галереи. Принимает фрагмент и ссылку, куда надо вставить фрагмент.
