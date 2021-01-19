@@ -1,5 +1,3 @@
-'use strict';
-// Консолька для отслеживания, что JS файлы подключаются в верном порядке. Просто параноя уже по Gulp-у
 console.log('1');
 
 // Объект с данными и методами для работы с The MovieDB.
@@ -7,11 +5,9 @@ const movieApi = {
   apiKey: API_KEY,
   baseUrl: 'https://api.themoviedb.org/3/',
   searchQuery: '',
-  totalResults: 0,
   perPage: 20,
   totalPages: 0,
   pageNumber: 1,
-  isLastPage: false,
   images: {
     baseImageUrl: 'https://image.tmdb.org/t/p/',
     defaultBackdropImg: '',
