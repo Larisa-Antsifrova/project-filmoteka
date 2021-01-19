@@ -246,5 +246,7 @@ movieApi
   .then(createGallery)
   .then(fragment => {
     renderGallery(fragment, homePageRef);
-    const paginator = new PaginationApi(movieApi.totalPages);
+    console.log(paginator);
+    paginator = new PaginationApi(movieApi.totalPages);
+    console.log(paginator);
   });

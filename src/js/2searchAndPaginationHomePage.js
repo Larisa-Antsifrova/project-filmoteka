@@ -437,3 +437,5 @@ class PaginationApi {
     // console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
   }
 }
+
+let paginator = null;
