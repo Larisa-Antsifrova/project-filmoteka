@@ -167,7 +167,7 @@ function renderPageOnNumBtn(evt) {
 
 // PAGINATION with MATERIALIZE
 class PaginationApi {
-  constructor(totalPages) {
+  constructor(totalPages, displayNumber = 5) {
     this.paginationContainerRef = document.querySelector('.pagination-container');
     this.paginationPageItemsContainerRef = document.querySelector('.pagination-page-items-container');
     this.paginationToBeginningBtnRef = document.querySelector('.pagination-beginning');
@@ -175,7 +175,7 @@ class PaginationApi {
     this.paginationNextPageRef = document.querySelector('.pagination-next-page');
     this.paginationToEndBtnRef = document.querySelector('.pagination-end');
     this.totalPages = totalPages;
-    this.displayNumber = 5;
+    this.displayNumber = displayNumber;
     this.lowRange = 1;
     this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
     this.totalPaginationBatches = Math.ceil(this.totalPages / this.displayNumber);
@@ -422,6 +422,11 @@ const paginator = new PaginationApi(20);
 
 // Event Listeners
 paginator.paginationContainerRef.addEventListener('click', e => {
+  if (e.target.nodeName !== 'A' && e.target.nodeName !== 'I') {
+    console.log('YOU MISSED THE PAGINATION BUTTONS');
+    return;
+  }
+
   console.log('EVENT TARGET ON CONTAINER', e.target);
   console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
 });
