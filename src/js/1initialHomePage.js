@@ -1,9 +1,5 @@
 console.log('1');
 
-// Глобальные переменные которые требуются по инструкции
-const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
-let renderFilms = movieApi.fetchPopularMoviesList(); // содержит массив с объектами фильмов
-
 // Объект с данными и методами для работы с The MovieDB.
 const movieApi = {
   apiKey: API_KEY,
@@ -127,6 +123,10 @@ const movieApi = {
   },
 };
 
+// Глобальные переменные которые требуются по инструкции
+const genres = movieApi.fetchGenres(); // содержит промис с массивом объектов жанров
+let renderFilms = movieApi.fetchPopularMoviesList(); // содержит массив с объектами фильмов
+
 // Объект спиннера и его методы
 const spinner = {
   spinnerRef: document.querySelector('[data-spinner]'),
@@ -148,7 +148,7 @@ movieApi.calculatePosterImgSize();
 // Вызов функции, чтобы сразу спрятать спиннер
 spinner.hide();
 
-// =============== ДОСТУПЫ К ДОМ-ЭЛЕМЕНТАМ И ИХ ДЕСТРУКТУРИЗАЦИЯ ===============
+// Доступы к ДОМ-элементам и их деструктуризация
 const refs = {
   homePageRef: document.querySelector('[data-home-gallery]'),
 };
@@ -157,13 +157,12 @@ const { homePageRef } = refs;
 // Функции
 // Функция, которая рендерит (вставляет в DOM) всю страницу галереи. Принимает фрагмент и ссылку, куда надо вставить фрагмент.
 function renderGallery(fragment, place) {
+  clearHomePage();
   place.appendChild(fragment);
 }
 
 // Функция, которая создает фрагмент со всеми карточками галереи. Принимает массив объектов фильмов.
 function createGallery(movies) {
-  // Alex add - create HPage
-  clearHomePage();
   const galleryFragment = document.createDocumentFragment();
 
   movies.forEach(movie => {
@@ -221,9 +220,6 @@ function createCardFunc(movie) {
   galleryItemCard.appendChild(galleryItemImage);
   galleryItemCard.appendChild(galleryItemTitle);
 
-  // Добавление слушателя события, чтобы открыть страницу с деталями.
-  // Пока так по инструкции. Но потом стоит переделать на делегирование.
-  // Иначе у нас миллион слушателей будет.
   galleryItemCard.addEventListener('click', () => {
     activeDetailsPage(movieId, false);
   });
