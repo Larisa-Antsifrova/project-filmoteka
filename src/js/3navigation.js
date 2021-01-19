@@ -40,6 +40,9 @@ const queueSpanTextRef = document.querySelector(
   '[data-queue-text="textButton"]',
 );
 
+// получаем доступ к кнопке НАЗАД
+const returnBtn = detailisSectionRef.querySelector('#return__btn');
+
 // создаем глобальную переменную selectFilm
 let selectFilm = {};
 
@@ -269,6 +272,7 @@ libraryRef.addEventListener('click', activeLibraryPage);
 togleSwitchBtn.addEventListener('click', togleSwitchTheme.switchTheme);
 homeMobileRef.addEventListener('click', activeHomePage);
 libraryMobileRef.addEventListener('click', activeLibraryPage);
+returnBtn.addEventListener('click', isReturnBtn);
 
 //создаем функцию activeHomePage которая показывает домашнюю страницу и прячет остальные
 function activeHomePage(e) {
@@ -353,5 +357,18 @@ function backToTop() {
   if (window.pageYOffset > 0) {
     window.scrollBy(0, -80);
     setTimeout(backToTop, 20);
+  }
+}
+
+// функция возврата на предыдущую страницу
+function isReturnBtn() {
+  if (libraryRef.classList.contains('active')) {
+    librarySectionRef.classList.remove('is-hidden');
+    homePageSectionRef.classList.add('is-hidden');
+    detailisSectionRef.classList.add('is-hidden');
+  } else {
+    homePageSectionRef.classList.remove('is-hidden');
+    librarySectionRef.classList.add('is-hidden');
+    detailisSectionRef.classList.add('is-hidden');
   }
 }
