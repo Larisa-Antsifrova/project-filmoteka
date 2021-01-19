@@ -1,7 +1,6 @@
 'use strict';
 
-console.log('0');
-// Объект с данными и методами для работы с The MovieDB.
+// Объект с данными и методами для работы с The MovieDB
 const movieApi = {
   apiKey: API_KEY,
   baseUrl: 'https://api.themoviedb.org/3/',
