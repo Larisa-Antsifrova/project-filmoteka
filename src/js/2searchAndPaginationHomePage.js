@@ -264,7 +264,10 @@ class PaginationApi {
     this.currentActivePage = activeTarget;
   }
   goToBeginning() {
-    if ([...this.paginationToBeginningBtnRef.classList].includes('disabled')) {
+    // if ([...this.paginationToBeginningBtnRef.classList].includes('disabled')) {
+    //   return;
+    // }
+    if (this.paginationToBeginningBtnRef.classList.contains('disabled')) {
       return;
     }
 
@@ -288,7 +291,7 @@ class PaginationApi {
     this.assignCurrentActivePage();
   }
   goToEnd() {
-    if ([...this.paginationToEndBtnRef.classList].includes('disabled')) {
+    if (this.paginationToEndBtnRef.classList.contains('disabled')) {
       return;
     }
 
