@@ -48,9 +48,7 @@ const movieApi = {
     this.searchQuery = newSearchQuery;
   },
   fetchPopularMoviesList() {
-    return fetch(
-      `${this.baseUrl}movie/popular?api_key=${this.apiKey}&language=en-US&page=${this.pageNumber}`,
-    )
+    return fetch(`${this.baseUrl}movie/popular?api_key=${this.apiKey}&language=en-US&page=${this.pageNumber}`)
       .then(response => response.json())
       .then(resp => {
         createPaginationMarkup(resp);
@@ -58,8 +56,7 @@ const movieApi = {
         deactivationBtnNext(resp);
         deactivationPaginationBtn(resp);
         this.totalPages = resp.total_pages;
-        // console.log('TOTALPAGES', this.totalPages);
-        // console.log('RESPONSE', resp);
+
         return resp;
       })
       .then(({ results }) => results);
@@ -107,10 +104,7 @@ const movieApi = {
       this.images.defaultBackdropImg = '../images/default/backdrop-desktop.jpg';
       return;
     }
-    if (
-      window.visualViewport.width >= 768 &&
-      window.visualViewport.width < 1024
-    ) {
+    if (window.visualViewport.width >= 768 && window.visualViewport.width < 1024) {
       this.images.currentSizes.backdropSize = this.images.backdropSizes.tablet;
       this.images.defaultBackdropImg = '../images/default/backdrop-tablet.jpg';
       return;
@@ -126,10 +120,7 @@ const movieApi = {
       this.images.currentSizes.posterSize = this.images.posterSizes.desktop;
       this.images.defaultPosterImg = '../images/default/poster-desktop.jpg';
     }
-    if (
-      window.visualViewport.width >= 768 &&
-      window.visualViewport.width < 1024
-    ) {
+    if (window.visualViewport.width >= 768 && window.visualViewport.width < 1024) {
       this.images.currentSizes.posterSize = this.images.posterSizes.tablet;
       this.images.defaultPosterImg = '../images/default/poster-tablet.jpg';
     }
@@ -185,13 +176,9 @@ function createGallery(movies) {
 // Функция, которая создаёт одну карточку для фильма. Принимает один объект фильма.
 function createCardFunc(movie) {
   const imgPath = movie.backdrop_path
-    ? movieApi.images.baseImageUrl +
-      movieApi.imageBackdropSize +
-      movie.backdrop_path
+    ? movieApi.images.baseImageUrl + movieApi.imageBackdropSize + movie.backdrop_path
     : movieApi.images.defaultBackdropImg;
-  const filmYear = movie.release_date
-    ? `(${movie.release_date.slice(0, 4)})`
-    : '';
+  const filmYear = movie.release_date ? `(${movie.release_date.slice(0, 4)})` : '';
   const filmTitle = `${movie.title} ${filmYear}`;
   const movieId = movie.id;
   const movieRaiting = movie.vote_average;
@@ -237,7 +224,6 @@ function createCardFunc(movie) {
   // Пока так по инструкции. Но потом стоит переделать на делегирование.
   // Иначе у нас миллион слушателей будет.
   galleryItemCard.addEventListener('click', () => {
-    
     activeDetailsPage(movieId, false);
   });
 
@@ -253,4 +239,12 @@ function renderPopularMoviesList() {
     .then(createGallery)
     .then(fragment => renderGallery(fragment, homePageRef));
 }
-renderPopularMoviesList();
+
+// Самый первый фетч по популярным и инизиализация пагинатора для результата
+movieApi
+  .fetchPopularMoviesList()
+  .then(createGallery)
+  .then(fragment => {
+    renderGallery(fragment, homePageRef);
+    const paginator = new PaginationApi(movieApi.totalPages);
+  });

@@ -188,6 +188,8 @@ class PaginationApi {
     this.paginationToBeginningBtnRef.addEventListener('click', this.goToBeginning.bind(this));
     this.paginationNextPageRef.addEventListener('click', this.goToNextPage.bind(this));
     this.paginationPreviousPageRef.addEventListener('click', this.goToPreviousPage.bind(this));
+    this.paginationContainerRef.addEventListener('click', this.initiateFetch.bind(this));
+
     this.renderPaginationPageItems();
   }
   clearPaginationPageItems() {
@@ -415,18 +417,23 @@ class PaginationApi {
 
     this.switchCurrentActivePage();
   }
+  initiateFetch(e) {
+    if (e.target.nodeName !== 'A' && e.target.nodeName !== 'I') {
+      console.log('YOU MISSED THE PAGINATION BUTTONS');
+      return;
+    }
+    movieApi
+      .fetchPopularMoviesList()
+      .then(createGallery)
+      .then(fragment => {
+        renderGallery(fragment, homePageRef);
+
+        console.log('TOTAL PAGES INSIDE FENTCH: ', movieApi.totalPages, movieApi.pageNumber);
+      });
+
+    console.log('EVENT TARGET ON CONTAINER', e.target);
+    console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
+  }
 }
 
 // Pagination instance creation
-const paginator = new PaginationApi(20);
-
-// Event Listeners
-paginator.paginationContainerRef.addEventListener('click', e => {
-  if (e.target.nodeName !== 'A' && e.target.nodeName !== 'I') {
-    console.log('YOU MISSED THE PAGINATION BUTTONS');
-    return;
-  }
-
-  console.log('EVENT TARGET ON CONTAINER', e.target);
-  console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
-});
