@@ -237,8 +237,7 @@ function createCardFunc(movie) {
   // Пока так по инструкции. Но потом стоит переделать на делегирование.
   // Иначе у нас миллион слушателей будет.
   galleryItemCard.addEventListener('click', () => {
-    // Консолька для проверки, что слушатель события еще на месте.
-    console.log('Hello, I am click event!');
+    
     activeDetailsPage(movieId, false);
   });
 
