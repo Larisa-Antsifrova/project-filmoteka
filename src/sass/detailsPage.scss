@@ -107,3 +107,64 @@ table {
   margin-right: 5px;
   margin-left: 5px;
 }
+
+.trailer__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 15px;
+}
+.trailer__ref {
+  display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 8px 0;
+  background-color: #e91e63;
+  border-radius: 2px;
+}
+.trailer__a {
+  padding: 14px 50px;
+  color: $basicWhiteColor;
+  @include fontBasicStyles(14px, 1.5, 500);
+}
+
+// modal window
+.lightbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--animation-duration) var(--timing-function);
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.lightbox__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.lightbox__content {
+  transform: scale(0.95);
+  transition: transform var(--animation-duration) var(--timing-function);
+}
+
+.lightbox.is-open .lightbox__content {
+  transform: scale(1);
+}

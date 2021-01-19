@@ -19,6 +19,14 @@ const readMoreBtn = document.getElementById('read__more');
 const aboutContent = document.querySelector('.about__content');
 const ditailsDescription = document.querySelector('#details__about');
 
+// ==== for modal window ====
+const videoSection = document.querySelector('.trailer');
+const lightboxOverlay = document.querySelector('.lightbox__overlay');
+const lightboxCard = document.querySelector('.js-lightbox');
+const trailerVideo = document.querySelector('.trailer_referense');
+videoSection.addEventListener('click', openModale);
+lightboxOverlay.addEventListener('click', onClickOverlay);
+
 // создаем  переменную в глобальной области видимости selectFilm
 let selectFilm = {};
 
@@ -290,6 +298,8 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
     selectFilm = renderFilms.then(data => {
       return data.find(el => {
         if (el.id === movieId) {
+          // fetchTrailersAPI(el)
+          renderMovieTrailer(el.id);
           return el;
         }
       });
@@ -333,4 +343,74 @@ function backToTop() {
     window.scrollBy(0, -80);
     setTimeout(backToTop, 20);
   }
+};
+// ================= trailer ======================
+function fetchTrailersAPI(el) {
+  return fetch(`${movieApi.baseUrl}movie/${el}/videos?api_key=${movieApi.apiKey}&language=en-US`)
+    .then(response => response.json())
+    .then(resp => resp)
+    .then(({ results }) => {
+      return results.find(e => {
+        if (e.type == 'Trailer') {
+          return e
+        }
+      })
+    })
 }
+// функция принимает movie и вставляет ссылку в список
+function createTrailerGallery(trailer) {
+  const galleryItem = createTrailerRef(trailer.key);
+  videoSection.insertAdjacentElement('afterbegin', galleryItem);
+};
+
+function createTrailerRef(key) {
+  const galleryItemCard = document.createElement('li');
+  galleryItemCard.classList.add('trailer__ref');
+  const YouTubeURL = 'https://www.youtube.com/watch?v=';
+  const fullURL = `${YouTubeURL}${key}`;
+  const trailerRef = `<a href="${fullURL}" class='trailer__a'>Trailer</a>`;
+  galleryItemCard.insertAdjacentHTML('afterbegin', trailerRef);
+  return galleryItemCard;
+};
+
+function renderMovieTrailer(el) {
+  fetchTrailersAPI(el)
+    .then(createTrailerGallery)
+};
+// ==== modal window =====
+function openModale(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== 'A') {
+    return
+  };
+  // console.dir(event.target.href);
+  trailerVideo.href = event.target.href
+  console.log(trailerVideo.href);
+  lightboxCard.classList.add('is-open');
+  addKeydownListener();
+
+};
+
+function onClickOverlay(event) {
+  console.log(event.target);
+  console.log(event.currentTarget);
+     if (event.target === event.currentTarget) {
+        closeLightboxHandler()
+    }
+};
+function onPressEscape(event) {
+    if (event.code === 'Escape') {
+        closeLightboxHandler()
+        }
+};
+function closeLightboxHandler() {
+    removeKeydownListener();
+    lightboxCard.classList.remove('is-open');
+    trailerVideo.href = '#';
+};
+function addKeydownListener() {
+    window.addEventListener('keydown', onPressEscape);
+};
+function removeKeydownListener() {
+    window.removeEventListener('keydown', onPressEscape);
+};
