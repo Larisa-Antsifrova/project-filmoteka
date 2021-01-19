@@ -178,7 +178,7 @@ class PaginationApi {
     this.totalPages = 12;
     this.displayNumber = 5;
     this.lowRange = 1;
-    this.upRange = this.calculateUpRange();
+    this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
     this.totalPaginationBatches = Math.ceil(this.totalPages / this.displayNumber);
     this.currentPaginationBatch = 1;
     this.isLastPaginationBatch = false;
@@ -256,12 +256,20 @@ class PaginationApi {
     activeTarget.classList.add('active');
     this.currentActivePage = activeTarget;
   }
-  calculateUpRange() {
-    return this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
-  }
-  calculateLowRange() {
-    return this.totalPages > this.displayNumber ? this.upRange - this.displayNumber + 1 : 1;
-  }
+  // resetUpRange() {
+  //   return this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
+  // }
+  // calculateUpRange() {
+  //   return this.totalPages > this.displayNumber * this.currentPaginationBatch
+  //     ? this.lowRange + this.displayNumber - 1
+  //     : this.totalPages;
+  // }
+  // resetLowRange() {
+  //   //
+  // }
+  // calculateLowRange() {
+  //   return this.totalPages > this.displayNumber ? this.upRange - this.displayNumber + 1 : 1;
+  // }
   goToBeginning() {
     if ([...this.paginationToBeginningBtnRef.classList].includes('disabled')) {
       return;
@@ -273,7 +281,7 @@ class PaginationApi {
     movieApi.pageNumber = 1;
 
     this.lowRange = 1;
-    this.upRange = this.calculateUpRange();
+    this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
 
     this.clearPaginationPageItems();
     this.renderPaginationPageItems();
@@ -295,11 +303,11 @@ class PaginationApi {
     this.isLastPaginationBatch = true;
 
     movieApi.pageNumber = this.totalPages;
-    this.upRange = totalPages;
-    this.lowRange = this.calculateLowRange();
+    this.upRange = this.totalPages;
+    this.lowRange = this.totalPages > this.displayNumber ? this.upRange - this.displayNumber + 1 : 1;
 
-    clearPaginationPageItems();
-    renderPaginationPageItems();
+    this.clearPaginationPageItems();
+    this.renderPaginationPageItems();
 
     this.disableToEndBtn();
     this.disableNextPageBtn();
@@ -315,38 +323,40 @@ class PaginationApi {
 
     movieApi.pageNumber += 1;
 
-    if (movieApi.pageNumber > totalPages) {
-      movieApi.pageNumber = totalPages;
+    if (movieApi.pageNumber > this.totalPages) {
+      movieApi.pageNumber = this.totalPages;
       return;
     }
 
-    if (movieApi.pageNumber === totalPages) {
+    if (movieApi.pageNumber === this.totalPages) {
       this.disableToEndBtn();
       this.disableNextPageBtn();
     }
 
-    if (movieApi.pageNumber > upRange) {
-      currentPaginationBatch += 1;
-      isLastPaginationBatch = currentPaginationBatch === totalPaginationBatches;
-      console.log(isLastPaginationBatch);
+    if (movieApi.pageNumber > this.upRange) {
+      this.currentPaginationBatch += 1;
+      this.isLastPaginationBatch = this.currentPaginationBatch === this.totalPaginationBatches;
 
-      if (isLastPaginationBatch) {
-        upRange = totalPages;
-        lowRange = totalPages > displayNumber ? upRange - displayNumber + 1 : 1;
+      if (this.isLastPaginationBatch) {
+        this.upRange = this.totalPages;
+        this.lowRange = this.totalPages > this.displayNumber ? this.upRange - this.displayNumber + 1 : 1;
 
-        clearPaginationPageItems();
-        renderPaginationPageItems();
+        this.clearPaginationPageItems();
+        this.renderPaginationPageItems();
 
         this.switchCurrentActivePage();
 
         return;
       }
 
-      lowRange = upRange + 1;
-      upRange = totalPages > displayNumber * currentPaginationBatch ? lowRange + displayNumber - 1 : totalPages;
+      this.lowRange = this.upRange + 1;
+      this.upRange =
+        this.totalPages > this.displayNumber * this.currentPaginationBatch
+          ? this.lowRange + this.displayNumber - 1
+          : this.totalPages;
 
-      clearPaginationPageItems();
-      renderPaginationPageItems();
+      this.clearPaginationPageItems();
+      this.renderPaginationPageItems();
     }
 
     this.switchCurrentActivePage();
