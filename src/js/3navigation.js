@@ -303,14 +303,29 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
   detailisSectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');
   librarySectionRef.classList.add('is-hidden');
-
+  const filmsQueue = JSON.parse(localStorage.getItem('filmsQueue'));
+  const filmsWatched = JSON.parse(localStorage.getItem('filmsWatched'));
+  const filmsFavorite = JSON.parse(localStorage.getItem('filmsFavorite'));
   if (itsLibraryFilm) {
-    selectFilm = JSON.parse(localStorage.getItem('filmsQueue'));
-    return selectFilm.find(el => {
-      if (el.id === movieId) {
-        return el;
-      }
-    });
+    if (watchedBtn.classList.contains('active')) {
+      selectFilm = filmsWatched.find(el => {
+        if (el.id === movieId) {
+          return el;
+        }
+      });
+    } else if (queueBtn.classList.contains('active')) {
+      selectFilm = filmsQueue.find(el => {
+        if (el.id === movieId) {
+          return el;
+        }
+      });
+    } else {
+      selectFilm = filmsFavorite.find(el => {
+        if (el.id === movieId) {
+          return el;
+        }
+      });
+    }
   } else {
     selectFilm = renderFilms.then(data => {
       return data.find(el => {
