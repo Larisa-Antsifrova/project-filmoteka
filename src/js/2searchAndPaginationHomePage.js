@@ -189,7 +189,10 @@ const totalPages = 12;
 const displayNumber = 5;
 let lowRange = 1;
 let upRange = totalPages > displayNumber ? lowRange + displayNumber - 1 : totalPages;
-let paginationBatch = 1;
+const totalPaginationBatches = Math.ceil(totalPages / displayNumber);
+let currentPaginationBatch = 1;
+let isLastPaginationBatch = false;
+let isFirstPaginationBatch = true;
 let currentActivePage = null;
 console.log('Global currentActivePage', currentActivePage);
 console.log('Global', lowRange, upRange);
@@ -246,12 +249,19 @@ function clearPaginationPageItems() {
   paginationPageItemsContainerRef.innerHTML = '';
 }
 
+function launchPagination() {
+  // body
+}
+
 function goToBeginning() {
   console.log('You want to go to the very beginning');
   if ([...paginationToBeginningBtnRef.classList].includes('disabled')) {
     console.log('I return from very BEGINNING');
     return;
   }
+  currentPaginationBatch = 1;
+  isFirstPaginationBatch = true;
+
   movieApi.pageNumber = 1;
   lowRange = 1;
   upRange = totalPages > displayNumber ? lowRange + displayNumber - 1 : totalPages;
@@ -281,9 +291,12 @@ function goToEnd() {
     console.log('I return from very END');
     return;
   }
+  currentPaginationBatch = totalPaginationBatches;
+  isLastPaginationBatch = true;
+
   movieApi.pageNumber = totalPages;
   upRange = totalPages;
-  lowRange = totalPages > 5 ? upRange - displayNumber + 1 : 1;
+  lowRange = totalPages > displayNumber ? upRange - displayNumber + 1 : 1;
 
   clearPaginationPageItems();
   renderPaginationPageItems();
@@ -327,9 +340,30 @@ function goToNextPage() {
 
   if (movieApi.pageNumber > upRange) {
     console.log('You cannot see me');
-    paginationBatch += 1;
+
+    currentPaginationBatch += 1;
+    isLastPaginationBatch = currentPaginationBatch === totalPaginationBatches;
+    console.log(isLastPaginationBatch);
+
+    if (isLastPaginationBatch) {
+      upRange = totalPages;
+      lowRange = totalPages > displayNumber ? upRange - displayNumber + 1 : 1;
+
+      clearPaginationPageItems();
+      renderPaginationPageItems();
+
+      const paginationPageItems = paginationPageItemsContainerRef.querySelectorAll('li');
+      const activeTarget = [...paginationPageItems].find(node => +node.dataset.page === movieApi.pageNumber);
+      currentActivePage.classList.remove('active');
+      activeTarget.classList.add('active');
+      currentActivePage = activeTarget;
+      console.log('Nex Page listener', currentActivePage.dataset.page);
+
+      return;
+    }
+
     lowRange = upRange + 1;
-    upRange = totalPages > displayNumber * paginationBatch ? lowRange + displayNumber - 1 : totalPages;
+    upRange = totalPages > displayNumber * currentPaginationBatch ? lowRange + displayNumber - 1 : totalPages;
     console.log('low and up inside condition: ', lowRange, upRange);
 
     clearPaginationPageItems();
@@ -345,6 +379,7 @@ function goToNextPage() {
 }
 
 function goToPreviousPage() {
+  console.log('currentPaginationBatch', currentPaginationBatch);
   console.log('movieApi.pageNumber in Previous Page', movieApi.pageNumber);
   console.log('currentActivePage.dataset.page in Next Page', currentActivePage.dataset.page);
 
@@ -367,7 +402,26 @@ function goToPreviousPage() {
 
   if (movieApi.pageNumber < lowRange) {
     console.log('You cannot see me');
-    paginationBatch -= 1;
+
+    currentPaginationBatch -= 1;
+    isFirstPaginationBatch = currentPaginationBatch === 1;
+    console.log('currentPaginationBatch', currentPaginationBatch);
+    console.log('isFirstPaginationBatch', isFirstPaginationBatch);
+
+    if (isFirstPaginationBatch) {
+      lowRange = 1;
+      upRange = totalPages > displayNumber ? lowRange + displayNumber - 1 : totalPages;
+
+      clearPaginationPageItems();
+      renderPaginationPageItems();
+
+      const paginationPageItems = paginationPageItemsContainerRef.querySelectorAll('li');
+      const activeTarget = [...paginationPageItems].find(node => +node.dataset.page === movieApi.pageNumber);
+      activeTarget.classList.add('active');
+      currentActivePage = activeTarget;
+
+      return;
+    }
 
     upRange = lowRange - 1;
     lowRange = upRange - displayNumber + 1;
