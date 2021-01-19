@@ -422,18 +422,18 @@ class PaginationApi {
       console.log('YOU MISSED THE PAGINATION BUTTONS');
       return;
     }
-    movieApi
-      .fetchPopularMoviesList()
-      .then(createGallery)
-      .then(fragment => {
-        renderGallery(fragment, homePageRef);
+    toggleRenderPage();
 
-        console.log('TOTAL PAGES INSIDE FENTCH: ', movieApi.totalPages, movieApi.pageNumber);
-      });
+    // movieApi
+    //   .fetchPopularMoviesList()
+    //   .then(createGallery)
+    //   .then(fragment => {
+    //     renderGallery(fragment, homePageRef);
 
-    console.log('EVENT TARGET ON CONTAINER', e.target);
-    console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
+    //     console.log('TOTAL PAGES INSIDE FENTCH: ', movieApi.totalPages, movieApi.pageNumber);
+    //   });
+
+    // console.log('EVENT TARGET ON CONTAINER', e.target);
+    // console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
   }
 }
-
-// Pagination instance creation
