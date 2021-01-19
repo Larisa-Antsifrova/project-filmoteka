@@ -168,6 +168,7 @@ function renderPageOnNumBtn(evt) {
 // PAGINATION with MATERIALIZE
 // References
 const paginationRefs = {
+  paginationContainer: document.querySelector('.pagination-container'),
   paginationPageItemsContainerRef: document.querySelector('.pagination-page-items-container'),
   paginationToBeginningBtnRef: document.querySelector('.pagination-beginning'),
   paginationPreviousPageRef: document.querySelector('.pagination-previous-page'),
@@ -177,6 +178,7 @@ const paginationRefs = {
 
 // Destructuring references
 const {
+  paginationContainer,
   paginationPageItemsContainerRef,
   paginationToBeginningBtnRef,
   paginationPreviousPageRef,
@@ -200,9 +202,14 @@ console.log('Global', lowRange, upRange);
 // Event Listeners
 paginationPageItemsContainerRef.addEventListener('click', goToSelectedPage);
 
-paginationToBeginningBtnRef.addEventListener('click', goToBeginning);
+paginationContainer.addEventListener('click', e => {
+  console.log('EVENT TARGET ON CONTAINER', e.target);
+  console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
+});
 
 paginationToEndBtnRef.addEventListener('click', goToEnd);
+
+paginationToBeginningBtnRef.addEventListener('click', goToBeginning);
 
 paginationNextPageRef.addEventListener('click', goToNextPage);
 
@@ -247,10 +254,6 @@ function renderPaginationPageItems() {
 
 function clearPaginationPageItems() {
   paginationPageItemsContainerRef.innerHTML = '';
-}
-
-function launchPagination() {
-  // body
 }
 
 function goToBeginning() {
