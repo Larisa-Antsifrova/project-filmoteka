@@ -40,7 +40,7 @@ const queueSpanTextRef = document.querySelector(
   '[data-queue-text="textButton"]',
 );
 
-// создаем  переменную в глобальной области видимости selectFilm
+// создаем глобальную переменную selectFilm
 let selectFilm = {};
 
 // создаем обьект с методами переключения темы
