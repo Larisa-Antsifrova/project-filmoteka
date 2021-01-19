@@ -166,7 +166,6 @@ function renderPageOnNumBtn(evt) {
 }
 
 // PAGINATION with MATERIALIZE
-// References
 class PaginationApi {
   constructor() {
     this.paginationContainerRef = document.querySelector('.pagination-container');
@@ -190,7 +189,7 @@ class PaginationApi {
   }
   createPaginationPageItemsMarkup() {
     let paginationPageItemsMarkup = '';
-    for (let i = lowRange; i <= upRange; i++) {
+    for (let i = this.lowRange; i <= this.upRange; i++) {
       paginationPageItemsMarkup += `<li class="waves-effect" data-page ='${i}'>
               <a href="#!" class="paginator-page-item" data-page ='${i}'>${i}</a>
             </li>`;
@@ -209,7 +208,7 @@ class PaginationApi {
       this.enableNextPageBtn();
     }
 
-    if (movieApi.pageNumber === totalPages) {
+    if (movieApi.pageNumber === this.totalPages) {
       this.disableToEndBtn();
       this.disableNextPageBtn();
 
@@ -256,20 +255,6 @@ class PaginationApi {
     activeTarget.classList.add('active');
     this.currentActivePage = activeTarget;
   }
-  // resetUpRange() {
-  //   return this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
-  // }
-  // calculateUpRange() {
-  //   return this.totalPages > this.displayNumber * this.currentPaginationBatch
-  //     ? this.lowRange + this.displayNumber - 1
-  //     : this.totalPages;
-  // }
-  // resetLowRange() {
-  //   //
-  // }
-  // calculateLowRange() {
-  //   return this.totalPages > this.displayNumber ? this.upRange - this.displayNumber + 1 : 1;
-  // }
   goToBeginning() {
     if ([...this.paginationToBeginningBtnRef.classList].includes('disabled')) {
       return;
@@ -361,94 +346,89 @@ class PaginationApi {
 
     this.switchCurrentActivePage();
   }
-}
+  goToPreviousPage() {
+    this.enableToEndBtn();
+    this.enableNextPageBtn();
 
-// Functions
+    movieApi.pageNumber -= 1;
 
-function goToPreviousPage() {
-  this.enableToEndBtn();
-  this.enableNextPageBtn();
-
-  movieApi.pageNumber -= 1;
-
-  if (movieApi.pageNumber < 1) {
-    movieApi.pageNumber = 1;
-    return;
-  }
-
-  if (movieApi.pageNumber === 1) {
-    this.disableToBeginningBtn();
-    this.disablePreviousPageBtn();
-  }
-
-  if (movieApi.pageNumber < lowRange) {
-    currentPaginationBatch -= 1;
-    isFirstPaginationBatch = currentPaginationBatch === 1;
-
-    if (isFirstPaginationBatch) {
-      lowRange = 1;
-      upRange = totalPages > displayNumber ? lowRange + displayNumber - 1 : totalPages;
-
-      clearPaginationPageItems();
-      renderPaginationPageItems();
-
-      this.assignCurrentActivePage();
-
+    if (movieApi.pageNumber < 1) {
+      movieApi.pageNumber = 1;
       return;
     }
 
-    upRange = lowRange - 1;
-    lowRange = upRange - displayNumber + 1;
+    if (movieApi.pageNumber === 1) {
+      this.disableToBeginningBtn();
+      this.disablePreviousPageBtn();
+    }
 
-    clearPaginationPageItems();
-    renderPaginationPageItems();
+    if (movieApi.pageNumber < this.lowRange) {
+      this.currentPaginationBatch -= 1;
+      this.isFirstPaginationBatch = this.currentPaginationBatch === 1;
+
+      if (this.isFirstPaginationBatch) {
+        this.lowRange = 1;
+        this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
+
+        this.clearPaginationPageItems();
+        this.renderPaginationPageItems();
+
+        this.assignCurrentActivePage();
+
+        return;
+      }
+
+      this.upRange = this.lowRange - 1;
+      this.lowRange = this.upRange - this.displayNumber + 1;
+
+      this.clearPaginationPageItems();
+      this.renderPaginationPageItems();
+    }
+
+    this.switchCurrentActivePage();
   }
+  goToSelectedPage(e) {
+    movieApi.pageNumber = +e.target.dataset.page;
 
-  this.switchCurrentActivePage();
-}
+    if (movieApi.pageNumber === 1) {
+      this.disableToBeginningBtn();
+      this.disablePreviousPageBtn();
+    }
 
-function goToSelectedPage(e) {
-  movieApi.pageNumber = +e.target.dataset.page;
+    if (movieApi.pageNumber === this.totalPages) {
+      this.disableToEndBtn();
+      this.disableNextPageBtn();
+    }
 
-  if (movieApi.pageNumber === 1) {
-    this.disableToBeginningBtn();
-    this.disablePreviousPageBtn();
+    if (movieApi.pageNumber !== 1 && movieApi.pageNumber !== this.totalPages) {
+      this.enableToBeginningBtn();
+      this.enablePreviousPageBtn();
+      this.enableToEndBtn();
+      this.enableNextPageBtn();
+    }
+
+    this.switchCurrentActivePage();
   }
-
-  if (movieApi.pageNumber === totalPages) {
-    this.disableToEndBtn();
-    this.disableNextPageBtn();
-  }
-
-  if (movieApi.pageNumber !== 1 && movieApi.pageNumber !== totalPages) {
-    this.enableToBeginningBtn();
-    this.enablePreviousPageBtn();
-    this.enableToEndBtn();
-    this.enableNextPageBtn();
-  }
-
-  this.switchCurrentActivePage();
 }
 
 // Pagination instance creation
-const pagination = new PaginationApi();
-console.log(pagination);
+const paginator = new PaginationApi();
 
 // Evoking funcitons
-pagination.renderPaginationPageItems();
+paginator.renderPaginationPageItems();
 
 // Event Listeners
-pagination.paginationContainerRef.addEventListener('click', e => {
+paginator.paginationContainerRef.addEventListener('click', e => {
   console.log('EVENT TARGET ON CONTAINER', e.target);
   console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
 });
 
-pagination.paginationPageItemsContainerRef.addEventListener('click', goToSelectedPage);
+paginator.paginationPageItemsContainerRef.addEventListener('click', paginator.goToSelectedPage.bind(paginator));
 
-pagination.paginationToEndBtnRef.addEventListener('click', goToEnd);
+paginator.paginationToEndBtnRef.addEventListener('click', paginator.goToEnd.bind(paginator));
 
-pagination.paginationToBeginningBtnRef.addEventListener('click', goToBeginning);
+paginator.paginationToBeginningBtnRef.addEventListener('click', paginator.goToBeginning.bind(paginator));
 
-pagination.paginationNextPageRef.addEventListener('click', goToNextPage);
+paginator.paginationNextPageRef.addEventListener('click', paginator.goToNextPage.bind(paginator));
 
-pagination.paginationPreviousPageRef.addEventListener('click', goToPreviousPage);
+paginator.paginationPreviousPageRef.addEventListener('click', paginator.goToPreviousPage.bind(paginator));
