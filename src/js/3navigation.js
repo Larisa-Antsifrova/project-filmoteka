@@ -296,6 +296,9 @@ function activeLibraryPage(e) {
   homePageSectionRef.classList.add('is-hidden');
   detailisSectionRef.classList.add('is-hidden');
   queueBtn.focus();
+  drawQueueFilmList();
+  drawWatchedFilmList();
+  drawFavoriteFilmList();
 }
 
 // создаем функцию activeDetailsPage которая показывает страницу детальной отрисовки фильма
@@ -381,6 +384,9 @@ function isReturnBtn() {
     librarySectionRef.classList.remove('is-hidden');
     homePageSectionRef.classList.add('is-hidden');
     detailisSectionRef.classList.add('is-hidden');
+    drawQueueFilmList();
+    drawWatchedFilmList();
+    drawFavoriteFilmList();
   } else {
     homePageSectionRef.classList.remove('is-hidden');
     librarySectionRef.classList.add('is-hidden');
