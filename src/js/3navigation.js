@@ -277,10 +277,7 @@ returnBtn.addEventListener('click', isReturnBtn);
 //создаем функцию activeHomePage которая показывает домашнюю страницу и прячет остальные
 function activeHomePage(e) {
   e.preventDefault();
-  movieApi.resetPage();
-  clearInput();
-  renderFilms = movieApi.fetchPopularMoviesList();
-  renderPopularMoviesList();
+  location.reload();
   toggleActiveLink(homeRef);
 
   homePageSectionRef.classList.remove('is-hidden');
