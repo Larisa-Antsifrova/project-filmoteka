@@ -14,7 +14,13 @@ function toggleRenderPage() {
     renderFilms = movieApi.fetchPopularFilmsList();
   } else {
     console.log('I toggle render SEARCH');
-    renderSearchedFilms(inputValue);
+    renderSearchedFilms(inputValue).then(() => {
+      if (movieApi.pageNumber === 1) {
+        console.log('INPUT', inputValue);
+        paginatorPopular.reset();
+        paginatorSearch = new PaginationApi();
+      }
+    });
     renderFilms = movieApi.fetchSearchFilmsList(inputValue);
   }
 }
@@ -28,7 +34,7 @@ function searchFilms(e) {
 
 // функция рендера страницы запроса
 function renderSearchedFilms(inputValue) {
-  movieApi
+  return movieApi
     .fetchSearchFilmsList(inputValue)
     .then(createGallery)
     .then(fragment => renderGallery(fragment, homePageRef));
@@ -385,16 +391,11 @@ class PaginationApi {
     }
 
     toggleRenderPage();
-
-    // movieApi
-    //   .fetchPopularFilmsList()
-    //   .then(createGallery)
-    //   .then(fragment => {
-    //     renderGallery(fragment, homePageRef);
-
-    //     console.log('TOTAL PAGES INSIDE FENTCH: ', movieApi.totalPages, movieApi.pageNumber);
-    //   });
+  }
+  reset() {
+    this.paginationPageItemsContainerRef.textContent = '';
   }
 }
 
-let paginator = null;
+let paginatorPopular = null;
+let paginatorSearch = null;

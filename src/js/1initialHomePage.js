@@ -76,6 +76,7 @@ function createCardFunc(movie) {
   return galleryItemCard;
 }
 
+// Вызоб самого первого фетча за популярными фильмами и его рендер
 renderPopularFilms().then(() => {
-  paginator = new PaginationApi();
+  paginatorPopular = new PaginationApi();
 });
