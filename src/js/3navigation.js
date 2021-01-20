@@ -19,26 +19,14 @@ const readMoreBtn = document.getElementById('read__more');
 const aboutContent = document.querySelector('.about__content');
 const ditailsDescription = document.querySelector('#details__about');
 // переменные для измнения иконок и текста в кнопках в detailsPage
-const favoritePreTextIconRef = document.querySelector(
-  '[data-icon-favorite="addPlus"]',
-);
-const favoriteSpanTextRef = document.querySelector(
-  '[data-favorite-text="textButton"]',
-);
+const favoritePreTextIconRef = document.querySelector('[data-icon-favorite="addPlus"]');
+const favoriteSpanTextRef = document.querySelector('[data-favorite-text="textButton"]');
 
-const queuePreTextIconRef = document.querySelector(
-  '[data-icon-queue="addPlus"]',
-);
-const watchedSpanTextRef = document.querySelector(
-  '[data-watched-text="textButton"]',
-);
-const watchedPreTextIconRef = document.querySelector(
-  '[data-icon-watched="addPlus"]',
-);
+const queuePreTextIconRef = document.querySelector('[data-icon-queue="addPlus"]');
+const watchedSpanTextRef = document.querySelector('[data-watched-text="textButton"]');
+const watchedPreTextIconRef = document.querySelector('[data-icon-watched="addPlus"]');
 
-const queueSpanTextRef = document.querySelector(
-  '[data-queue-text="textButton"]',
-);
+const queueSpanTextRef = document.querySelector('[data-queue-text="textButton"]');
 
 // получаем доступ к кнопке НАЗАД
 const returnBtn = detailisSectionRef.querySelector('#return__btn');
@@ -56,9 +44,7 @@ const togleSwitchTheme = {
     detailsH2Ref: detailisSectionRef.querySelector('h2'),
     detailsH3Ref: detailisSectionRef.querySelector('h3'),
     detailsAboutRef: detailisSectionRef.querySelector('#details__about'),
-    detailsDescriptionRef: detailisSectionRef.querySelector(
-      '.details-about-text',
-    ),
+    detailsDescriptionRef: detailisSectionRef.querySelector('.details-about-text'),
   },
 
   removeClass(ref, className) {
@@ -78,66 +64,27 @@ const togleSwitchTheme = {
       togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'blue-grey');
       togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'darken-4');
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.searchContainerRef,
-        'indigo',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.searchContainerRef,
-        'blue-grey',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.searchContainerRef,
-        'darken-2',
-      );
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.searchContainerRef, 'indigo');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'blue-grey');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'darken-2');
 
       togleSwitchTheme.removeClass(togleSwitchTheme.refs.linkRef, 'indigo');
       togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'pink');
       togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'accent-3');
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsH2Ref,
-        'indigo-text',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsH2Ref,
-        'pink-text',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsH2Ref,
-        'text-accent-3',
-      );
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH2Ref, 'indigo-text');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'pink-text');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'text-accent-3');
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsH3Ref,
-        'indigo-text',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsH3Ref,
-        'pink-text',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsH3Ref,
-        'text-accent-3',
-      );
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH3Ref, 'indigo-text');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'pink-text');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'text-accent-3');
       // blue-grey lighten-5
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsAboutRef,
-        'blue-grey-text',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsAboutRef,
-        'text-lighten-2',
-      );
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsAboutRef, 'blue-grey-text');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsAboutRef, 'text-lighten-2');
 
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsDescriptionRef,
-        'text-lighten-2',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsDescriptionRef,
-        'blue-grey-text',
-      );
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsDescriptionRef, 'text-lighten-2');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsDescriptionRef, 'blue-grey-text');
 
       togleSwitchBtn.children[0].textContent = 'brightness_5';
       localStorage.setItem('Theme', 'DARK');
@@ -145,70 +92,31 @@ const togleSwitchTheme = {
       togleSwitchTheme.removeClass(togleSwitchTheme.refs.bodyRef, 'black');
       togleSwitchTheme.addClass(togleSwitchTheme.refs.bodyRef, 'white');
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.headerRef,
-        'blue-grey',
-      );
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.headerRef, 'blue-grey');
       togleSwitchTheme.removeClass(togleSwitchTheme.refs.headerRef, 'darken-4');
       togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'indigo');
       togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'darken-2');
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.searchContainerRef,
-        'blue-grey',
-      );
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.searchContainerRef,
-        'darken-2',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.searchContainerRef,
-        'indigo',
-      );
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.searchContainerRef, 'blue-grey');
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.searchContainerRef, 'darken-2');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'indigo');
 
       togleSwitchTheme.removeClass(togleSwitchTheme.refs.linkRef, 'pink');
       togleSwitchTheme.removeClass(togleSwitchTheme.refs.linkRef, 'accent-3');
       togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'indigo');
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsH2Ref,
-        'pink-text',
-      );
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsH2Ref,
-        'text-accent-3',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsH2Ref,
-        'indigo-text',
-      );
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH2Ref, 'pink-text');
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH2Ref, 'text-accent-3');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'indigo-text');
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsH3Ref,
-        'pink-text',
-      );
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsH3Ref,
-        'text-accent-3',
-      );
-      togleSwitchTheme.addClass(
-        togleSwitchTheme.refs.detailsH3Ref,
-        'indigo-text',
-      );
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH3Ref, 'pink-text');
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH3Ref, 'text-accent-3');
+      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'indigo-text');
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsDescriptionRef,
-        'blue-grey-text',
-      );
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsDescriptionRef, 'blue-grey-text');
 
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsAboutRef,
-        'blue-grey-text',
-      );
-      togleSwitchTheme.removeClass(
-        togleSwitchTheme.refs.detailsAboutRef,
-        'text-lighten-2',
-      );
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsAboutRef, 'blue-grey-text');
+      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsAboutRef, 'text-lighten-2');
 
       togleSwitchBtn.children[0].textContent = 'brightness_6';
       localStorage.removeItem('Theme');
@@ -222,48 +130,21 @@ if (localStorage.getItem('Theme') === 'DARK') {
   togleSwitchTheme.addClass(togleSwitchTheme.refs.bodyRef, 'black');
   togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'blue-grey');
   togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'darken-4');
-  togleSwitchTheme.addClass(
-    togleSwitchTheme.refs.searchContainerRef,
-    'blue-grey',
-  );
-  togleSwitchTheme.addClass(
-    togleSwitchTheme.refs.searchContainerRef,
-    'darken-2',
-  );
+  togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'blue-grey');
+  togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'darken-2');
   togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'pink');
   togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'accent-3');
   togleSwitchTheme.removeClass(togleSwitchTheme.refs.linkRef, 'indigo');
-  togleSwitchTheme.removeClass(
-    togleSwitchTheme.refs.detailsH2Ref,
-    'indigo-text',
-  );
+  togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH2Ref, 'indigo-text');
   togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'pink-text');
-  togleSwitchTheme.addClass(
-    togleSwitchTheme.refs.detailsH2Ref,
-    'text-accent-3',
-  );
-  togleSwitchTheme.removeClass(
-    togleSwitchTheme.refs.detailsH3Ref,
-    'indigo-text',
-  );
+  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'text-accent-3');
+  togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH3Ref, 'indigo-text');
   togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'pink-text');
-  togleSwitchTheme.addClass(
-    togleSwitchTheme.refs.detailsH3Ref,
-    'text-accent-3',
-  );
+  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'text-accent-3');
 
-  togleSwitchTheme.addClass(
-    togleSwitchTheme.refs.detailsDescriptionRef,
-    'blue-grey-text',
-  );
-  togleSwitchTheme.addClass(
-    togleSwitchTheme.refs.detailsAboutRef,
-    'blue-grey-text',
-  );
-  togleSwitchTheme.addClass(
-    togleSwitchTheme.refs.detailsAboutRef,
-    'text-lighten-2',
-  );
+  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsDescriptionRef, 'blue-grey-text');
+  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsAboutRef, 'blue-grey-text');
+  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsAboutRef, 'text-lighten-2');
 }
 // вешаем слушатели
 homeRef.addEventListener('click', activeHomePage);
@@ -277,6 +158,10 @@ returnBtn.addEventListener('click', isReturnBtn);
 //создаем функцию activeHomePage которая показывает домашнюю страницу и прячет остальные
 function activeHomePage(e) {
   e.preventDefault();
+  movieApi.resetPage();
+  clearInput();
+  renderFilms = movieApi.fetchPopularFilmsList();
+  renderPopularFilms();
   location.reload();
   toggleActiveLink(homeRef);
 
