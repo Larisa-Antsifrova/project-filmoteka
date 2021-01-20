@@ -28,13 +28,11 @@ function searchFilms(e) {
     console.log('FIRST SEARCH', inputValue);
     console.log('PAGE TOTAL ', movieApi.totalPages);
     console.log('PAGE NUMBER', movieApi.pageNumber);
-    // paginatorPopular.clearPaginationPageItems();
 
-    const paginationContainerRef = document.querySelector('.pagination-page-items-container');
-    paginationContainerRef.innerHTML = '';
+    // const paginationContainerRef = document.querySelector('.pagination-page-items-container');
+    // paginationContainerRef.innerHTML = '';
 
-    const paginatorSearch = new PaginationApi();
-    paginatorSearch.renderPaginationPageItems();
+    paginator.recalculate(movieApi.totalPages);
   });
 }
 
@@ -91,7 +89,7 @@ function clearHomePage() {
 
 // PAGINATION CLASS
 class PaginationApi {
-  constructor(displayNumber = 5) {
+  constructor(totalPages = 1, displayNumber = 5) {
     this.paginationContainerRef = document.querySelector('.pagination-container');
     this.paginationPageItemsContainerRef = document.querySelector('.pagination-page-items-container');
 
@@ -105,7 +103,7 @@ class PaginationApi {
     this.paginationNextPageRef = document.querySelector('.pagination-next-page');
     this.paginationNextPageIconRef = this.paginationNextPageRef.querySelector('i');
 
-    this.totalPages = movieApi.totalPages;
+    this.totalPages = totalPages;
     this.displayNumber = displayNumber;
     this.lowRange = 1;
     this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
@@ -137,6 +135,17 @@ class PaginationApi {
   renderPaginationPageItems() {
     const paginationPageItemsMarkup = this.createPaginationPageItemsMarkup();
     this.paginationPageItemsContainerRef.insertAdjacentHTML('afterbegin', paginationPageItemsMarkup);
+    const totalPageItems = this.paginationPageItemsContainerRef.querySelectorAll('li');
+
+    console.log('LENGTH', totalPageItems.length);
+    if (totalPageItems.length === 1) {
+      this.disableToBeginningBtn();
+      this.disablePreviousPageBtn();
+      this.disableToEndBtn();
+      this.disableNextPageBtn();
+      this.assignCurrentActivePage();
+      return;
+    }
 
     if (movieApi.pageNumber === 1) {
       this.disableToBeginningBtn();
@@ -400,7 +409,16 @@ class PaginationApi {
       return;
     }
   }
+  recalculate(newTotalPages) {
+    this.totalPages = newTotalPages;
+    this.lowRange = 1;
+    this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
+    this.clearPaginationPageItems();
+    this.renderPaginationPageItems();
+    console.log('THIS TOTAL PAGES: ', this.totalPages);
+  }
 }
 
-// let paginatorPopular = null;
-// let paginatorSearch = null;
+const paginator = new PaginationApi();
+console.dir(paginator);
+// paginator.recalculate(4);
