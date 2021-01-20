@@ -164,7 +164,7 @@ function renderPageOnNumBtn(evt) {
 };
 
 
-// ==== for modal window ====
+// ============================= for modal window =======================================
 const trailerSection = document.querySelector('.trailer');
 const lightboxOverlay = document.querySelector('.lightbox__overlay');
 const lightboxCard = document.querySelector('.js-lightbox');
@@ -175,6 +175,12 @@ lightboxOverlay.addEventListener('click', onClickOverlay);
 
 
 // ================= trailer ======================
+
+function renderMovieTrailer(el) {
+  fetchTrailersAPI(el)
+    .then(createTrailerBtn)
+};
+
 function fetchTrailersAPI(el) {
   return fetch(`${movieApi.baseUrl}movie/${el}/videos?api_key=${movieApi.apiKey}&language=en-US`)
     .then(response => response.json())
@@ -195,17 +201,13 @@ function fetchTrailersAPI(el) {
 
 // функция принимает li с ссылкой и вставляет в список
 function createTrailerBtn(trailer) {
-  // ============== тут продумать логику рендера кнопки ==============
-  const className = detailisSectionRef.attributes.class.textContent;
-  if (!trailer || className.includes('is-hidden')) {
-      console.log('non', trailer);
-
+  if (!trailer) {
     return
   }
-  console.log('trailer', trailer);
   const trailerBtn = createTrailerRef(trailer.key);
   trailerSection.insertAdjacentElement('afterbegin', trailerBtn);
 };
+
 // функция принимает ключ трейлера и вставляет полную ссылку на него в li
 function createTrailerRef(key) {
   const trailerItem = document.createElement('li');
@@ -216,12 +218,10 @@ function createTrailerRef(key) {
   trailerItem.insertAdjacentHTML('afterbegin', trailerRef);
   return trailerItem;
 };
-
-function renderMovieTrailer(el) {
-  fetchTrailersAPI(el)
-    .then(createTrailerBtn)
-};
-
+// функция сноса секции трейлера
+function clearTrailerKey() {
+  trailerSection.innerHTML = '';
+}
 
 // ==== modal window =====
 function openModale(event) {
