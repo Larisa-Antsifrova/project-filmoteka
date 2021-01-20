@@ -26,8 +26,15 @@ function searchFilms(e) {
 
   renderSearchedFilms(inputValue).then(() => {
     console.log('FIRST SEARCH', inputValue);
-    paginatorPopular.clearPaginationPageItems();
-    paginatorSearch = new PaginationApi();
+    console.log('PAGE TOTAL ', movieApi.totalPages);
+    console.log('PAGE NUMBER', movieApi.pageNumber);
+    // paginatorPopular.clearPaginationPageItems();
+
+    const paginationContainerRef = document.querySelector('.pagination-page-items-container');
+    paginationContainerRef.innerHTML = '';
+
+    const paginatorSearch = new PaginationApi();
+    paginatorSearch.renderPaginationPageItems();
   });
 }
 
@@ -82,24 +89,21 @@ function clearHomePage() {
   homePageRef.innerHTML = '';
 }
 
-// функция отзыва кнопок и рендера страницы по номеру кнопки
-// function renderPageOnNumBtn(evt) {
-//   movieApi.pageNumber = +evt.target.textContent;
-//   deactivationPaginationBtn(evt);
-//   disabledPrevBtn();
-//   clearHomePage();
-//   toggleRenderPage();
-// }
-
-// PAGINATION with MATERIALIZE
+// PAGINATION CLASS
 class PaginationApi {
   constructor(displayNumber = 5) {
     this.paginationContainerRef = document.querySelector('.pagination-container');
     this.paginationPageItemsContainerRef = document.querySelector('.pagination-page-items-container');
+
     this.paginationToBeginningBtnRef = document.querySelector('.pagination-beginning');
+    this.paginationToBeginningIconRef = this.paginationToBeginningBtnRef.querySelector('i');
     this.paginationPreviousPageRef = document.querySelector('.pagination-previous-page');
+    this.paginationPreviousPageIconRef = this.paginationPreviousPageRef.querySelector('i');
+
     this.paginationToEndBtnRef = document.querySelector('.pagination-end');
+    this.paginationToEndIconRef = this.paginationToEndBtnRef.querySelector('i');
     this.paginationNextPageRef = document.querySelector('.pagination-next-page');
+    this.paginationNextPageIconRef = this.paginationNextPageRef.querySelector('i');
 
     this.totalPages = movieApi.totalPages;
     this.displayNumber = displayNumber;
@@ -113,7 +117,7 @@ class PaginationApi {
 
     this.paginationContainerRef.addEventListener('click', this.onPaginationClick.bind(this));
 
-    this.renderPaginationPageItems();
+    // this.renderPaginationPageItems();
   }
 
   clearPaginationPageItems() {
@@ -133,17 +137,6 @@ class PaginationApi {
   renderPaginationPageItems() {
     const paginationPageItemsMarkup = this.createPaginationPageItemsMarkup();
     this.paginationPageItemsContainerRef.insertAdjacentHTML('afterbegin', paginationPageItemsMarkup);
-
-    // if (movieApi.pageNumber === 1 && movieApi.pageNumber === this.totalPages) {
-    //   this.disableToBeginningBtn();
-    //   this.disablePreviousPageBtn();
-    //   this.disableToEndBtn();
-    //   this.disableNextPageBtn();
-
-    //   this.assignCurrentActivePage();
-
-    //   return;
-    // }
 
     if (movieApi.pageNumber === 1) {
       this.disableToBeginningBtn();
@@ -166,27 +159,35 @@ class PaginationApi {
 
   disableToEndBtn() {
     this.paginationToEndBtnRef.classList.add('disabled');
+    this.paginationToEndIconRef.setAttribute('disabled', true);
   }
   enableToEndBtn() {
     this.paginationToEndBtnRef.classList.remove('disabled');
+    this.paginationToEndIconRef.removeAttribute('disabled');
   }
   disableNextPageBtn() {
     this.paginationNextPageRef.classList.add('disabled');
+    this.paginationNextPageIconRef.setAttribute('disabled', true);
   }
   enableNextPageBtn() {
     this.paginationNextPageRef.classList.remove('disabled');
+    this.paginationNextPageIconRef.removeAttribute('disabled');
   }
   disableToBeginningBtn() {
     this.paginationToBeginningBtnRef.classList.add('disabled');
+    this.paginationToBeginningIconRef.setAttribute('disabled', true);
   }
   enableToBeginningBtn() {
     this.paginationToBeginningBtnRef.classList.remove('disabled');
+    this.paginationToBeginningIconRef.removeAttribute('disabled');
   }
   disablePreviousPageBtn() {
     this.paginationPreviousPageRef.classList.add('disabled');
+    this.paginationPreviousPageIconRef.setAttribute('disabled', true);
   }
   enablePreviousPageBtn() {
     this.paginationPreviousPageRef.classList.remove('disabled');
+    this.paginationPreviousPageIconRef.removeAttribute('disabled');
   }
 
   assignCurrentActivePage() {
@@ -205,10 +206,6 @@ class PaginationApi {
   }
 
   goToBeginning() {
-    if (this.paginationToBeginningBtnRef.classList.contains('disabled')) {
-      return;
-    }
-
     this.currentPaginationBatch = 1;
     this.isFirstPaginationBatch = true;
 
@@ -230,10 +227,6 @@ class PaginationApi {
   }
 
   goToEnd() {
-    if (this.paginationToEndBtnRef.classList.contains('disabled')) {
-      return;
-    }
-
     this.currentPaginationBatch = this.totalPaginationBatches;
     this.isLastPaginationBatch = true;
 
@@ -254,11 +247,12 @@ class PaginationApi {
   }
 
   goToNextPage() {
+    console.log('GO TO NEXT?');
     this.enableToBeginningBtn();
     this.enablePreviousPageBtn();
 
     movieApi.incrementPage();
-
+    console.log('Go to next', movieApi.pageNumber);
     if (movieApi.pageNumber > this.totalPages) {
       movieApi.pageNumber = this.totalPages;
       return;
@@ -364,8 +358,15 @@ class PaginationApi {
   }
 
   onPaginationClick(e) {
+    console.log('TARGET: ', e.target);
+
     if (e.target.nodeName !== 'A' && e.target.nodeName !== 'I') {
       console.log('YOU MISSED THE PAGINATION BUTTONS');
+      return;
+    }
+
+    if (e.target.hasAttribute('disabled')) {
+      console.log('DISABBLED BTN');
       return;
     }
 
@@ -399,11 +400,7 @@ class PaginationApi {
       return;
     }
   }
-
-  // reset() {
-  //   this.paginationPageItemsContainerRef.textContent = '';
-  // }
 }
 
-let paginatorPopular = null;
-let paginatorSearch = null;
+// let paginatorPopular = null;
+// let paginatorSearch = null;
