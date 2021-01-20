@@ -162,3 +162,100 @@ function renderPageOnNumBtn(evt) {
   clearHomePage();
   toggleRenderPage();
 };
+
+
+// ==== for modal window ====
+const trailerSection = document.querySelector('.trailer');
+const lightboxOverlay = document.querySelector('.lightbox__overlay');
+const lightboxCard = document.querySelector('.js-lightbox');
+const trailerVideo = document.querySelector('.trailer_referense');
+
+trailerSection.addEventListener('click', openModale);
+lightboxOverlay.addEventListener('click', onClickOverlay);
+
+
+// ================= trailer ======================
+function fetchTrailersAPI(el) {
+  return fetch(`${movieApi.baseUrl}movie/${el}/videos?api_key=${movieApi.apiKey}&language=en-US`)
+    .then(response => response.json())
+    .then(resp => resp)
+    .then(({ results }) => {
+      // проверка на наличие трейлера
+      if (!results.length) {
+        return
+      } else {
+        return results.find(e => {
+          if (e.type == 'Trailer') {
+            return e
+          }
+        })
+      }
+    })
+}
+
+// функция принимает li с ссылкой и вставляет в список
+function createTrailerBtn(trailer) {
+  // ============== тут продумать логику рендера кнопки ==============
+  const className = detailisSectionRef.attributes.class.textContent;
+  if (!trailer || className.includes('is-hidden')) {
+      console.log('non', trailer);
+
+    return
+  }
+  console.log('trailer', trailer);
+  const trailerBtn = createTrailerRef(trailer.key);
+  trailerSection.insertAdjacentElement('afterbegin', trailerBtn);
+};
+// функция принимает ключ трейлера и вставляет полную ссылку на него в li
+function createTrailerRef(key) {
+  const trailerItem = document.createElement('li');
+  trailerItem.classList.add('trailer__ref');
+  const YouTubeURL = 'https://www.youtube.com//embed/';
+  const fullURL = `${YouTubeURL}${key}`;
+  const trailerRef = `<a href="${fullURL}" class='trailer__a'>Trailer</a>`;
+  trailerItem.insertAdjacentHTML('afterbegin', trailerRef);
+  return trailerItem;
+};
+
+function renderMovieTrailer(el) {
+  fetchTrailersAPI(el)
+    .then(createTrailerBtn)
+};
+
+
+// ==== modal window =====
+function openModale(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== 'A') {
+    return
+  };
+  trailerVideo.src = event.target.href
+  lightboxCard.classList.add('is-open');
+  lightboxOverlay.addEventListener('click', onClickOverlay);
+  trailerSection.removeEventListener('click', openModale);
+  addKeydownListener();
+};
+
+function onClickOverlay(event) {
+     if (event.target === event.currentTarget) {
+        closeLightboxHandler()
+    }
+};
+function onPressEscape(event) {
+    if (event.code === 'Escape') {
+        closeLightboxHandler()
+        }
+};
+function closeLightboxHandler() {
+    removeKeydownListener();
+    lightboxCard.classList.remove('is-open');
+    trailerVideo.src = '';
+    lightboxOverlay.removeEventListener('click', onClickOverlay);
+    trailerSection.addEventListener('click', openModale);
+};
+function addKeydownListener() {
+    window.addEventListener('keydown', onPressEscape);
+};
+function removeKeydownListener() {
+    window.removeEventListener('keydown', onPressEscape);
+};

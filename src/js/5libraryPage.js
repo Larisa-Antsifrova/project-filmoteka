@@ -25,7 +25,9 @@ function createLibraryCardFunc(movie) {
     movieApi.imageBackdropSize +
     movie.backdrop_path;
 
-  const filmYear = movie.release_date.slice(0, 4);
+  const filmYear = movie.release_date
+    ? `(${movie.release_date.slice(0, 4)})`
+    : '';
 
   const filmTitle = `${movie.title} (${filmYear})`;
   const movieId = movie.id;
