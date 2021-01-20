@@ -359,8 +359,6 @@ class PaginationApi {
   }
 
   onPaginationClick(e) {
-    console.log('TARGET: ', e.target);
-
     if (e.target.nodeName !== 'A' && e.target.nodeName !== 'I') {
       return;
     }
@@ -369,7 +367,7 @@ class PaginationApi {
       return;
     }
 
-    if (e.target.nodeName === 'A') {
+    if (e.target.nodeName === 'A' && e.target.classList.contains('paginator-page-item')) {
       this.goToSelectedPage(e);
       // toggleRenderPage();
       return;
