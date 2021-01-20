@@ -6,7 +6,7 @@ searchForm.addEventListener('click', onInputFocus);
 searchForm.addEventListener('submit', searchFilms);
 
 // функции
-// функция выбора отображения страницы в зависимости от наличия текстa в инпуте
+// функция выбора отображения страницы в зависимости от наличия текстa в инпуте. Определяет, вызывается ли фетч популярных фильмов или запрос поиска
 function toggleRenderPage() {
   if (!inputValue.length) {
     console.log('I toggle render POPULAR');
@@ -14,13 +14,7 @@ function toggleRenderPage() {
     renderFilms = movieApi.fetchPopularFilmsList();
   } else {
     console.log('I toggle render SEARCH');
-    renderSearchedFilms(inputValue).then(() => {
-      if (movieApi.pageNumber === 1) {
-        console.log('INPUT', inputValue);
-        paginatorPopular.reset();
-        paginatorSearch = new PaginationApi();
-      }
-    });
+    renderSearchedFilms(inputValue);
     renderFilms = movieApi.fetchSearchFilmsList(inputValue);
   }
 }
@@ -29,7 +23,12 @@ function toggleRenderPage() {
 function searchFilms(e) {
   e.preventDefault();
   inputValue = e.target.elements.query.value.trim();
-  toggleRenderPage();
+
+  renderSearchedFilms(inputValue).then(() => {
+    console.log('FIRST SEARCH', inputValue);
+    paginatorPopular.clearPaginationPageItems();
+    paginatorSearch = new PaginationApi();
+  });
 }
 
 // функция рендера страницы запроса
@@ -372,29 +371,38 @@ class PaginationApi {
 
     if (e.target.nodeName === 'A') {
       this.goToSelectedPage(e);
+      toggleRenderPage();
+      return;
     }
 
     if (e.target.textContent === 'first_page') {
       this.goToBeginning();
+      toggleRenderPage();
+      return;
     }
 
     if (e.target.textContent === 'chevron_left') {
       this.goToPreviousPage();
+      toggleRenderPage();
+      return;
     }
 
     if (e.target.textContent === 'last_page') {
       this.goToEnd();
+      toggleRenderPage();
+      return;
     }
 
     if (e.target.textContent === 'chevron_right') {
       this.goToNextPage();
+      toggleRenderPage();
+      return;
     }
+  }
 
-    toggleRenderPage();
-  }
-  reset() {
-    this.paginationPageItemsContainerRef.textContent = '';
-  }
+  // reset() {
+  //   this.paginationPageItemsContainerRef.textContent = '';
+  // }
 }
 
 let paginatorPopular = null;
