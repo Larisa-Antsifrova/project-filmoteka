@@ -14,16 +14,13 @@ refs.tabs.addEventListener('click', onControlsClick); // для табов
 refs.queueBtn.addEventListener('click', drawQueueFilmList);
 refs.watchedBtn.addEventListener('click', drawWatchedFilmList);
 refs.favoriteBtn.addEventListener('click', drawFavoriteFilmList);
-refs.galleryList.addEventListener('click', activeDetailsPage); // делегирование при клике на фильм на список <ul>
+// refs.galleryList.addEventListener('click', activeDetailsPage); // делегирование при клике на фильм на список <ul>
 
 // Функция для создания карточки фильма в библиотеке.
 // Принимает один объект фильма from local storage по инструкции
 // Делала функцию по патерну Ларисы
 function createLibraryCardFunc(movie) {
-  const imgPath =
-    movieApi.images.baseImageUrl +
-    movieApi.imageBackdropSize +
-    movie.backdrop_path;
+  const imgPath = movieApi.images.baseImageUrl + movieApi.imageBackdropSize + movie.backdrop_path;
 
   const filmYear = movie.release_date.slice(0, 4);
 
@@ -50,9 +47,7 @@ function createLibraryCardFunc(movie) {
   libraryGalleryItemRef.appendChild(libraryGalleryImageRef);
   libraryGalleryItemRef.appendChild(libraryGalleryTitleRef);
 
-  libraryGalleryItemRef.addEventListener('click', () =>
-    activeDetailsPage(movieId, true),
-  );
+  libraryGalleryItemRef.addEventListener('click', () => activeDetailsPage(movieId, true));
   return libraryGalleryItemRef;
 }
 
