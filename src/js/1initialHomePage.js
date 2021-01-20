@@ -78,8 +78,5 @@ function createCardFunc(movie) {
 
 // Вызоб самого первого фетча за популярными фильмами и его рендер
 renderPopularFilms().then(() => {
-  paginator.recalculate(18);
-  // paginator.recalculate(movieApi.totalPages);
-
-  console.log('PAGE TOTAL ', movieApi.totalPages);
+  paginator.recalculate(movieApi.totalPages);
 });

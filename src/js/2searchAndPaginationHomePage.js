@@ -23,7 +23,9 @@ function searchFilms(e) {
   inputValue = e.target.elements.query.value.trim();
 
   renderSearchedFilms(inputValue).then(() => {
-    paginator.recalculate(movieApi.totalPages);
+    console.log('number of pages in searchFIlms MOVIEAPI', movieApi.totalPages);
+    paginator.recalculate(movieApi.totalPages || 1);
+    console.log('number of pages in searchFIlms PAGINATOR ', paginator.totalPages);
   });
 }
 
@@ -65,7 +67,12 @@ function notFound() {
   clearInput();
   movieApi.resetPage();
 
-  return renderPopularFilms();
+  return renderPopularFilms().then(() => {
+    console.log('number of pages in not FOUND ', movieApi.totalPages);
+    paginator.recalculate(movieApi.totalPages);
+
+    console.log('PAGE TOTAL ', movieApi.totalPages);
+  });
 }
 
 // функция сокрытия строки ошибки
@@ -369,31 +376,31 @@ class PaginationApi {
 
     if (e.target.nodeName === 'A' && e.target.classList.contains('paginator-page-item')) {
       this.goToSelectedPage(e);
-      // toggleRenderPage();
+      toggleRenderPage();
       return;
     }
 
     if (e.target.textContent === 'first_page') {
       this.goToBeginning();
-      // toggleRenderPage();
+      toggleRenderPage();
       return;
     }
 
     if (e.target.textContent === 'chevron_left') {
       this.goToPreviousPage();
-      // toggleRenderPage();
+      toggleRenderPage();
       return;
     }
 
     if (e.target.textContent === 'last_page') {
       this.goToEnd();
-      // toggleRenderPage();
+      toggleRenderPage();
       return;
     }
 
     if (e.target.textContent === 'chevron_right') {
       this.goToNextPage();
-      // toggleRenderPage();
+      toggleRenderPage();
       return;
     }
   }
