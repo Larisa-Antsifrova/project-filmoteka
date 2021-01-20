@@ -20,8 +20,11 @@ function toggleRenderPage() {
 // функция-слушатель инпута и отображения страницы согласно запросу
 function searchFilms(e) {
   e.preventDefault();
-  inputValue = e.target.elements.query.value.trim();
 
+  if (!inputValue) {
+    return;
+  }
+  inputValue = e.target.elements.query.value.trim();
   renderSearchedFilms(inputValue).then(() => {
     paginator.recalculate(movieApi.totalPages || 1);
   });
