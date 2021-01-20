@@ -25,6 +25,7 @@ function searchFilms(e) {
     return;
   }
   inputValue = e.target.elements.query.value.trim();
+
   renderSearchedFilms(inputValue).then(() => {
     paginator.recalculate(movieApi.totalPages || 1);
   });

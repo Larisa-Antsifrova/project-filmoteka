@@ -113,13 +113,13 @@ const movieApi = {
 };
 
 // Доступы к ДОМ-элементам и их деструктуризация
-const refs = {
+const DOMrefs = {
   homePageRef: document.querySelector('[data-home-gallery]'),
   searchForm: document.querySelector('.search__form'),
   errorArea: document.querySelector('.error__area'),
 };
 
-const { homePageRef, searchForm, errorArea } = refs;
+const { homePageRef, searchForm, errorArea } = DOMrefs;
 
 // Объект спиннера и его методы
 const spinner = {
