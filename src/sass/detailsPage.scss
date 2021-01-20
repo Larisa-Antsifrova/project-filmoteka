@@ -108,7 +108,8 @@ table {
   margin-left: 5px;
 }
 
-.trailer__box {
+// ============= trailer ==============
+.trailer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -158,12 +159,13 @@ table {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
-  // z-index: 9999;
 }
 
 .lightbox__content {
-  transform: scale(0.95);
-  transition: transform $primaryTransition;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 75vw;
+  height: 75vh;
 }
 
 .lightbox.is-open .lightbox__content {

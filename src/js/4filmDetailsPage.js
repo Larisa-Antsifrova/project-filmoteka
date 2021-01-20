@@ -179,7 +179,9 @@ function showDetails(selectFilm) {
   const selectGenres = document.querySelector('#details__genre');
 
   if (selectFilm instanceof Promise) {
+    console.log(selectFilm);
     selectFilm.then(el => {
+      console.log(el);
       const imgPath = el.poster_path
         ? movieApi.images.baseImageUrl +
           movieApi.imagePosterSize +
