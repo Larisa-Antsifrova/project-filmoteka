@@ -21,14 +21,13 @@ function toggleRenderPage() {
 function searchFilms(e) {
   e.preventDefault();
 
-  if (!inputValue) {
-    return;
-  }
   inputValue = e.target.elements.query.value.trim();
 
-  renderSearchedFilms(inputValue).then(() => {
-    paginator.recalculate(movieApi.totalPages || 1);
-  });
+  if (inputValue) {
+    renderSearchedFilms(inputValue).then(() => {
+      paginator.recalculate(movieApi.totalPages || 1);
+    });
+  }
 }
 
 // функция рендера страницы запроса
