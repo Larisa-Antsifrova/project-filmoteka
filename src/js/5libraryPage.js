@@ -58,22 +58,27 @@ function createLibraryCardFunc(movie) {
 
 // Функция для создания/отрисовки списка фильмов
 // Обращение к локальной памяти внутри функции. Если в памяти пусто,
-// Вешается class message--active на <p> с текстом, который до этого
+// Вешается class message--shown на <p> с текстом, который до этого
 // был скрыт с помощью class message--hidden'
 function drawFilmList(key, paneId) {
   const paneRef = getTabPaneById(paneId);
+  const messageRef = paneRef.querySelector('.message');
+  const listRef = paneRef.querySelector('.library-page-gallery');
+
+  clearFilmList(listRef);
+
   const parsedFilms = getFilmListFromLocalStorage(key);
 
   if (parsedFilms === null || parsedFilms.length === 0) {
-    const messageRef = paneRef.querySelector('.message');
     messageRef.classList.remove('message--hidden');
-    messageRef.classList.add('message--active');
+    messageRef.classList.add('message--shown');
     return;
   }
 
-  const listRef = paneRef.querySelector('.library-page-gallery');
+  messageRef.classList.add('message--hidden');
+  messageRef.classList.remove('message--shown');
+
   const filmsList = createFilmListFragment(parsedFilms);
-  clearFilmList(listRef);
   listRef.appendChild(filmsList);
 }
 
