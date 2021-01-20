@@ -317,6 +317,8 @@ class PaginationApi {
         this.renderPaginationPageItems();
 
         this.assignCurrentActivePage();
+
+        return;
       }
 
       this.upRange = this.lowRange - 1;
@@ -360,12 +362,10 @@ class PaginationApi {
     console.log('TARGET: ', e.target);
 
     if (e.target.nodeName !== 'A' && e.target.nodeName !== 'I') {
-      console.log('YOU MISSED THE PAGINATION BUTTONS');
       return;
     }
 
     if (e.target.hasAttribute('disabled')) {
-      console.log('DISABBLED BTN');
       return;
     }
 
@@ -402,13 +402,16 @@ class PaginationApi {
 
   recalculate(newTotalPages) {
     this.totalPages = newTotalPages;
+
     this.lowRange = 1;
     this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
+
     this.totalPaginationBatches = Math.ceil(this.totalPages / this.displayNumber);
+    this.isLastPaginationBatch = false;
+    this.isFirstPaginationBatch = true;
 
     this.clearPaginationPageItems();
     this.renderPaginationPageItems();
-    console.log('THIS TOTAL PAGES: ', this.totalPages);
   }
 }
 
