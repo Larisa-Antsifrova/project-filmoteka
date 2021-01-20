@@ -30,7 +30,6 @@ const queueSpanTextRef = document.querySelector('[data-queue-text="textButton"]'
 
 // получаем доступ к кнопке НАЗАД
 const returnBtn = detailisSectionRef.querySelector('#return__btn');
-
 // создаем глобальную переменную selectFilm
 let selectFilm = {};
 
@@ -162,9 +161,8 @@ function activeHomePage(e) {
   clearInput();
   renderFilms = movieApi.fetchPopularFilmsList();
   renderPopularFilms();
-  location.reload();
   toggleActiveLink(homeRef);
-
+  homeMobileRef.classList.add('sidenav-close');
   homePageSectionRef.classList.remove('is-hidden');
   librarySectionRef.classList.add('is-hidden');
   detailisSectionRef.classList.add('is-hidden');
@@ -174,6 +172,7 @@ function activeLibraryPage(e) {
   e.preventDefault();
   clearInput();
   toggleActiveLink(libraryRef);
+  libraryMobileRef.classList.add('sidenav-close');
   librarySectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');
   detailisSectionRef.classList.add('is-hidden');
