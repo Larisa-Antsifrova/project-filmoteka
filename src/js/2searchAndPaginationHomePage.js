@@ -84,8 +84,9 @@ class PaginationApi {
     this.paginationPageItemsContainerRef = document.querySelector('.pagination-page-items-container');
     this.paginationToBeginningBtnRef = document.querySelector('.pagination-beginning');
     this.paginationPreviousPageRef = document.querySelector('.pagination-previous-page');
-    this.paginationNextPageRef = document.querySelector('.pagination-next-page');
     this.paginationToEndBtnRef = document.querySelector('.pagination-end');
+    this.paginationNextPageRef = document.querySelector('.pagination-next-page');
+
     this.totalPages = totalPages;
     this.displayNumber = displayNumber;
     this.lowRange = 1;
@@ -95,6 +96,7 @@ class PaginationApi {
     this.isLastPaginationBatch = false;
     this.isFirstPaginationBatch = true;
     this.currentActivePage = null;
+
     this.paginationPageItemsContainerRef.addEventListener('click', this.goToSelectedPage.bind(this));
     this.paginationToEndBtnRef.addEventListener('click', this.goToEnd.bind(this));
     this.paginationToBeginningBtnRef.addEventListener('click', this.goToBeginning.bind(this));
@@ -104,9 +106,11 @@ class PaginationApi {
 
     this.renderPaginationPageItems();
   }
+
   clearPaginationPageItems() {
     this.paginationPageItemsContainerRef.innerHTML = '';
   }
+
   createPaginationPageItemsMarkup() {
     let paginationPageItemsMarkup = '';
     for (let i = this.lowRange; i <= this.upRange; i++) {
@@ -116,6 +120,7 @@ class PaginationApi {
     }
     return paginationPageItemsMarkup;
   }
+
   renderPaginationPageItems() {
     const paginationPageItemsMarkup = this.createPaginationPageItemsMarkup();
     this.paginationPageItemsContainerRef.insertAdjacentHTML('afterbegin', paginationPageItemsMarkup);
@@ -138,6 +143,7 @@ class PaginationApi {
 
     this.assignCurrentActivePage();
   }
+
   disableToEndBtn() {
     this.paginationToEndBtnRef.classList.add('disabled');
   }
@@ -162,12 +168,14 @@ class PaginationApi {
   enablePreviousPageBtn() {
     this.paginationPreviousPageRef.classList.remove('disabled');
   }
+
   assignCurrentActivePage() {
     const paginationPageItems = this.paginationPageItemsContainerRef.querySelectorAll('li');
     const activeTarget = [...paginationPageItems].find(node => +node.dataset.page === movieApi.pageNumber);
     activeTarget.classList.add('active');
     this.currentActivePage = activeTarget;
   }
+
   switchCurrentActivePage() {
     const paginationPageItems = this.paginationPageItemsContainerRef.querySelectorAll('li');
     const activeTarget = [...paginationPageItems].find(node => +node.dataset.page === movieApi.pageNumber);
@@ -175,10 +183,8 @@ class PaginationApi {
     activeTarget.classList.add('active');
     this.currentActivePage = activeTarget;
   }
+
   goToBeginning() {
-    // if ([...this.paginationToBeginningBtnRef.classList].includes('disabled')) {
-    //   return;
-    // }
     if (this.paginationToBeginningBtnRef.classList.contains('disabled')) {
       return;
     }
@@ -202,6 +208,7 @@ class PaginationApi {
 
     this.assignCurrentActivePage();
   }
+
   goToEnd() {
     if (this.paginationToEndBtnRef.classList.contains('disabled')) {
       return;
@@ -225,6 +232,7 @@ class PaginationApi {
 
     this.assignCurrentActivePage();
   }
+
   goToNextPage() {
     this.enableToBeginningBtn();
     this.enablePreviousPageBtn();
@@ -269,6 +277,7 @@ class PaginationApi {
 
     this.switchCurrentActivePage();
   }
+
   goToPreviousPage() {
     this.enableToEndBtn();
     this.enableNextPageBtn();
@@ -310,6 +319,7 @@ class PaginationApi {
 
     this.switchCurrentActivePage();
   }
+
   goToSelectedPage(e) {
     movieApi.pageNumber = +e.target.dataset.page;
 
@@ -332,11 +342,16 @@ class PaginationApi {
 
     this.switchCurrentActivePage();
   }
+
   initiateFetch(e) {
+    console.log('INITIATE FETCH e.target', e.target);
+    console.log('INITIATE FETCH e.CurrentTarget', e.currentTarget);
+
     if (e.target.nodeName !== 'A' && e.target.nodeName !== 'I') {
       console.log('YOU MISSED THE PAGINATION BUTTONS');
       return;
     }
+
     // toggleRenderPage();
 
     movieApi
@@ -347,9 +362,6 @@ class PaginationApi {
 
         console.log('TOTAL PAGES INSIDE FENTCH: ', movieApi.totalPages, movieApi.pageNumber);
       });
-
-    console.log('EVENT TARGET ON CONTAINER', e.target);
-    console.log('MOVIE.API PAGE NUMBER', movieApi.pageNumber);
   }
 }
 

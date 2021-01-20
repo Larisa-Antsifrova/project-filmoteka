@@ -120,3 +120,17 @@ const refs = {
 };
 
 const { homePageRef, searchForm, errorArea } = refs;
+
+// Объект спиннера и его методы
+const spinner = {
+  spinnerRef: document.querySelector('[data-spinner]'),
+
+  show() {
+    console.log('SPINNER SHOW');
+    this.spinnerRef.style.display = 'inline-block';
+  },
+  hide() {
+    console.log('SPINNER HIDE');
+    this.spinnerRef.style.display = 'none';
+  },
+};

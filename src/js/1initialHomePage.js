@@ -2,20 +2,6 @@
 const genres = movieApi.fetchGenresList(); // содержит промис с массивом объектов жанров
 let renderFilms = movieApi.fetchPopularFilmsList(); // содержит массив с объектами фильмов
 
-// Объект спиннера и его методы
-const spinner = {
-  spinnerRef: document.querySelector('[data-spinner]'),
-
-  show() {
-    console.log('SPINNER SHOW', this.spinnerRef);
-    this.spinnerRef.style.display = 'inline-block';
-  },
-  hide() {
-    console.log('SPINNER HIDE', this.spinnerRef);
-    this.spinnerRef.style.display = 'none';
-  },
-};
-
 // Вызов функций для высчета размеров изображений для карточек и постера
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();
@@ -104,7 +90,7 @@ movieApi
   .then(createGallery)
   .then(fragment => {
     renderGallery(fragment, homePageRef);
-    console.log(paginator);
+    // console.log(paginator);
     paginator = new PaginationApi(movieApi.totalPages);
-    console.log(paginator);
+    // console.log(paginator);
   });
