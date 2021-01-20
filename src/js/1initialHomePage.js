@@ -76,21 +76,6 @@ function createCardFunc(movie) {
   return galleryItemCard;
 }
 
-// Alex add - вывел фетч в функцию, во избежание дублирования кода т.к. она нужна для рендера страницы при выводе ошибки (стр 65)
-function renderPopularMoviesList() {
-  movieApi
-    .fetchPopularFilmsList()
-    .then(createGallery)
-    .then(fragment => renderGallery(fragment, homePageRef));
-}
-
-// Самый первый фетч по популярным и инизиализация пагинатора для результата
-movieApi
-  .fetchPopularFilmsList()
-  .then(createGallery)
-  .then(fragment => {
-    renderGallery(fragment, homePageRef);
-    // console.log(paginator);
-    paginator = new PaginationApi(movieApi.totalPages);
-    // console.log(paginator);
-  });
+renderPopularFilms().then(() => {
+  paginator = new PaginationApi();
+});

@@ -161,7 +161,7 @@ function activeHomePage(e) {
   movieApi.resetPage();
   clearInput();
   renderFilms = movieApi.fetchPopularFilmsList();
-  renderPopularMoviesList();
+  renderPopularFilms();
   location.reload();
   toggleActiveLink(homeRef);
 

@@ -9,9 +9,11 @@ searchForm.addEventListener('submit', searchFilms);
 // функция выбора отображения страницы в зависимости от наличия текстa в инпуте
 function toggleRenderPage() {
   if (!inputValue.length) {
-    renderPopularMoviesList();
+    console.log('I toggle render POPULAR');
+    renderPopularFilms();
     renderFilms = movieApi.fetchPopularFilmsList();
   } else {
+    console.log('I toggle render SEARCH');
     renderSearchedFilms(inputValue);
     renderFilms = movieApi.fetchSearchFilmsList(inputValue);
   }
@@ -28,6 +30,13 @@ function searchFilms(e) {
 function renderSearchedFilms(inputValue) {
   movieApi
     .fetchSearchFilmsList(inputValue)
+    .then(createGallery)
+    .then(fragment => renderGallery(fragment, homePageRef));
+}
+
+function renderPopularFilms() {
+  return movieApi
+    .fetchPopularFilmsList()
     .then(createGallery)
     .then(fragment => renderGallery(fragment, homePageRef));
 }
@@ -55,7 +64,7 @@ function notFound() {
   clearInput();
   movieApi.resetPage();
 
-  return renderPopularMoviesList();
+  return renderPopularFilms();
 }
 
 // функция сокрытия строки ошибки
@@ -79,7 +88,7 @@ function clearHomePage() {
 
 // PAGINATION with MATERIALIZE
 class PaginationApi {
-  constructor(totalPages, displayNumber = 5) {
+  constructor(displayNumber = 5) {
     this.paginationContainerRef = document.querySelector('.pagination-container');
     this.paginationPageItemsContainerRef = document.querySelector('.pagination-page-items-container');
     this.paginationToBeginningBtnRef = document.querySelector('.pagination-beginning');
@@ -87,7 +96,7 @@ class PaginationApi {
     this.paginationToEndBtnRef = document.querySelector('.pagination-end');
     this.paginationNextPageRef = document.querySelector('.pagination-next-page');
 
-    this.totalPages = totalPages;
+    this.totalPages = movieApi.totalPages;
     this.displayNumber = displayNumber;
     this.lowRange = 1;
     this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
@@ -97,12 +106,7 @@ class PaginationApi {
     this.isFirstPaginationBatch = true;
     this.currentActivePage = null;
 
-    this.paginationPageItemsContainerRef.addEventListener('click', this.goToSelectedPage.bind(this));
-    this.paginationToEndBtnRef.addEventListener('click', this.goToEnd.bind(this));
-    this.paginationToBeginningBtnRef.addEventListener('click', this.goToBeginning.bind(this));
-    this.paginationNextPageRef.addEventListener('click', this.goToNextPage.bind(this));
-    this.paginationPreviousPageRef.addEventListener('click', this.goToPreviousPage.bind(this));
-    this.paginationContainerRef.addEventListener('click', this.initiateFetch.bind(this));
+    this.paginationContainerRef.addEventListener('click', this.onPaginationClick.bind(this));
 
     this.renderPaginationPageItems();
   }
@@ -124,6 +128,17 @@ class PaginationApi {
   renderPaginationPageItems() {
     const paginationPageItemsMarkup = this.createPaginationPageItemsMarkup();
     this.paginationPageItemsContainerRef.insertAdjacentHTML('afterbegin', paginationPageItemsMarkup);
+
+    // if (movieApi.pageNumber === 1 && movieApi.pageNumber === this.totalPages) {
+    //   this.disableToBeginningBtn();
+    //   this.disablePreviousPageBtn();
+    //   this.disableToEndBtn();
+    //   this.disableNextPageBtn();
+
+    //   this.assignCurrentActivePage();
+
+    //   return;
+    // }
 
     if (movieApi.pageNumber === 1) {
       this.disableToBeginningBtn();
@@ -343,25 +358,42 @@ class PaginationApi {
     this.switchCurrentActivePage();
   }
 
-  initiateFetch(e) {
-    console.log('INITIATE FETCH e.target', e.target);
-    console.log('INITIATE FETCH e.CurrentTarget', e.currentTarget);
-
+  onPaginationClick(e) {
     if (e.target.nodeName !== 'A' && e.target.nodeName !== 'I') {
       console.log('YOU MISSED THE PAGINATION BUTTONS');
       return;
     }
 
-    // toggleRenderPage();
+    if (e.target.nodeName === 'A') {
+      this.goToSelectedPage(e);
+    }
 
-    movieApi
-      .fetchPopularFilmsList()
-      .then(createGallery)
-      .then(fragment => {
-        renderGallery(fragment, homePageRef);
+    if (e.target.textContent === 'first_page') {
+      this.goToBeginning();
+    }
 
-        console.log('TOTAL PAGES INSIDE FENTCH: ', movieApi.totalPages, movieApi.pageNumber);
-      });
+    if (e.target.textContent === 'chevron_left') {
+      this.goToPreviousPage();
+    }
+
+    if (e.target.textContent === 'last_page') {
+      this.goToEnd();
+    }
+
+    if (e.target.textContent === 'chevron_right') {
+      this.goToNextPage();
+    }
+
+    toggleRenderPage();
+
+    // movieApi
+    //   .fetchPopularFilmsList()
+    //   .then(createGallery)
+    //   .then(fragment => {
+    //     renderGallery(fragment, homePageRef);
+
+    //     console.log('TOTAL PAGES INSIDE FENTCH: ', movieApi.totalPages, movieApi.pageNumber);
+    //   });
   }
 }
 
