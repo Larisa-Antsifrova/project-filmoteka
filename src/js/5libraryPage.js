@@ -26,7 +26,7 @@ function createLibraryCardFunc(movie) {
   const filmYear = movie.release_date ? `(${movie.release_date.slice(0, 4)})` : '';
   const filmTitle = `${movie.title} ${filmYear}`;
   const movieId = movie.id;
-  const movieRaiting = movie.vote_average;
+  const movieRaiting = String(movie.vote_average).padEnd(3, '.0');
 
   const libraryGalleryItemRef = document.createElement('li');
   libraryGalleryItemRef.classList.add('gallery-item-card');
