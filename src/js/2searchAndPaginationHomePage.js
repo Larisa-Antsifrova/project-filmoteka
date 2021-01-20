@@ -23,9 +23,7 @@ function searchFilms(e) {
   inputValue = e.target.elements.query.value.trim();
 
   renderSearchedFilms(inputValue).then(() => {
-    console.log('number of pages in searchFIlms MOVIEAPI', movieApi.totalPages);
     paginator.recalculate(movieApi.totalPages || 1);
-    console.log('number of pages in searchFIlms PAGINATOR ', paginator.totalPages);
   });
 }
 
@@ -68,10 +66,7 @@ function notFound() {
   movieApi.resetPage();
 
   return renderPopularFilms().then(() => {
-    console.log('number of pages in not FOUND ', movieApi.totalPages);
     paginator.recalculate(movieApi.totalPages);
-
-    console.log('PAGE TOTAL ', movieApi.totalPages);
   });
 }
 
@@ -421,4 +416,3 @@ class PaginationApi {
 }
 
 const paginator = new PaginationApi(movieApi.totalPages);
-console.dir(paginator);
