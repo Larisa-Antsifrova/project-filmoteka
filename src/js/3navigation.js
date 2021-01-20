@@ -5,9 +5,9 @@ const librarySectionRef = document.querySelector('[data-library-section]');
 const detailisSectionRef = document.querySelector('[data-detailis-section]');
 const toggleQueueBtn = document.querySelector('[data-toggle-queue]');
 const toggleWatchedBtn = document.querySelector('[data-toggle-watched]');
+const favoriteBtn = document.querySelector('[data-toggle-favorite]');
 const watchedBtn = document.querySelector('[data-action-watched]');
 const queueBtn = document.querySelector('[data-action-queue]');
-const favoriteBtn = document.querySelector('[data-toggle-favorite]');
 const logoRefs = document.querySelector('.logo__js');
 const navigationRefs = document.querySelector('.navigation');
 const togleSwitchBtn = document.querySelector('[data-action-togle]');
@@ -18,7 +18,25 @@ const libraryMobileRef = document.querySelector('.library__link-mobile');
 const readMoreBtn = document.getElementById('read__more');
 const aboutContent = document.querySelector('.about__content');
 const ditailsDescription = document.querySelector('#details__about');
+// переменные для измнения иконок и текста в кнопках в detailsPage
+const favoritePreTextIconRef = document.querySelector(
+  '[data-icon-favorite="addPlus"]',
+);
+const favoriteSpanTextRef = document.querySelector(
+  '[data-favorite-text="textButton"]',
+);
 
+const queuePreTextIconRef = document.querySelector(
+  '[data-icon-queue="addPlus"]',
+);
+const watchedSpanTextRef = document.querySelector(
+  '[data-watched-text="textButton"]',
+);
+const watchedPreTextIconRef = document.querySelector(
+  '[data-icon-watched="addPlus"]',
+);
+
+<<<<<<< HEAD
 // ==== for modal window ====
 const videoSection = document.querySelector('.trailer');
 const lightboxOverlay = document.querySelector('.lightbox__overlay');
@@ -28,6 +46,16 @@ videoSection.addEventListener('click', openModale);
 lightboxOverlay.addEventListener('click', onClickOverlay);
 
 // создаем  переменную в глобальной области видимости selectFilm
+=======
+const queueSpanTextRef = document.querySelector(
+  '[data-queue-text="textButton"]',
+);
+
+// получаем доступ к кнопке НАЗАД
+const returnBtn = detailisSectionRef.querySelector('#return__btn');
+
+// создаем глобальную переменную selectFilm
+>>>>>>> dev
 let selectFilm = {};
 
 // создаем обьект с методами переключения темы
@@ -256,6 +284,7 @@ libraryRef.addEventListener('click', activeLibraryPage);
 togleSwitchBtn.addEventListener('click', togleSwitchTheme.switchTheme);
 homeMobileRef.addEventListener('click', activeHomePage);
 libraryMobileRef.addEventListener('click', activeLibraryPage);
+returnBtn.addEventListener('click', isReturnBtn);
 
 //создаем функцию activeHomePage которая показывает домашнюю страницу и прячет остальные
 function activeHomePage(e) {
@@ -278,7 +307,10 @@ function activeLibraryPage(e) {
   librarySectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');
   detailisSectionRef.classList.add('is-hidden');
-  // drawQueueFilmList();
+  queueBtn.focus();
+  drawQueueFilmList();
+  drawWatchedFilmList();
+  drawFavoriteFilmList();
 }
 
 // создаем функцию activeDetailsPage которая показывает страницу детальной отрисовки фильма
@@ -286,14 +318,29 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
   detailisSectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');
   librarySectionRef.classList.add('is-hidden');
-
+  const filmsQueue = JSON.parse(localStorage.getItem('filmsQueue'));
+  const filmsWatched = JSON.parse(localStorage.getItem('filmsWatched'));
+  const filmsFavorite = JSON.parse(localStorage.getItem('filmsFavorite'));
   if (itsLibraryFilm) {
-    selectFilm = JSON.parse(localStorage.getItem('filmsQueue'));
-    return selectFilm.find(el => {
-      if (el.id === movieId) {
-        return el;
-      }
-    });
+    if (watchedBtn.classList.contains('active')) {
+      selectFilm = filmsWatched.find(el => {
+        if (el.id === movieId) {
+          return el;
+        }
+      });
+    } else if (queueBtn.classList.contains('active')) {
+      selectFilm = filmsQueue.find(el => {
+        if (el.id === movieId) {
+          return el;
+        }
+      });
+    } else {
+      selectFilm = filmsFavorite.find(el => {
+        if (el.id === movieId) {
+          return el;
+        }
+      });
+    }
   } else {
     selectFilm = renderFilms.then(data => {
       return data.find(el => {
@@ -344,6 +391,23 @@ function backToTop() {
     setTimeout(backToTop, 20);
   }
 };
+
+// функция возврата на предыдущую страницу
+function isReturnBtn() {
+  if (libraryRef.classList.contains('active')) {
+    librarySectionRef.classList.remove('is-hidden');
+    homePageSectionRef.classList.add('is-hidden');
+    detailisSectionRef.classList.add('is-hidden');
+    drawQueueFilmList();
+    drawWatchedFilmList();
+    drawFavoriteFilmList();
+  } else {
+    homePageSectionRef.classList.remove('is-hidden');
+    librarySectionRef.classList.add('is-hidden');
+    detailisSectionRef.classList.add('is-hidden');
+  }
+}
+
 // ================= trailer ======================
 function fetchTrailersAPI(el) {
   return fetch(`${movieApi.baseUrl}movie/${el}/videos?api_key=${movieApi.apiKey}&language=en-US`)
@@ -357,6 +421,7 @@ function fetchTrailersAPI(el) {
       })
     })
 }
+
 // функция принимает movie и вставляет ссылку в список
 function createTrailerGallery(trailer) {
   const galleryItem = createTrailerRef(trailer.key);

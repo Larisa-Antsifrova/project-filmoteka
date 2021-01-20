@@ -2,6 +2,14 @@
   padding-top: 20px;
 }
 
+.library-page-gallery {
+  @media screen and (min-width: 320px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
 .tab a {
   i {
     color: white;

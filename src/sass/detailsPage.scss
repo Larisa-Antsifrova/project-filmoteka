@@ -140,7 +140,7 @@ table {
   height: 100vh;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--animation-duration) var(--timing-function);
+  transition: opacity $primaryTransition;
 
   overflow-x: scroll;
   overflow-y: hidden;
@@ -158,11 +158,12 @@ table {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 
 .lightbox__content {
   transform: scale(0.95);
-  transition: transform var(--animation-duration) var(--timing-function);
+  transition: transform $primaryTransition;
 }
 
 .lightbox.is-open .lightbox__content {

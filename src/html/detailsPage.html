@@ -4,6 +4,12 @@
       <!-- Movie poster -->
       <div class="col s12 l6">
         <img id="details__img" class="details-img col s12" />
+        <a
+          id="return__btn"
+          class="backtoprevious btn-floating waves-effect waves-light pink left"
+        >
+          <i class="material-icons">arrow_back</i>
+        </a>
       </div>
       <!-- Movie info -->
       <div class="col s12 l6 movie-description">
@@ -32,20 +38,26 @@
         </table>
 
         <div class="col s12">
-          <a class="col s6 waves-effect waves-light btn-small green offset-s3"
-            ><i class="material-icons left">add</i
-            ><span data-toggle-watched="add">to watched</span></a
+          <a
+            data-toggle-watched="add"
+            class="col s6 waves-effect waves-light btn-small green offset-s3"
+            ><i data-icon-watched="addPlus" class="material-icons left">add</i
+            ><span data-watched-text="textButton">to watched</span></a
           >
           <a
+            data-toggle-queue="add"
             class="col s6 waves-effect waves-light btn-small yellow darken-2 offset-s3 middle-btn"
-            ><i class="material-icons left">add</i
-            ><span data-toggle-queue="add">to queue</span></a
+            ><i data-icon-queue="addPlus" class="material-icons left">add</i
+            ><span data-queue-text="textButton">to queue</span></a
           >
-          <a class="col s6 waves-effect waves-light btn-small pink offset-s3"
-            ><i class="material-icons left">add</i
-            ><span data-toggle-favorite="add">fav</span></a
+          <a
+            data-toggle-favorite="add"
+            class="col s6 waves-effect waves-light btn-small pink offset-s3"
+            ><i data-icon-favorite="addPlus" class="material-icons left">add</i
+            ><span data-favorite-text="textButton">fav</span></a
           >
         </div>
+
         <h3 class="details-about indigo-text text-lighten-2 center">About</h3>
         <div class="about__content hidden__content">
           <p id="details__about" class="details-about-text">description</p>
