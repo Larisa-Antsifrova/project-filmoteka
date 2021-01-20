@@ -20,11 +20,11 @@ refs.favoriteBtn.addEventListener('click', drawFavoriteFilmList);
 // Принимает один объект фильма from local storage по инструкции
 // Делала функцию по патерну Ларисы
 function createLibraryCardFunc(movie) {
-  const imgPath = movieApi.images.baseImageUrl + movieApi.imageBackdropSize + movie.backdrop_path;
-
-  const filmYear = movie.release_date.slice(0, 4);
-
-  const filmTitle = `${movie.title} (${filmYear})`;
+  const imgPath = movie.backdrop_path
+    ? movieApi.images.baseImageUrl + movieApi.imageBackdropSize + movie.backdrop_path
+    : movieApi.images.defaultBackdropImg;
+  const filmYear = movie.release_date ? `(${movie.release_date.slice(0, 4)})` : '';
+  const filmTitle = `${movie.title} ${filmYear}`;
   const movieId = movie.id;
   const movieRaiting = movie.vote_average;
 
