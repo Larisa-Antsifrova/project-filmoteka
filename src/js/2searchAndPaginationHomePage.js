@@ -9,11 +9,9 @@ searchForm.addEventListener('submit', searchFilms);
 // функция выбора отображения страницы в зависимости от наличия текстa в инпуте. Определяет, вызывается ли фетч популярных фильмов или запрос поиска
 function toggleRenderPage() {
   if (!inputValue.length) {
-    console.log('I toggle render POPULAR');
     renderPopularFilms();
     renderFilms = movieApi.fetchPopularFilmsList();
   } else {
-    console.log('I toggle render SEARCH');
     renderSearchedFilms(inputValue);
     renderFilms = movieApi.fetchSearchFilmsList(inputValue);
   }
@@ -25,13 +23,6 @@ function searchFilms(e) {
   inputValue = e.target.elements.query.value.trim();
 
   renderSearchedFilms(inputValue).then(() => {
-    console.log('FIRST SEARCH', inputValue);
-    console.log('PAGE TOTAL ', movieApi.totalPages);
-    console.log('PAGE NUMBER', movieApi.pageNumber);
-
-    // const paginationContainerRef = document.querySelector('.pagination-page-items-container');
-    // paginationContainerRef.innerHTML = '';
-
     paginator.recalculate(movieApi.totalPages);
   });
 }
@@ -114,8 +105,6 @@ class PaginationApi {
     this.currentActivePage = null;
 
     this.paginationContainerRef.addEventListener('click', this.onPaginationClick.bind(this));
-
-    // this.renderPaginationPageItems();
   }
 
   clearPaginationPageItems() {
@@ -135,9 +124,9 @@ class PaginationApi {
   renderPaginationPageItems() {
     const paginationPageItemsMarkup = this.createPaginationPageItemsMarkup();
     this.paginationPageItemsContainerRef.insertAdjacentHTML('afterbegin', paginationPageItemsMarkup);
+
     const totalPageItems = this.paginationPageItemsContainerRef.querySelectorAll('li');
 
-    console.log('LENGTH', totalPageItems.length);
     if (totalPageItems.length === 1) {
       this.disableToBeginningBtn();
       this.disablePreviousPageBtn();
@@ -256,12 +245,11 @@ class PaginationApi {
   }
 
   goToNextPage() {
-    console.log('GO TO NEXT?');
     this.enableToBeginningBtn();
     this.enablePreviousPageBtn();
 
     movieApi.incrementPage();
-    console.log('Go to next', movieApi.pageNumber);
+
     if (movieApi.pageNumber > this.totalPages) {
       movieApi.pageNumber = this.totalPages;
       return;
@@ -329,8 +317,6 @@ class PaginationApi {
         this.renderPaginationPageItems();
 
         this.assignCurrentActivePage();
-
-        return;
       }
 
       this.upRange = this.lowRange - 1;
@@ -349,11 +335,15 @@ class PaginationApi {
     if (movieApi.pageNumber === 1) {
       this.disableToBeginningBtn();
       this.disablePreviousPageBtn();
+      this.enableToEndBtn();
+      this.enableNextPageBtn();
     }
 
     if (movieApi.pageNumber === this.totalPages) {
       this.disableToEndBtn();
       this.disableNextPageBtn();
+      this.enableToBeginningBtn();
+      this.enablePreviousPageBtn();
     }
 
     if (movieApi.pageNumber !== 1 && movieApi.pageNumber !== this.totalPages) {
@@ -381,44 +371,46 @@ class PaginationApi {
 
     if (e.target.nodeName === 'A') {
       this.goToSelectedPage(e);
-      toggleRenderPage();
+      // toggleRenderPage();
       return;
     }
 
     if (e.target.textContent === 'first_page') {
       this.goToBeginning();
-      toggleRenderPage();
+      // toggleRenderPage();
       return;
     }
 
     if (e.target.textContent === 'chevron_left') {
       this.goToPreviousPage();
-      toggleRenderPage();
+      // toggleRenderPage();
       return;
     }
 
     if (e.target.textContent === 'last_page') {
       this.goToEnd();
-      toggleRenderPage();
+      // toggleRenderPage();
       return;
     }
 
     if (e.target.textContent === 'chevron_right') {
       this.goToNextPage();
-      toggleRenderPage();
+      // toggleRenderPage();
       return;
     }
   }
+
   recalculate(newTotalPages) {
     this.totalPages = newTotalPages;
     this.lowRange = 1;
     this.upRange = this.totalPages > this.displayNumber ? this.lowRange + this.displayNumber - 1 : this.totalPages;
+    this.totalPaginationBatches = Math.ceil(this.totalPages / this.displayNumber);
+
     this.clearPaginationPageItems();
     this.renderPaginationPageItems();
     console.log('THIS TOTAL PAGES: ', this.totalPages);
   }
 }
 
-const paginator = new PaginationApi();
+const paginator = new PaginationApi(movieApi.totalPages);
 console.dir(paginator);
-// paginator.recalculate(4);
