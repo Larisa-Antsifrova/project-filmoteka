@@ -1,25 +1,20 @@
 .home-page-section {
-  // padding-top: 15px;
   padding-bottom: 15px;
 
   @media screen and (min-width: 320px) {
-    // padding-top: 20px;
     padding-bottom: 20px;
   }
 
   @media screen and (min-width: 768px) {
-    // padding-top: 25px;
     padding-bottom: 25px;
   }
 
   @media screen and (min-width: 1024px) {
-    // padding-top: 30px;
     padding-bottom: 30px;
   }
 }
 
 .home-page-gallery {
-  // margin-bottom: 20px;
   @media screen and (min-width: 320px) {
     display: flex;
     flex-wrap: wrap;
@@ -30,9 +25,8 @@
 .gallery-item-card {
   position: relative;
 
-  border-radius: 10px;
+  border-radius: 7px;
   overflow: hidden;
-  // box-shadow: $stillBoxShadow;
   transform: scale(1, 1);
   transition: transform $primaryTransition, box-shadow $primaryTransition;
   cursor: pointer;
@@ -40,7 +34,6 @@
   &:hover,
   :focus {
     transform: scale(1.08, 1.08);
-    // box-shadow: $hoverBoxShadow;
   }
 
   @media screen and (max-width: 319px) {
@@ -64,12 +57,22 @@
   left: 0;
   right: 0;
 
-  padding: 5px 10px;
-
   color: $basicWhiteColor;
-  @include fontBasicStyles(14px, 1.5, 700);
-
   background: $titleBackgroundGradientLT;
+
+  @media screen and (max-width: 767px) {
+    padding: 15px 20px;
+    @include fontBasicStyles(20px, 1.5, 700);
+  }
+  @media screen and (max-width: 500px) {
+    padding: 10px 15px;
+    @include fontBasicStyles(18px, 1.5, 700);
+  }
+
+  @media screen and (max-width: 319px) {
+    padding: 5px 10px;
+    @include fontBasicStyles(14px, 1.5, 700);
+  }
 
   @media screen and (min-width: 768px) {
     padding: 10px 15px;
