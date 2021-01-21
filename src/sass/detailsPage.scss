@@ -2,6 +2,7 @@
 .container {
   outline: 1px solid tomato;
 }
+
 .movie-details-container {
   @media screen and (min-width: 768px) {
     display: flex;
@@ -10,53 +11,39 @@
 }
 
 .poster__container {
+  position: relative;
+
+  @media screen and (max-width: 767px) {
+    display: flex;
+    justify-content: center;
+  }
+
   @media screen and (min-width: 768px) {
     margin-right: 10px;
   }
 }
 
-.details__title {
-  margin: 0;
-}
-.read-more {
-  opacity: 0.7;
-}
-
-.read-more:hover {
-  opacity: 1;
-}
-
-.is__hidden-btn {
-  display: none;
-}
-
-.hidden__content {
-  overflow: hidden;
-  height: 3.6em;
-  line-height: 1.2em;
-  // width: 200px;
-}
-
-.details-page {
-  padding: 20px 0;
-}
-
-.btn-small {
-  font-size: 10px;
-  margin-bottom: 10px;
-  // max-width: 180px;
-}
-
-#details__title {
-  margin: 10px 0 5px 0;
-  font-size: 30px;
-  font-weight: 700px;
-}
-
-#details__img {
+.details-img {
   border-radius: 7px;
 }
 
+.backtoprevious {
+  position: absolute;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(0, 50%);
+
+  z-index: 0;
+}
+
+.description__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 table {
   margin-bottom: 15px;
   border-radius: 7px;
@@ -81,10 +68,48 @@ td {
 .movie-description {
   padding: 0 10px;
 }
+.buttons__container {
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.btn-small {
+  font-size: 10px;
+  margin-bottom: 10px;
+  // max-width: 180px;
+}
 
 .middle-btn {
   margin-right: 5px;
   margin-left: 5px;
+}
+
+.details__title {
+  margin: 10px 0 5px 0;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.read-more {
+  opacity: 0.7;
+}
+
+.read-more:hover {
+  opacity: 1;
+}
+
+.is__hidden-btn {
+  display: none;
+}
+
+.hidden__content {
+  overflow: hidden;
+  height: 3.6em;
+  line-height: 1.2em;
+  // width: 200px;
 }
 
 // ============= trailer ==============

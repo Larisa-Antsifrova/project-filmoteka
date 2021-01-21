@@ -3,16 +3,15 @@
     <div class="movie-details-container">
       <!-- Movie poster -->
       <div class="blue poster__container">
-        <img id="details__img" class="details-img col 12" />
+        <img id="details__img" class="details-img" />
         <a id="return__btn" class="backtoprevious btn-floating waves-effect waves-light pink left">
           <i class="material-icons">arrow_back</i>
         </a>
       </div>
       <!-- Movie info -->
-      <div class="movie-description green">
-        <div class="col s12 center">
-          <h2 id="details__title" class="indigo-text">Movie Title</h2>
-        </div>
+      <div class="description__container green">
+        <h2 id="details__title" class="indigo-text details__title">Movie Title</h2>
+
         <table>
           <tbody>
             <tr class="indigo lighten-4">
@@ -34,18 +33,16 @@
           </tbody>
         </table>
 
-        <div class="col s12">
-          <a data-toggle-watched="add" class="col s6 waves-effect waves-light btn-small green offset-s3"
+        <div class="buttons__container">
+          <a data-toggle-watched="add" class="waves-effect waves-light btn-small green"
             ><i data-icon-watched="addPlus" class="material-icons left">add</i
             ><span data-watched-text="textButton">to watched</span></a
           >
-          <a
-            data-toggle-queue="add"
-            class="col s6 waves-effect waves-light btn-small yellow darken-2 offset-s3 middle-btn"
+          <a data-toggle-queue="add" class="waves-effect waves-light btn-small yellow darken-2 middle-btn"
             ><i data-icon-queue="addPlus" class="material-icons left">add</i
             ><span data-queue-text="textButton">to queue</span></a
           >
-          <a data-toggle-favorite="add" class="col s6 waves-effect waves-light btn-small pink offset-s3"
+          <a data-toggle-favorite="add" class="waves-effect waves-light btn-small pink"
             ><i data-icon-favorite="addPlus" class="material-icons left">add</i
             ><span data-favorite-text="textButton">fav</span></a
           >
