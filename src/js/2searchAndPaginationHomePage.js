@@ -421,16 +421,6 @@ class PaginationApi {
 
 const paginator = new PaginationApi(movieApi.totalPages);
 
-// функция отзыва кнопок и рендера страницы по номеру кнопки
-function renderPageOnNumBtn(evt) {
-  movieApi.pageNumber = evt.target.textContent;
-  deactivationPaginationBtn(evt);
-  disabledPrevBtn();
-  clearHomePage();
-  toggleRenderPage();
-};
-
-
 
 // ============================= for modal window =======================================
 const trailerSection = document.querySelector('.trailer');
@@ -438,7 +428,7 @@ const lightboxOverlay = document.querySelector('.lightbox__overlay');
 const lightboxCard = document.querySelector('.js-lightbox');
 const trailerVideo = document.querySelector('.trailer_referense');
 
-trailerSection.addEventListener('click', openModale);
+trailerSection.addEventListener('click', openModal);
 lightboxOverlay.addEventListener('click', onClickOverlay);
 
 
@@ -480,8 +470,8 @@ function createTrailerBtn(trailer) {
 function createTrailerRef(key) {
   const trailerItem = document.createElement('li');
   trailerItem.classList.add('trailer__ref');
-  const YouTubeURL = 'https://www.youtube.com//embed/';
-  const fullURL = `${YouTubeURL}${key}`;
+  const YOUTUBE_URL = 'https://www.youtube.com//embed/';
+  const fullURL = `${YOUTUBE_URL}${key}`;
   const trailerRef = `<a href="${fullURL}" class='trailer__a'>Trailer</a>`;
   trailerItem.insertAdjacentHTML('afterbegin', trailerRef);
   return trailerItem;
@@ -492,7 +482,7 @@ function clearTrailerKey() {
 }
 
 // ==== modal window =====
-function openModale(event) {
+function openModal(event) {
   event.preventDefault();
   if (event.target.nodeName !== 'A') {
     return
@@ -500,7 +490,7 @@ function openModale(event) {
   trailerVideo.src = event.target.href
   lightboxCard.classList.add('is-open');
   lightboxOverlay.addEventListener('click', onClickOverlay);
-  trailerSection.removeEventListener('click', openModale);
+  trailerSection.removeEventListener('click', openModal);
   addKeydownListener();
 };
 
