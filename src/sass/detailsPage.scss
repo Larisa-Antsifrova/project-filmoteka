@@ -103,7 +103,12 @@ td {
   }
 }
 
+.collapsible {
+  width: 100%;
+}
+
 .details__title {
+  color: red;
   margin: 10px 0 5px 0;
   text-align: center;
   font-size: 30px;
