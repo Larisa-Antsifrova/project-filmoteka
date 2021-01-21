@@ -179,13 +179,11 @@ function showDetails(selectFilm) {
   const selectGenres = document.querySelector('#details__genre');
 
   if (selectFilm instanceof Promise) {
-    console.log(selectFilm);
+    console.log('selectFilm, ', selectFilm);
     selectFilm.then(el => {
-      console.log(el);
+      console.log('el in instance of Promise, ', el);
       const imgPath = el.poster_path
-        ? movieApi.images.baseImageUrl +
-          movieApi.imagePosterSize +
-          el.poster_path
+        ? movieApi.images.baseImageUrl + movieApi.imagePosterSize + el.poster_path
         : movieApi.images.defaultPosterImg;
 
       img.setAttribute('src', imgPath);
@@ -216,9 +214,7 @@ function showDetails(selectFilm) {
     });
   } else {
     const imgPath = selectFilm.poster_path
-      ? movieApi.images.baseImageUrl +
-        movieApi.imagePosterSize +
-        selectFilm.poster_path
+      ? movieApi.images.baseImageUrl + movieApi.imagePosterSize + selectFilm.poster_path
       : movieApi.images.defaultPosterImg;
 
     img.setAttribute('src', imgPath);
