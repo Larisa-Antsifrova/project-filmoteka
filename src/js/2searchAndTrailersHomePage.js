@@ -1,15 +1,10 @@
-// Глобальная переменная для хранения строки запроса при поиске
-let inputValue = '';
-
-// слушатели событий
 searchForm.addEventListener('click', onInputFocus);
 searchForm.addEventListener('submit', searchFilms);
 
-// функции
 // функция выбора отображения страницы в зависимости от наличия текстa в инпуте.
 // Определяет, вызывается ли фетч популярных фильмов или запрос поиска
 function toggleRenderPage() {
-  if (!inputValue.length) {
+  if (!movieApi.searchQuery.length) {
     renderPopularFilms().then(() => {
       window.scrollTo({
         top: 100,
@@ -19,25 +14,24 @@ function toggleRenderPage() {
     });
     renderFilms = movieApi.fetchPopularFilmsList();
   } else {
-    renderSearchedFilms(inputValue).then(() => {
+    renderSearchedFilms(movieApi.searchQuery).then(() => {
       window.scrollTo({
         top: 100,
         left: 100,
         behavior: 'smooth',
       });
     });
-    renderFilms = movieApi.fetchSearchFilmsList(inputValue);
+    renderFilms = movieApi.fetchSearchFilmsList(movieApi.searchQuery);
   }
 }
 
 // функция для слушателя инпута и отображения страницы согласно запросу
 function searchFilms(e) {
   e.preventDefault();
+  movieApi.searchQuery = e.target.elements.query.value.trim();
 
-  inputValue = e.target.elements.query.value.trim();
-
-  if (inputValue) {
-    renderSearchedFilms(inputValue).then(() => {
+  if (movieApi.searchQuery) {
+    renderSearchedFilms(movieApi.searchQuery).then(() => {
       paginator.recalculate(movieApi.totalPages || 1);
     });
   }
@@ -69,15 +63,12 @@ function onInputFocus() {
 function clearInput() {
   searchForm.elements.query.value = '';
   movieApi.searchQuery = '';
-  inputValue = '';
 }
 
 // функция реагирования на некорректный запрос
 function notFound() {
   errorArea.style.visibility = 'visible';
-
   const timeOfVisibleError = setTimeout(clearError, 2000);
-
   clearInput();
   movieApi.resetPage();
 
@@ -108,25 +99,8 @@ lightboxOverlay.addEventListener('click', onClickOverlay);
 // =============================== trailer ====================================
 
 function renderMovieTrailer(el) {
-  fetchTrailersAPI(el).then(createTrailerBtn);
-}
-
-function fetchTrailersAPI(el) {
-  return fetch(`${movieApi.baseUrl}movie/${el}/videos?api_key=${movieApi.apiKey}&language=en-US`)
-    .then(response => response.json())
-    .then(resp => resp)
-    .then(({ results }) => {
-      // проверка на наличие трейлера
-      if (!results.length) {
-        return;
-      } else {
-        return results.find(e => {
-          if (e.type == 'Trailer') {
-            return e;
-          }
-        });
-      }
-    });
+  movieApi.fetchTrailersAPI(el)
+    .then(createTrailerBtn);
 }
 
 // функция принимает li с ссылкой и вставляет в список

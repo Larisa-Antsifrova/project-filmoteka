@@ -159,6 +159,7 @@ function activeHomePage(e) {
   e.preventDefault();
   movieApi.resetPage();
   clearInput();
+  clearTrailerKey();
   renderFilms = movieApi.fetchPopularFilmsList();
   renderPopularFilms();
   toggleActiveLink(homeRef);
@@ -171,6 +172,7 @@ function activeHomePage(e) {
 function activeLibraryPage(e) {
   e.preventDefault();
   clearInput();
+  clearTrailerKey();
   toggleActiveLink(libraryRef);
   libraryMobileRef.classList.add('sidenav-close');
   librarySectionRef.classList.remove('is-hidden');
