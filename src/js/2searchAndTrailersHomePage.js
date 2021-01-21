@@ -47,14 +47,14 @@ function searchFilms(e) {
 function renderSearchedFilms(inputValue) {
   return movieApi
     .fetchSearchFilmsList(inputValue)
-    .then(createGallery)
+    .then(createGalleryFragment)
     .then(fragment => renderGallery(fragment, homePageRef));
 }
 
 function renderPopularFilms() {
   return movieApi
     .fetchPopularFilmsList()
-    .then(createGallery)
+    .then(createGalleryFragment)
     .then(fragment => renderGallery(fragment, homePageRef));
 }
 
@@ -91,10 +91,10 @@ function clearError() {
   errorArea.style.visibility = 'hidden';
 }
 
-// функция очистки стартовой страницы
-function clearHomePage() {
-  homePageRef.innerHTML = '';
-}
+// функция очистки стартовой страницы - Здесь: у Тани более универсальная функция, оптимальнее оставить ее :)
+// function clearHomePage() {
+//   homePageRef.innerHTML = '';
+// }
 
 // ============================= for modal window =======================================
 const trailerSection = document.querySelector('.trailer');
