@@ -1,40 +1,40 @@
-<section class="details-page is-hidden grey" data-details-section>
+<section class="details-page is-hidden" data-details-section>
   <div class="container">
     <div class="movie-details-container">
       <!-- Movie poster -->
-      <div class="blue poster__container">
+      <div class="poster__container">
         <img id="details__img" class="details-img" />
-        <a id="return__btn" class="backtoprevious btn-floating waves-effect waves-light pink left">
+        <a id="return__btn" class="backtoprevious btn-floating waves-effect waves-light left">
           <i class="material-icons">arrow_back</i>
         </a>
       </div>
       <!-- Movie info -->
-      <div class="description__container green">
-        <h2 id="details__title" class="indigo-text details__title">Movie Title</h2>
+      <div class="description__container">
+        <h2 id="details__title" class="details__title">Movie Title</h2>
 
         <table>
           <tbody>
-            <tr class="indigo lighten-4">
-              <td class="indigo lighten-3 details__caption">Vote / votes</td>
+            <tr class="">
+              <td class="details__caption">Vote / votes</td>
               <td id="details__vote" class="details__info">average/total</td>
             </tr>
-            <tr class="indigo lighten-5">
-              <td class="indigo lighten-4 details__caption">Popularity</td>
+            <tr class=" ">
+              <td class="details__caption">Popularity</td>
               <td id="details__popularity" class="details__info">popularity</td>
             </tr>
-            <tr class="indigo lighten-4">
-              <td class="indigo lighten-3 details__caption">Original title</td>
+            <tr class=" ">
+              <td class="details__caption">Original title</td>
               <td id="original__title" class="details__info">title</td>
             </tr>
-            <tr class="indigo lighten-5">
-              <td class="indigo lighten-4 details__caption">Genre</td>
+            <tr class=" ">
+              <td class="details__caption">Genre</td>
               <td id="details__genre" class="details__info">genres</td>
             </tr>
           </tbody>
         </table>
 
         <div class="buttons__container">
-          <a data-toggle-watched="add" class="waves-effect waves-light btn-small green"
+          <a data-toggle-watched="add" class="waves-effect waves-light btn-small green darken-1"
             ><i data-icon-watched="addPlus" class="material-icons left">add</i
             ><span data-watched-text="textButton">to watched</span></a
           >
@@ -52,14 +52,14 @@
           <li>
             <div class="collapsible-header">
               <i class="material-icons">info_outline</i>
-              <h3 class="details-about indigo-text text-lighten-2 center">About</h3>
+              <h3 class="details-about center">About</h3>
             </div>
             <div class="collapsible-body"><p id="details__about" class="details-about-text">description</p></div>
           </li>
           <li>
             <div class="collapsible-header">
               <i class="material-icons">ondemand_video</i>
-              <h3 class="details-about indigo-text text-lighten-2 center">Trailers</h3>
+              <h3 class="details-about center">Trailers</h3>
             </div>
             <div class="collapsible-body">
               <div class="trailer__box">
@@ -68,10 +68,6 @@
             </div>
           </li>
         </ul>
-
-        <div class="trailer__box">
-          <ul class="trailer"></ul>
-        </div>
       </div>
     </div>
   </div>
