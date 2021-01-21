@@ -15,7 +15,7 @@ const togleSwitchBtn = document.querySelector('[data-action-togle]');
 const homeMobileRef = document.querySelector('.home__link-mobile');
 const libraryMobileRef = document.querySelector('.library__link-mobile');
 // получаем доступ к details About и кнопке Read More
-const readMoreBtn = document.getElementById('read__more');
+// const readMoreBtn = document.getElementById('read__more');
 const aboutContent = document.querySelector('.about__content');
 const ditailsDescription = document.querySelector('#details__about');
 // переменные для измнения иконок и текста в кнопках в detailsPage
@@ -259,7 +259,7 @@ function backToTop() {
     window.scrollBy(0, -80);
     setTimeout(backToTop, 20);
   }
-};
+}
 
 // функция возврата на предыдущую страницу
 function isReturnBtn() {
@@ -279,12 +279,3 @@ function isReturnBtn() {
     detailsSectionRef.classList.add('is-hidden');
   }
 }
-
-
-
-
-
-
-
-
-
