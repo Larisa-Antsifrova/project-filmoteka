@@ -18,6 +18,7 @@ function toggleRenderPage() {
       });
     });
     renderFilms = movieApi.fetchPopularFilmsList();
+    console.log('I toggle POPULAR, renderFilms', renderFilms);
   } else {
     renderSearchedFilms(inputValue).then(() => {
       window.scrollTo({
@@ -27,6 +28,7 @@ function toggleRenderPage() {
       });
     });
     renderFilms = movieApi.fetchSearchFilmsList(inputValue);
+    console.log('I toggle SEARCH, renderFilms', renderFilms);
   }
 }
 
@@ -41,6 +43,7 @@ function searchFilms(e) {
       paginator.recalculate(movieApi.totalPages || 1);
     });
   }
+  renderFilms = movieApi.fetchSearchFilmsList(inputValue);
 }
 
 // функция рендера страницы запроса

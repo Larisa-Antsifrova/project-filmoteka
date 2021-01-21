@@ -94,25 +94,10 @@
   color: $basicWhiteColor;
   background-color: #1a237e;
 
-  // @media screen and (min-width: 768px) {
-  //   top: 12px;
-  //   right: 12px;
-  //   padding: 6px 10px;
-  //   @include fontBasicStyles(16px, 1.5, 700);
-  // }
-
-  // @media screen and (min-width: 1024px) {
-  //   top: 15px;
-  //   right: 15px;
-  //   padding: 6px 12px;
-  //   @include fontBasicStyles(20px, 1.5, 700);
-  // }
-
   span {
     margin-right: 3px;
   }
 
-  // ===========
   @media screen and (max-width: 767px) {
     padding: 5px 9px;
     @include fontBasicStyles(20px, 1.5, 700);
