@@ -23,20 +23,21 @@
   }
 
   @media screen and (min-width: 768px) {
-    min-width: 45%;
+    width: calc((100% - 30px) / 2);
     margin-right: 10px;
   }
 }
 
 .details-img {
   border-radius: 7px;
+  margin-left: auto;
 }
 
 .backtoprevious {
   position: absolute;
 
   position: absolute;
-  bottom: 0;
+  bottom: 50%;
   left: 0;
   transform: translate(0, 50%);
 
@@ -47,8 +48,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+
+  @media screen and (min-width: 768px) {
+    width: calc((100% - 30px) / 2);
+  }
 }
+
 table {
   margin-bottom: 15px;
   border-radius: 7px;
@@ -75,6 +80,8 @@ td {
 }
 
 .buttons__container {
+  margin-right: auto;
+  margin-left: auto;
   @media only screen and (max-width: 767px) and (min-width: 550px) {
     display: flex;
     justify-content: center;
@@ -108,7 +115,6 @@ td {
 }
 
 .details__title {
-  color: red;
   margin: 10px 0 5px 0;
   text-align: center;
   font-size: 30px;
