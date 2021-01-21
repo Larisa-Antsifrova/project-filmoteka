@@ -35,6 +35,7 @@ function searchFilms(e) {
       paginator.recalculate(movieApi.totalPages || 1);
     });
   }
+  renderFilms = movieApi.fetchSearchFilmsList(inputValue);
 }
 
 // функция рендера страницы запроса
