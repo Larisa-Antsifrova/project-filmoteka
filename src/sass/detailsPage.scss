@@ -1,4 +1,8 @@
 // Containers for information
+.details-page {
+  padding-top: 20px;
+}
+
 .container {
   outline: 1px solid tomato;
 }
@@ -19,6 +23,7 @@
   }
 
   @media screen and (min-width: 768px) {
+    min-width: 45%;
     margin-right: 10px;
   }
 }
@@ -68,22 +73,34 @@ td {
 .movie-description {
   padding: 0 10px;
 }
+
 .buttons__container {
-  @media screen and (min-width: 768px) {
+  @media only screen and (max-width: 767px) and (min-width: 550px) {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 1240px) {
     display: flex;
     justify-content: center;
   }
 }
 
 .btn-small {
+  display: block;
   font-size: 10px;
   margin-bottom: 10px;
-  // max-width: 180px;
+  width: 140px;
 }
 
 .middle-btn {
-  margin-right: 5px;
-  margin-left: 5px;
+  @media only screen and (max-width: 767px) and (min-width: 550px) {
+    margin: 0 10px;
+  }
+
+  @media screen and (min-width: 1240px) {
+    margin: 0 10px;
+  }
 }
 
 .details__title {
