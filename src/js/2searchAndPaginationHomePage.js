@@ -21,7 +21,7 @@ function toggleRenderPage() {
 function searchFilms(e) {
   e.preventDefault();
 
-  inputValue = e.target.elements.query.value.trim();
+ inputValue = e.target.elements.query.value.trim();
 
   if (inputValue) {
     renderSearchedFilms(inputValue).then(() => {
@@ -419,3 +419,100 @@ class PaginationApi {
 }
 
 const paginator = new PaginationApi(movieApi.totalPages);
+
+
+// ============================= for modal window =======================================
+const trailerSection = document.querySelector('.trailer');
+const lightboxOverlay = document.querySelector('.lightbox__overlay');
+const lightboxCard = document.querySelector('.js-lightbox');
+const trailerVideo = document.querySelector('.trailer_referense');
+
+trailerSection.addEventListener('click', openModal);
+lightboxOverlay.addEventListener('click', onClickOverlay);
+
+
+// =============================== trailer ====================================
+
+function renderMovieTrailer(el) {
+  fetchTrailersAPI(el)
+    .then(createTrailerBtn)
+};
+
+function fetchTrailersAPI(el) {
+  return fetch(`${movieApi.baseUrl}movie/${el}/videos?api_key=${movieApi.apiKey}&language=en-US`)
+    .then(response => response.json())
+    .then(resp => resp)
+    .then(({ results }) => {
+      // проверка на наличие трейлера
+      if (!results.length) {
+        return
+      } else {
+        return results.find(e => {
+          if (e.type == 'Trailer') {
+            return e
+          }
+        })
+      }
+    })
+}
+
+// функция принимает li с ссылкой и вставляет в список
+function createTrailerBtn(trailer) {
+  if (!trailer) {
+    return
+  }
+  const trailerBtn = createTrailerRef(trailer.key);
+  trailerSection.insertAdjacentElement('afterbegin', trailerBtn);
+};
+
+// функция принимает ключ трейлера и вставляет полную ссылку на него в li
+function createTrailerRef(key) {
+  const trailerItem = document.createElement('li');
+  trailerItem.classList.add('trailer__ref');
+  const YOUTUBE_URL = 'https://www.youtube.com//embed/';
+  const fullURL = `${YOUTUBE_URL}${key}`;
+  const trailerRef = `<a href="${fullURL}" class='trailer__a'>Trailer</a>`;
+  trailerItem.insertAdjacentHTML('afterbegin', trailerRef);
+  return trailerItem;
+};
+// функция сноса секции трейлера
+function clearTrailerKey() {
+  trailerSection.innerHTML = '';
+}
+
+// ==== modal window =====
+function openModal(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== 'A') {
+    return
+  };
+  trailerVideo.src = event.target.href
+  lightboxCard.classList.add('is-open');
+  lightboxOverlay.addEventListener('click', onClickOverlay);
+  trailerSection.removeEventListener('click', openModal);
+  addKeydownListener();
+};
+
+function onClickOverlay(event) {
+     if (event.target === event.currentTarget) {
+        closeLightboxHandler()
+    }
+};
+function onPressEscape(event) {
+    if (event.code === 'Escape') {
+        closeLightboxHandler()
+        }
+};
+function closeLightboxHandler() {
+    removeKeydownListener();
+    lightboxCard.classList.remove('is-open');
+    trailerVideo.src = '';
+    lightboxOverlay.removeEventListener('click', onClickOverlay);
+    trailerSection.addEventListener('click', openModal);
+};
+function addKeydownListener() {
+    window.addEventListener('keydown', onPressEscape);
+};
+function removeKeydownListener() {
+    window.removeEventListener('keydown', onPressEscape);
+};

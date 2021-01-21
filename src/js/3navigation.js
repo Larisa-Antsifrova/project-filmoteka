@@ -214,6 +214,8 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
     selectFilm = renderFilms.then(data => {
       return data.find(el => {
         if (el.id === movieId) {
+          // add alex - функция рендера кнопки трейлера
+          renderMovieTrailer(el.id);
           return el;
         }
       });
@@ -257,10 +259,13 @@ function backToTop() {
     window.scrollBy(0, -80);
     setTimeout(backToTop, 20);
   }
-}
+};
 
 // функция возврата на предыдущую страницу
 function isReturnBtn() {
+  // add alex - сносит кнопку трейлера
+  clearTrailerKey();
+
   if (libraryRef.classList.contains('active')) {
     librarySectionRef.classList.remove('is-hidden');
     homePageSectionRef.classList.add('is-hidden');
@@ -274,3 +279,12 @@ function isReturnBtn() {
     detailisSectionRef.classList.add('is-hidden');
   }
 }
+
+
+
+
+
+
+
+
+
