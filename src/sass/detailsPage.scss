@@ -3,10 +3,6 @@
   padding-top: 20px;
 }
 
-.container {
-  outline: 1px solid tomato;
-}
-
 .movie-details-container {
   @media screen and (min-width: 768px) {
     display: flex;
@@ -30,6 +26,7 @@
 
 .details-img {
   border-radius: 7px;
+  margin-right: auto;
   margin-left: auto;
 }
 
@@ -42,7 +39,7 @@
   transform: translate(0, 50%);
 
   z-index: 0;
-  background-color: pink;
+  background-color: #ec407a;
 }
 
 .description__container {
@@ -60,14 +57,14 @@
   text-align: center;
   font-size: 30px;
   font-weight: 700;
-  color: indigo;
+  color: #3f51b5;
 }
 
 table {
   margin-bottom: 15px;
   border-radius: 7px;
   overflow: hidden;
-  background-color: lightblue;
+  background-color: #9fa8da;
 }
 
 table,
@@ -124,9 +121,19 @@ td {
   width: 100%;
   border-radius: 7px;
   overflow: hidden;
+  background-color: #c5cae9;
 }
+
+.collapsible-item {
+  background-color: #9fa8da;
+}
+
+.collapsible-header i {
+  color: #ffffff;
+}
+
 .details-about {
-  color: blue;
+  color: #ffffff;
 }
 
 .read-more {
