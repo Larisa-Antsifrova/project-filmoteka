@@ -508,7 +508,7 @@ function closeLightboxHandler() {
     lightboxCard.classList.remove('is-open');
     trailerVideo.src = '';
     lightboxOverlay.removeEventListener('click', onClickOverlay);
-    trailerSection.addEventListener('click', openModale);
+    trailerSection.addEventListener('click', openModal);
 };
 function addKeydownListener() {
     window.addEventListener('keydown', onPressEscape);
