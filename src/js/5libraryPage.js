@@ -19,48 +19,49 @@ refs.favoriteBtn.addEventListener('click', drawFavoriteFilmList);
 // Функция для создания карточки фильма в библиотеке.
 // Принимает один объект фильма from local storage по инструкции
 // Делала функцию по патерну Ларисы
-function createLibraryCardFunc(movie) {
-  const imgPath = movie.backdrop_path
-    ? movieApi.images.baseImageUrl + movieApi.imageBackdropSize + movie.backdrop_path
-    : movieApi.images.defaultBackdropImg;
-  const filmYear = movie.release_date ? `(${movie.release_date.slice(0, 4)})` : '';
-  const filmTitle = `${movie.title} ${filmYear}`;
-  const movieId = movie.id;
-  const movieRaiting = String(movie.vote_average).padEnd(3, '.0');
+// function createLibraryCardFunc(movie) {
+//   const imgPath = movie.backdrop_path
+//     ? movieApi.images.baseImageUrl + movieApi.imageBackdropSize + movie.backdrop_path
+//     : movieApi.images.defaultBackdropImg;
+//   const filmYear = movie.release_date ? `(${movie.release_date.slice(0, 4)})` : '';
+//   const filmTitle = `${movie.title} ${filmYear}`;
+//   const movieId = movie.id;
+//   const movieRaiting = String(movie.vote_average).padEnd(3, '.0');
 
-  const libraryGalleryItemRef = document.createElement('li');
-  libraryGalleryItemRef.classList.add('gallery-item-card');
-  libraryGalleryItemRef.setAttribute('data-id', movieId);
+//   const libraryGalleryItemRef = document.createElement('li');
+//   libraryGalleryItemRef.classList.add('gallery-item-card');
+//   libraryGalleryItemRef.setAttribute('data-id', movieId);
 
-  const libraryGalleryImageRef = document.createElement('img');
-  libraryGalleryImageRef.src = imgPath;
+//   const libraryGalleryImageRef = document.createElement('img');
+//   libraryGalleryImageRef.src = imgPath;
 
-  const libraryGalleryTitleRef = document.createElement('p');
-  libraryGalleryTitleRef.classList.add('gallery-card-title');
-  libraryGalleryTitleRef.textContent = filmTitle;
+//   const libraryGalleryTitleRef = document.createElement('p');
+//   libraryGalleryTitleRef.classList.add('gallery-card-title');
+//   libraryGalleryTitleRef.textContent = filmTitle;
 
-  const libraryGalleryRatingRef = document.createElement('p');
-  libraryGalleryRatingRef.classList.add('gallery-card-raiting');
-  libraryGalleryRatingRef.textContent = movieRaiting;
+//   const libraryGalleryRatingRef = document.createElement('p');
+//   libraryGalleryRatingRef.classList.add('gallery-card-raiting');
+//   libraryGalleryRatingRef.textContent = movieRaiting;
 
-  libraryGalleryItemRef.appendChild(libraryGalleryRatingRef);
-  libraryGalleryItemRef.appendChild(libraryGalleryImageRef);
-  libraryGalleryItemRef.appendChild(libraryGalleryTitleRef);
+//   libraryGalleryItemRef.appendChild(libraryGalleryRatingRef);
+//   libraryGalleryItemRef.appendChild(libraryGalleryImageRef);
+//   libraryGalleryItemRef.appendChild(libraryGalleryTitleRef);
 
-  libraryGalleryItemRef.addEventListener('click', () => activeDetailsPage(movieId, true));
-  return libraryGalleryItemRef;
-}
+//   libraryGalleryItemRef.addEventListener('click', () => activeDetailsPage(movieId, true));
+//   return libraryGalleryItemRef;
+// }
 
 // Функция для создания/отрисовки списка фильмов
 // Обращение к локальной памяти внутри функции. Если в памяти пусто,
 // Вешается class message--shown на <p> с текстом, который до этого
 // был скрыт с помощью class message--hidden'
+
 function drawFilmList(key, paneId) {
   const paneRef = getTabPaneById(paneId);
   const messageRef = paneRef.querySelector('.message');
   const listRef = paneRef.querySelector('.library-page-gallery');
 
-  clearFilmList(listRef);
+  clearGallery(listRef);
 
   const parsedFilms = getFilmListFromLocalStorage(key);
 
@@ -73,7 +74,7 @@ function drawFilmList(key, paneId) {
   messageRef.classList.add('message--hidden');
   messageRef.classList.remove('message--shown');
 
-  const filmsList = createFilmListFragment(parsedFilms);
+  const filmsList = createGalleryFragment(parsedFilms);
   listRef.appendChild(filmsList);
 }
 
@@ -94,7 +95,7 @@ function drawFavoriteFilmList() {
 
 // Функция для зачистки списка. Принимает аргументом ссылку на
 // требуемый список
-function clearFilmList(filmsListRef) {
+function clearGallery(filmsListRef) {
   filmsListRef.innerHTML = '';
 }
 
@@ -107,15 +108,15 @@ function getFilmListFromLocalStorage(key) {
 
 // Функция для создания фрагмента документа с контентом
 // Аргументами являются массив фильмов для отрисовки и ссылка на сам фрагмент документа
-function createFilmListFragment(filmsArray) {
-  let docFragmentRef = document.createDocumentFragment();
-  filmsArray.forEach(film => {
-    const filmEntry = createLibraryCardFunc(film);
-    docFragmentRef.appendChild(filmEntry);
-  });
+// function createFilmListFragment(filmsArray) {
+//   let docFragmentRef = document.createDocumentFragment();
+//   filmsArray.forEach(film => {
+//     const filmEntry = createMovieCard(film);
+//     docFragmentRef.appendChild(filmEntry);
+//   });
 
-  return docFragmentRef;
-}
+//   return docFragmentRef;
+// }
 
 // Pane-tabs Queue/Watched/Favorite =>
 

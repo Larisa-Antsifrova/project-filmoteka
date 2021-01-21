@@ -11,16 +11,17 @@ const paginator = new PaginationApi(movieApi.totalPages);
 // Функции
 // Функция, которая рендерит (вставляет в DOM) всю страницу галереи. Принимает фрагмент и ссылку, куда надо вставить фрагмент.
 function renderGallery(fragment, place) {
-  clearHomePage();
+  clearGallery(homePageRef);
+
   place.appendChild(fragment);
 }
 
 // Функция, которая создает фрагмент со всеми карточками галереи. Принимает массив объектов фильмов.
-function createGallery(movies) {
+function createGalleryFragment(movies) {
   const galleryFragment = document.createDocumentFragment();
 
   movies.forEach(movie => {
-    const galleryItem = createCardFunc(movie);
+    const galleryItem = createMovieCard(movie);
     galleryFragment.appendChild(galleryItem);
   });
 
@@ -28,7 +29,7 @@ function createGallery(movies) {
 }
 
 // Функция, которая создаёт одну карточку для фильма. Принимает один объект фильма.
-function createCardFunc(movie) {
+function createMovieCard(movie) {
   const imgPath = movie.backdrop_path
     ? movieApi.images.baseImageUrl + movieApi.imageBackdropSize + movie.backdrop_path
     : movieApi.images.defaultBackdropImg;
