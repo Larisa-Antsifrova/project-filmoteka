@@ -1,82 +1,34 @@
 <section class="library-page-section is-hidden" data-library-section>
-  <div class="container">
-    <ul class="tabs col s12 center">
-      <li class="tab">
-        <a
-          href="#watched"
-          class="indigo-text text-darken-4 valign-wrapper"
-          data-action-watched
-        >
-          <i class="small material-icons circle green">done</i>
-          <span>WATCHED</span></a
-        >
-      </li>
-      <li class="tab">
-        <a
-          href="#queue"
-          class="indigo-text text-darken-4 active"
-          data-action-queue
-          ><i class="small material-icons circle yellow darken-2">queue</i
-          ><span>QUEUE</span></a
-        >
-      </li>
-      <li class="tab">
-        <a
-          href="#favorite"
-          class="indigo-text text-darken-4"
-          data-action-favorite
-          ><i class="material-icons circle pink">favorite_border</i
-          ><span>FAVORITE</span></a
-        >
-      </li>
-    </ul>
-    <div class="tab-panes">
-      <div id="watched" class="tab-pane">
-        <p class="message message--hidden">
-          'You do not have watched movies yet. Add them.'
-        </p>
-        <ul class="library-page-gallery" data-library-gallery-watched></ul>
-      </div>
-      <div id="queue" class="tab-pane">
-        <p class="message message--hidden">
-          'You do not have queued movies yet. Add them.'
-        </p>
-        <ul class="library-page-gallery" data-library-gallery-favorite></ul>
-      </div>
-      <div id="favorite" class="tab-pane">
-        <p class="message message--hidden">
-          'You have not selected your favorite movies yet. Add them.'
-        </p>
-        <ul class="library-page-gallery" data-library-gallery-queue></ul>
-      </div>
+  <ul class="tabs col s12 center tabs-panel">
+    <li class="tab">
+      <a href="#watched" class="indigo-text text-darken-4 valign-wrapper" data-action-watched>
+        <i class="small material-icons circle green">done</i>
+        <span>WATCHED</span></a
+      >
+    </li>
+    <li class="tab">
+      <a href="#queue" class="indigo-text text-darken-4 active" data-action-queue
+        ><i class="small material-icons circle yellow darken-2">queue</i><span>QUEUE</span></a
+      >
+    </li>
+    <li class="tab">
+      <a href="#favorite" class="indigo-text text-darken-4" data-action-favorite
+        ><i class="material-icons circle pink">favorite_border</i><span>FAVORITE</span></a
+      >
+    </li>
+  </ul>
+  <div class="tab-panes container">
+    <div id="watched" class="tab-pane">
+      <p class="message message--hidden">You do not have watched movies yet. Add them.</p>
+      <ul class="library-page-gallery" data-library-gallery-watched></ul>
+    </div>
+    <div id="queue" class="tab-pane">
+      <p class="message message--hidden">You do not have queued movies yet. Add them.</p>
+      <ul class="library-page-gallery" data-library-gallery-favorite></ul>
+    </div>
+    <div id="favorite" class="tab-pane">
+      <p class="message message--hidden">You have not selected your favorite movies yet. Add them.</p>
+      <ul class="library-page-gallery" data-library-gallery-queue></ul>
     </div>
   </div>
 </section>
-
-<!-- <section class="library-page-section is-hidden" data-library-section>
-  <div class="container">
-    <div class="tabs">
-      <div class="controls" data-controls>
-        <a href="#watched" class="controls__item" data-action-watched
-          >Watched</a
-        >
-        <a href="#queue" class="controls__item" data-action-queue>Queue</a>
-      </div>
-
-      <div class="panes" data-panes>
-        <div class="pane" id="watched">
-          <p class="message message--hidden">
-            'You do not have watched movies yet. Add them.'
-          </p>
-          <ul class="library-page-gallery" data-library-gallery-watched></ul>
-        </div>
-        <div class="pane" id="queue">
-          <p class="message message--hidden">
-            'You do not have queued movies to watch. Add them.'
-          </p>
-          <ul class="library-page-gallery" data-library-gallery-queue></ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
