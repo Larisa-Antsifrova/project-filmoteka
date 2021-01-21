@@ -170,7 +170,7 @@ function monitorButtonStatusText() {
 }
 
 function showDetails(selectFilm) {
-  const img = detailisSectionRef.querySelector('#details__img');
+  const img = detailsSectionRef.querySelector('#details__img');
   const title = document.querySelector('#details__title');
   const vote = document.querySelector('#details__vote');
   const popularity = document.querySelector('#details__popularity');
