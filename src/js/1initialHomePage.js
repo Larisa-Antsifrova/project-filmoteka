@@ -1,7 +1,3 @@
-// Глобальные переменные для хранения списка жанров и списка объектов фильмов, пришедших с текущим fetch запросом
-const genres = movieApi.fetchGenresList(); // содержит промис с массивом объектов жанров
-let renderFilms = movieApi.fetchPopularFilmsList(); // содержит массив с объектами фильмов
-
 // Вызов функций для высчета размеров изображений для карточек и постера
 movieApi.calculateBackdropImgSize();
 movieApi.calculatePosterImgSize();

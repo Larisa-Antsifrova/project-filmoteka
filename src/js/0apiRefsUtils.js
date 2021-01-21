@@ -467,3 +467,7 @@ class PaginationApi {
     this.renderPaginationPageItems();
   }
 }
+
+// ===== Глобальные переменные
+const genres = movieApi.fetchGenresList(); // содержит промис с массивом объектов жанров
+let renderFilms = movieApi.fetchPopularFilmsList(); // содержит массив с объектами фильмов
