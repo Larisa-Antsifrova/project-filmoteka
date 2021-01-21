@@ -1,4 +1,4 @@
-// Глобальные переменные которые требуются по инструкции
+// Глобальные переменные для хранения списка жанров и списка объектов фильмов, пришедших с текущим fetch запросом
 const genres = movieApi.fetchGenresList(); // содержит промис с массивом объектов жанров
 let renderFilms = movieApi.fetchPopularFilmsList(); // содержит массив с объектами фильмов
 
@@ -8,6 +8,9 @@ movieApi.calculatePosterImgSize();
 
 // Вызов функции, чтобы сразу спрятать спиннер
 spinner.hide();
+
+// Инициализация пагинатора
+const paginator = new PaginationApi(movieApi.totalPages);
 
 // Функции
 // Функция, которая рендерит (вставляет в DOM) всю страницу галереи. Принимает фрагмент и ссылку, куда надо вставить фрагмент.
@@ -76,7 +79,7 @@ function createCardFunc(movie) {
   return galleryItemCard;
 }
 
-// Вызоб самого первого фетча за популярными фильмами и его рендер
+// Вызов самого первого fetch за популярными фильмами и его рендер
 renderPopularFilms().then(() => {
   paginator.recalculate(movieApi.totalPages);
 });
