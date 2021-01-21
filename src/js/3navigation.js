@@ -2,7 +2,7 @@ const homeRef = document.querySelector('.home__link');
 const libraryRef = document.querySelector('.library__link');
 const homePageSectionRef = document.querySelector('[data-home-section]');
 const librarySectionRef = document.querySelector('[data-library-section]');
-const detailisSectionRef = document.querySelector('[data-detailis-section]');
+const detailsSectionRef = document.querySelector('[data-details-section]');
 const toggleQueueBtn = document.querySelector('[data-toggle-queue]');
 const toggleWatchedBtn = document.querySelector('[data-toggle-watched]');
 const favoriteBtn = document.querySelector('[data-toggle-favorite]');
@@ -29,7 +29,7 @@ const watchedPreTextIconRef = document.querySelector('[data-icon-watched="addPlu
 const queueSpanTextRef = document.querySelector('[data-queue-text="textButton"]');
 
 // получаем доступ к кнопке НАЗАД
-const returnBtn = detailisSectionRef.querySelector('#return__btn');
+const returnBtn = detailsSectionRef.querySelector('#return__btn');
 // создаем глобальную переменную selectFilm
 let selectFilm = {};
 
@@ -40,10 +40,10 @@ const togleSwitchTheme = {
     headerRef: document.querySelector('nav'),
     searchContainerRef: document.querySelector('.search-container'),
     linkRef: document.querySelector('.btn-floating'),
-    detailsH2Ref: detailisSectionRef.querySelector('h2'),
-    detailsH3Ref: detailisSectionRef.querySelector('h3'),
-    detailsAboutRef: detailisSectionRef.querySelector('#details__about'),
-    detailsDescriptionRef: detailisSectionRef.querySelector('.details-about-text'),
+    detailsH2Ref: detailsSectionRef.querySelector('h2'),
+    detailsH3Ref: detailsSectionRef.querySelector('h3'),
+    detailsAboutRef: detailsSectionRef.querySelector('#details__about'),
+    detailsDescriptionRef: detailsSectionRef.querySelector('.details-about-text'),
   },
 
   removeClass(ref, className) {
@@ -165,7 +165,7 @@ function activeHomePage(e) {
   homeMobileRef.classList.add('sidenav-close');
   homePageSectionRef.classList.remove('is-hidden');
   librarySectionRef.classList.add('is-hidden');
-  detailisSectionRef.classList.add('is-hidden');
+  detailsSectionRef.classList.add('is-hidden');
 }
 //создаем функцию activeLibraryPage которая показывает домашнюю страницу и прячет остальные
 function activeLibraryPage(e) {
@@ -175,7 +175,7 @@ function activeLibraryPage(e) {
   libraryMobileRef.classList.add('sidenav-close');
   librarySectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');
-  detailisSectionRef.classList.add('is-hidden');
+  detailsSectionRef.classList.add('is-hidden');
   queueBtn.focus();
   drawQueueFilmList();
   drawWatchedFilmList();
@@ -184,7 +184,7 @@ function activeLibraryPage(e) {
 
 // создаем функцию activeDetailsPage которая показывает страницу детальной отрисовки фильма
 function activeDetailsPage(movieId, itsLibraryFilm) {
-  detailisSectionRef.classList.remove('is-hidden');
+  detailsSectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');
   librarySectionRef.classList.add('is-hidden');
   const filmsQueue = JSON.parse(localStorage.getItem('filmsQueue'));
@@ -269,14 +269,14 @@ function isReturnBtn() {
   if (libraryRef.classList.contains('active')) {
     librarySectionRef.classList.remove('is-hidden');
     homePageSectionRef.classList.add('is-hidden');
-    detailisSectionRef.classList.add('is-hidden');
+    detailsSectionRef.classList.add('is-hidden');
     drawQueueFilmList();
     drawWatchedFilmList();
     drawFavoriteFilmList();
   } else {
     homePageSectionRef.classList.remove('is-hidden');
     librarySectionRef.classList.add('is-hidden');
-    detailisSectionRef.classList.add('is-hidden');
+    detailsSectionRef.classList.add('is-hidden');
   }
 }
 

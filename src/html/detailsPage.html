@@ -1,13 +1,10 @@
-<section class="details-page is-hidden" data-detailis-section>
+<section class="details-page is-hidden" data-details-section>
   <div class="container">
     <div class="row">
       <!-- Movie poster -->
       <div class="col s12 l6">
         <img id="details__img" class="details-img col s12" />
-        <a
-          id="return__btn"
-          class="backtoprevious btn-floating waves-effect waves-light pink left"
-        >
+        <a id="return__btn" class="backtoprevious btn-floating waves-effect waves-light pink left">
           <i class="material-icons">arrow_back</i>
         </a>
       </div>
@@ -19,28 +16,26 @@
         <table>
           <tbody>
             <tr class="indigo lighten-4">
-              <td class="indigo lighten-3">vote / votes</td>
-              <td id="details__vote">average/total</td>
+              <td class="indigo lighten-3 details__caption">Vote / votes</td>
+              <td id="details__vote" class="details__info">average/total</td>
             </tr>
             <tr class="indigo lighten-5">
-              <td class="indigo lighten-4">popularity</td>
-              <td id="details__popularity">popularity</td>
+              <td class="indigo lighten-4 details__caption">Popularity</td>
+              <td id="details__popularity" class="details__info">popularity</td>
             </tr>
             <tr class="indigo lighten-4">
-              <td class="indigo lighten-3">original title</td>
-              <td id="original__title">title</td>
+              <td class="indigo lighten-3 details__caption">Original title</td>
+              <td id="original__title" class="details__info">title</td>
             </tr>
             <tr class="indigo lighten-5">
-              <td class="indigo lighten-4">genre</td>
-              <td id="details__genre">genres</td>
+              <td class="indigo lighten-4 details__caption">Genre</td>
+              <td id="details__genre" class="details__info">genres</td>
             </tr>
           </tbody>
         </table>
 
         <div class="col s12">
-          <a
-            data-toggle-watched="add"
-            class="col s6 waves-effect waves-light btn-small green offset-s3"
+          <a data-toggle-watched="add" class="col s6 waves-effect waves-light btn-small green offset-s3"
             ><i data-icon-watched="addPlus" class="material-icons left">add</i
             ><span data-watched-text="textButton">to watched</span></a
           >
@@ -50,9 +45,7 @@
             ><i data-icon-queue="addPlus" class="material-icons left">add</i
             ><span data-queue-text="textButton">to queue</span></a
           >
-          <a
-            data-toggle-favorite="add"
-            class="col s6 waves-effect waves-light btn-small pink offset-s3"
+          <a data-toggle-favorite="add" class="col s6 waves-effect waves-light btn-small pink offset-s3"
             ><i data-icon-favorite="addPlus" class="material-icons left">add</i
             ><span data-favorite-text="textButton">fav</span></a
           >
@@ -62,9 +55,7 @@
         <div class="about__content hidden__content">
           <p id="details__about" class="details-about-text">description</p>
         </div>
-        <button class="read-more" id="read__more" type="button">
-          Read More
-        </button>
+        <button class="read-more" id="read__more" type="button">Read More</button>
         <div class="trailer__box">
           <ul class="trailer"></ul>
         </div>
@@ -76,11 +67,15 @@
   <div class="lightbox js-lightbox">
     <div class="lightbox__overlay"></div>
     <div class="lightbox__content">
-      <iframe width="100%" height="100%" src=""
-        frameborder="0" 
+      <iframe
+        width="100%"
+        height="100%"
+        src=""
+        frameborder="0"
         allowfullscreen
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-        class='trailer_referense'></iframe>
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        class="trailer_referense"
+      ></iframe>
     </div>
   </div>
 </section>
