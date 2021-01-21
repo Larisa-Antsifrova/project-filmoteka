@@ -1,25 +1,20 @@
 .home-page-section {
-  // padding-top: 15px;
   padding-bottom: 15px;
 
   @media screen and (min-width: 320px) {
-    // padding-top: 20px;
     padding-bottom: 20px;
   }
 
   @media screen and (min-width: 768px) {
-    // padding-top: 25px;
     padding-bottom: 25px;
   }
 
   @media screen and (min-width: 1024px) {
-    // padding-top: 30px;
     padding-bottom: 30px;
   }
 }
 
 .home-page-gallery {
-  // margin-bottom: 20px;
   @media screen and (min-width: 320px) {
     display: flex;
     flex-wrap: wrap;
@@ -30,9 +25,8 @@
 .gallery-item-card {
   position: relative;
 
-  border-radius: 10px;
+  border-radius: 7px;
   overflow: hidden;
-  // box-shadow: $stillBoxShadow;
   transform: scale(1, 1);
   transition: transform $primaryTransition, box-shadow $primaryTransition;
   cursor: pointer;
@@ -40,7 +34,6 @@
   &:hover,
   :focus {
     transform: scale(1.08, 1.08);
-    // box-shadow: $hoverBoxShadow;
   }
 
   @media screen and (max-width: 319px) {
@@ -64,12 +57,22 @@
   left: 0;
   right: 0;
 
-  padding: 5px 10px;
-
   color: $basicWhiteColor;
-  @include fontBasicStyles(14px, 1.5, 700);
-
   background: $titleBackgroundGradientLT;
+
+  @media screen and (max-width: 767px) {
+    padding: 15px 20px;
+    @include fontBasicStyles(20px, 1.5, 700);
+  }
+  @media screen and (max-width: 500px) {
+    padding: 10px 15px;
+    @include fontBasicStyles(18px, 1.5, 700);
+  }
+
+  @media screen and (max-width: 319px) {
+    padding: 5px 10px;
+    @include fontBasicStyles(14px, 1.5, 700);
+  }
 
   @media screen and (min-width: 768px) {
     padding: 10px 15px;
@@ -86,169 +89,63 @@
   top: 10px;
   right: 10px;
 
-  padding: 4px 9px;
-  border-radius: 10px;
+  border-radius: 7px;
 
   color: $basicWhiteColor;
   background-color: #1a237e;
 
-  @include fontBasicStyles(14px, 1.5, 700);
+  // @media screen and (min-width: 768px) {
+  //   top: 12px;
+  //   right: 12px;
+  //   padding: 6px 10px;
+  //   @include fontBasicStyles(16px, 1.5, 700);
+  // }
+
+  // @media screen and (min-width: 1024px) {
+  //   top: 15px;
+  //   right: 15px;
+  //   padding: 6px 12px;
+  //   @include fontBasicStyles(20px, 1.5, 700);
+  // }
+
+  span {
+    margin-right: 3px;
+  }
+
+  // ===========
+  @media screen and (max-width: 767px) {
+    padding: 5px 9px;
+    @include fontBasicStyles(20px, 1.5, 700);
+  }
+  @media screen and (max-width: 500px) {
+    padding: 5px 9px;
+    @include fontBasicStyles(16px, 1.5, 700);
+  }
+
+  @media screen and (max-width: 319px) {
+    padding: 4px 9px;
+    @include fontBasicStyles(14px, 1.5, 700);
+  }
 
   @media screen and (min-width: 768px) {
     top: 12px;
     right: 12px;
-    padding: 6px 10px;
+    padding: 5px 9px;
     @include fontBasicStyles(16px, 1.5, 700);
   }
 
   @media screen and (min-width: 1024px) {
     top: 15px;
     right: 15px;
-    padding: 6px 12px;
+    padding: 5px 9px;
     @include fontBasicStyles(20px, 1.5, 700);
   }
-
-  span {
-    margin-right: 3px;
-  }
-}
-// .search__container {
-//   margin-bottom: 30px;
-//   height: 70px;
-//   background-color: $secondaryColorLM;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100vw;
-
-//   @media screen and (min-width: 768px) {
-//     height: 80px;
-
-//     @media screen and (min-width: 1024px) {
-//       height: 90px;
-//     }
-//   }
-// }
-// .input__container {
-//   position: relative;
-// }
-.input {
-  color: white;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 30px;
-  letter-spacing: 0.8px;
-}
-//   background: inherit;
-//   border: 0;
-//   border-bottom: 1px solid;
-//   width: 260px;
-
-//   @include fontBasicStyles(14px);
-//   line-height: normal;
-//   font: inherit;
-//   outline: 0;
-//   padding: 0;
-//   text-align: center;
-//   margin-left: auto;
-//   margin-right: auto;
-//   padding-top: 15px;
-
-//   @media screen and (min-width: 768px) {
-//     padding-top: 20px;
-//     width: 300px;
-//   }
-//   @media screen and (min-width: 1024px) {
-//     padding-top: 25px;
-//     width: 360px;
-//   }
-// }
-// input::placeholder {
-//   font-size: 14px;
-
-//   @media screen and (min-width: 768px) {
-//     font-size: 16px;
-//   }
-//   @media screen and (min-width: 1024px) {
-//     font-size: 18px;
-//   }
-// }
-// .search__form__icon {
-//   fill: #fff2c6;
-//   display: inline-block;
-//   position: absolute;
-//   top: 15px;
-//   left: 0px;
-
-//   @media screen and (min-width: 768px) {
-//     top: 20px;
-//   }
-//   @media screen and (min-width: 1024px) {
-//     top: 23px;
-//   }
-// }
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
-  @media screen and (min-width: 768px) {
-    padding-top: 30px;
-  }
-}
-.pagination__button {
-  height: 28px;
-  padding: 4px 5px;
-  margin: 4px;
-
-  @media screen and (min-width: 768px) {
-    height: auto;
-    padding: 8px 10px;
-    margin: 10px;
-  }
-}
-.pagination__button:hover,
-.pagination__button:focus {
-  background-color: #3f51b5;
-  color: white;
-  border: 2px solid #1a237e;
-  border-radius: 2px;
-  outline: 0;
-}
-.delimiter {
-  display: flex;
-  justify-content: center;
-  text-align: center;
 }
 
 .search-container {
   padding: 15px 0 20px 0;
   margin-bottom: 15px;
 }
-
-// создаем добавляем стили кнокпи вверх
-.back__to__top {
-  position: fixed;
-  bottom: 40px;
-  right: 20px;
-  z-index: 9999;
-
-  cursor: pointer;
-
-  display: none;
-}
-
-// показываем кнопку при выполнении скрипта
-.back__to__top-show {
-  display: block;
-}
-
-// .home-page-section {
-//   position: relative;
-// }
 
 .error__area {
   visibility: hidden;
@@ -264,5 +161,34 @@
   @media screen and (min-width: 1024px) {
     padding-top: 14px;
     font-size: 18px;
+  }
+}
+
+// создаем добавляем стили кнокпи вверх
+.back__to__top {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 1;
+
+  cursor: pointer;
+
+  display: none;
+}
+
+// показываем кнопку при выполнении скрипта
+.back__to__top-show {
+  display: block;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 30px;
   }
 }
