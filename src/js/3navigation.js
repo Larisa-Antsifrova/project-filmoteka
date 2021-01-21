@@ -11,6 +11,7 @@ const queueBtn = document.querySelector('[data-action-queue]');
 const logoRefs = document.querySelector('.logo__js');
 const navigationRefs = document.querySelector('.navigation');
 const togleSwitchBtn = document.querySelector('[data-action-togle]');
+const bodyRef = document.querySelector('body');
 // получаем доступ к mobile-menu
 const homeMobileRef = document.querySelector('.home__link-mobile');
 const libraryMobileRef = document.querySelector('.library__link-mobile');
@@ -33,123 +34,11 @@ const returnBtn = detailsSectionRef.querySelector('#return__btn');
 // создаем глобальную переменную selectFilm
 let selectFilm = {};
 
-// создаем обьект с методами переключения темы
-const togleSwitchTheme = {
-  refs: {
-    bodyRef: document.querySelector('body'),
-    headerRef: document.querySelector('nav'),
-    searchContainerRef: document.querySelector('.search-container'),
-    linkRef: document.querySelector('.btn-floating'),
-    detailsH2Ref: detailsSectionRef.querySelector('h2'),
-    detailsH3Ref: detailsSectionRef.querySelector('h3'),
-    detailsAboutRef: detailsSectionRef.querySelector('#details__about'),
-    detailsDescriptionRef: detailsSectionRef.querySelector('.details-about-text'),
-  },
-
-  removeClass(ref, className) {
-    ref.classList.remove(className);
-  },
-  addClass(ref, className) {
-    ref.classList.add(className);
-  },
-
-  switchTheme(e) {
-    if (e.target.textContent === 'brightness_6') {
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.bodyRef, 'white');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.bodyRef, 'black');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.headerRef, 'indigo');
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.headerRef, 'darken-2');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'blue-grey');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'darken-4');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.searchContainerRef, 'indigo');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'blue-grey');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'darken-2');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.linkRef, 'indigo');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'pink');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'accent-3');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH2Ref, 'indigo-text');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'pink-text');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'text-accent-3');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH3Ref, 'indigo-text');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'pink-text');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'text-accent-3');
-      // blue-grey lighten-5
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsAboutRef, 'blue-grey-text');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsAboutRef, 'text-lighten-2');
-
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsDescriptionRef, 'text-lighten-2');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsDescriptionRef, 'blue-grey-text');
-
-      togleSwitchBtn.children[0].textContent = 'brightness_5';
-      localStorage.setItem('Theme', 'DARK');
-    } else if (e.target.textContent === 'brightness_5') {
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.bodyRef, 'black');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.bodyRef, 'white');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.headerRef, 'blue-grey');
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.headerRef, 'darken-4');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'indigo');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'darken-2');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.searchContainerRef, 'blue-grey');
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.searchContainerRef, 'darken-2');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'indigo');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.linkRef, 'pink');
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.linkRef, 'accent-3');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'indigo');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH2Ref, 'pink-text');
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH2Ref, 'text-accent-3');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'indigo-text');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH3Ref, 'pink-text');
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH3Ref, 'text-accent-3');
-      togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'indigo-text');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsDescriptionRef, 'blue-grey-text');
-
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsAboutRef, 'blue-grey-text');
-      togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsAboutRef, 'text-lighten-2');
-
-      togleSwitchBtn.children[0].textContent = 'brightness_6';
-      localStorage.removeItem('Theme');
-    }
-  },
-};
-
-// условие при котором нужно добавить или удалить классы с DOM елементов
-if (localStorage.getItem('Theme') === 'DARK') {
-  togleSwitchBtn.children[0].textContent = 'brightness_5';
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.bodyRef, 'black');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'blue-grey');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.headerRef, 'darken-4');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'blue-grey');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.searchContainerRef, 'darken-2');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'pink');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.linkRef, 'accent-3');
-  togleSwitchTheme.removeClass(togleSwitchTheme.refs.linkRef, 'indigo');
-  togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH2Ref, 'indigo-text');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'pink-text');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH2Ref, 'text-accent-3');
-  togleSwitchTheme.removeClass(togleSwitchTheme.refs.detailsH3Ref, 'indigo-text');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'pink-text');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsH3Ref, 'text-accent-3');
-
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsDescriptionRef, 'blue-grey-text');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsAboutRef, 'blue-grey-text');
-  togleSwitchTheme.addClass(togleSwitchTheme.refs.detailsAboutRef, 'text-lighten-2');
-}
 // вешаем слушатели
 homeRef.addEventListener('click', activeHomePage);
 logoRefs.addEventListener('click', activeHomePage);
 libraryRef.addEventListener('click', activeLibraryPage);
-togleSwitchBtn.addEventListener('click', togleSwitchTheme.switchTheme);
+togleSwitchBtn.addEventListener('click', switchTheme);
 homeMobileRef.addEventListener('click', activeHomePage);
 libraryMobileRef.addEventListener('click', activeLibraryPage);
 returnBtn.addEventListener('click', isReturnBtn);
@@ -259,7 +148,7 @@ function backToTop() {
     window.scrollBy(0, -80);
     setTimeout(backToTop, 20);
   }
-};
+}
 
 // функция возврата на предыдущую страницу
 function isReturnBtn() {
@@ -280,11 +169,20 @@ function isReturnBtn() {
   }
 }
 
+// переключатель темной темы
+function switchTheme(e) {
+  if (e.target.textContent === 'brightness_6') {
+    bodyRef.classList.add('dark-theme');
+    localStorage.setItem('Theme', 'DARK');
+    togleSwitchBtn.firstElementChild.textContent = 'brightness_5';
+  } else if (e.target.textContent === 'brightness_5') {
+    bodyRef.classList.remove('dark-theme');
+    localStorage.removeItem('Theme', 'DARK');
+    togleSwitchBtn.firstElementChild.textContent = 'brightness_6';
+  }
+}
 
-
-
-
-
-
-
-
+if (localStorage.getItem('Theme') === 'DARK') {
+  bodyRef.classList.add('dark-theme');
+  togleSwitchBtn.firstElementChild.textContent = 'brightness_5';
+}

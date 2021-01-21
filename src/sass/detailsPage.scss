@@ -27,10 +27,15 @@
   // max-width: 180px;
 }
 
-#details__title {
+.details-title {
   margin: 10px 0 5px 0;
   font-size: 30px;
   font-weight: 700px;
+  color: #3f51b5;
+}
+
+.details-about {
+  color: #7986cb;
 }
 
 #details__img {
@@ -41,6 +46,14 @@ table {
   margin-bottom: 15px;
   border-radius: 7px;
   overflow: hidden;
+
+  .table-dark-rows {
+    background-color: #c5cae9;
+  }
+
+  .table-light-rows {
+    background-color: #e8eaf6;
+  }
 }
 
 table,
