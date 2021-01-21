@@ -16,6 +16,6 @@ header {
 }
 
 .sidenav li > a {
-  line-height: 1.5;
-  // height: 100%;
+  display: flex;
+  align-items: center;
 }
