@@ -273,3 +273,22 @@ function showDetails(selectFilm) {
 //         '<i class="material-icons left">add</i><span>watched</span>');
 // }
 //Larisa canonized
+
+// переключатель темной темы
+const bodyRef = document.querySelector('body');
+function switchTheme(e) {
+  if (e.target.textContent === 'brightness_6') {
+    bodyRef.classList.add('dark-theme');
+    localStorage.setItem('Theme', 'DARK');
+    togleSwitchBtn.firstElementChild.textContent = 'brightness_5';
+  } else if (e.target.textContent === 'brightness_5') {
+    bodyRef.classList.remove('dark-theme');
+    localStorage.removeItem('Theme', 'DARK');
+    togleSwitchBtn.firstElementChild.textContent = 'brightness_6';
+  }
+}
+
+if (localStorage.getItem('Theme') === 'DARK') {
+  bodyRef.classList.add('dark-theme');
+  togleSwitchBtn.firstElementChild.textContent = 'brightness_5';
+}
