@@ -315,17 +315,3 @@ button.btn-floating {
     font-size: $button-small-icon-font-size;
   }
 }
-
-// Block button
-.btn-block {
-  display: block;
-}
-.backtoprevious {
-  top: 20%;
-  left: 10%;
-  transform: translate(-50%, -50%);
-}
-
-#return__btn {
-  z-index: 0;
-}

@@ -193,10 +193,10 @@ function showDetails(selectFilm) {
       detailsAbout.textContent = el.overview;
 
       // условие для скрытия и показа кнопки Read More по длине текста
-      if (ditailsDescription.textContent.length < 150) {
-        readMoreBtn.classList.add('is__hidden-btn');
-        aboutContent.classList.remove('hidden__content');
-      }
+      // if (ditailsDescription.textContent.length < 150) {
+      //   readMoreBtn.classList.add('is__hidden-btn');
+      //   aboutContent.classList.remove('hidden__content');
+      // }
 
       let genresIdArr = el.genre_ids;
 
@@ -234,22 +234,22 @@ function showDetails(selectFilm) {
       selectGenres.textContent = thisMovieGenres.join(', ');
 
       // условие для скрытия и показа кнопки Read More по длине текста
-      if (selectFilm.overview.length < 150) {
-        readMoreBtn.classList.add('is__hidden-btn');
-        aboutContent.classList.remove('hidden__content');
-      }
+      // if (selectFilm.overview.length < 150) {
+      //   readMoreBtn.classList.add('is__hidden-btn');
+      //   aboutContent.classList.remove('hidden__content');
+      // }
     });
   }
 
   // показывает больше контента в About при клике на кнопку
-  if (!document.querySelector('.hidden__content')) {
-    readMoreBtn.classList.remove('is__hidden-btn');
-    aboutContent.classList.add('hidden__content');
-  }
-  readMoreBtn.addEventListener('click', () => {
-    aboutContent.classList.remove('hidden__content');
-    readMoreBtn.classList.add('is__hidden-btn');
-  });
+  // if (!document.querySelector('.hidden__content')) {
+  //   readMoreBtn.classList.remove('is__hidden-btn');
+  //   aboutContent.classList.add('hidden__content');
+  // }
+  // readMoreBtn.addEventListener('click', () => {
+  //   aboutContent.classList.remove('hidden__content');
+  //   readMoreBtn.classList.add('is__hidden-btn');
+  // });
   monitorButtonStatusText();
 }
 // genres.then(console.log);
