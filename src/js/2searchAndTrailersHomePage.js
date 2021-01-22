@@ -94,13 +94,13 @@ const trailer = {
   createTrailerRef(key) {
     this.trailerItem.classList.add('trailer__ref');
     const fullURL = `${this.YOUTUBE_URL}${key}`;
-    const trailerRef = `<a href="${fullURL}" class='waves-effect waves-light btn-small pink'><i class="material-icons left">videocam</i> <span>Watch me!</span></a>`;
+    const trailerRef = `<a href="${fullURL}" class='waves-effect waves-light btn-small pink'><i class="material-icons left">videocam</i>Watch me!</a>`;
     this.trailerItem.insertAdjacentHTML('afterbegin', trailerRef);
     return this.trailerItem;
   },
   createDisabledButton() {
     this.trailerItem.classList.add('trailer__ref');
-    const disabledBtn = `<a href="#" class='disabled btn-small '><i class="material-icons left">videocam_off</i> <span>No trailer</span></a>`;
+    const disabledBtn = `<a href="#" class='disabled btn-small '><i class="material-icons left">videocam_off</i> No trailer</a>`;
     this.trailerItem.insertAdjacentHTML('afterbegin', disabledBtn);
     return this.trailerItem;
   },
@@ -108,8 +108,8 @@ const trailer = {
   // функция принимает li с ссылкой и вставляет в список
   createTrailerBtn(trailer) {
     if (!trailer) {
-      const trailerBtn = this.createDisabledButton();
-      this.trailerSection.insertAdjacentElement('afterbegin', trailerBtn);
+      const disabledBtn = this.createDisabledButton();
+      this.trailerSection.insertAdjacentElement('afterbegin', disabledBtn);
       return;
     }
 
