@@ -1,4 +1,3 @@
-console.log('5');
 // Создание ссылок
 const refs = {
   tabs: document.querySelector('.tabs'),
