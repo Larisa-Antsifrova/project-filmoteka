@@ -45,11 +45,11 @@
     text-transform: uppercase;
 
     a {
-      &:focus,
-      &:focus.active {
-        background-color: transparentize($tabs-underline-color, 0.8);
-        outline: none;
-      }
+      // &:focus,
+      // &:focus.active {
+      //   background-color: transparentize($tabs-underline-color, 0.8);
+      //   outline: none;
+      // }
 
       &:hover,
       &.active {
