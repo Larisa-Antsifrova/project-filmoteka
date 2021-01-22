@@ -28,7 +28,6 @@ function toggleRenderPage() {
 // функция для слушателя инпута и отображения страницы согласно запросу
 function searchFilms(e) {
   e.preventDefault();
-
   movieApi.searchQuery = e.target.elements.query.value.trim();
 
   if (movieApi.searchQuery) {
@@ -61,7 +60,6 @@ function onInputFocus() {
   movieApi.resetPage();
 }
 
-// функция очистки инпута и запроса
 function clearInput() {
   searchForm.elements.query.value = '';
   movieApi.searchQuery = '';
@@ -79,7 +77,6 @@ function notFound() {
   });
 }
 
-// функция сокрытия строки ошибки
 function clearError() {
   errorArea.style.visibility = 'hidden';
 }

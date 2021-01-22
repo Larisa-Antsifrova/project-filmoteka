@@ -49,8 +49,6 @@ function activeHomePage(e) {
   movieApi.resetPage();
   clearInput();
   trailer.clearTrailerKey();
-  // clearTrailerKey();
-
   renderFilms = movieApi.fetchPopularFilmsList();
   renderPopularFilms();
   toggleActiveLink(homeRef);
@@ -64,7 +62,6 @@ function activeLibraryPage(e) {
   e.preventDefault();
   clearInput();
   trailer.clearTrailerKey();
-  // clearTrailerKey();
   toggleActiveLink(libraryRef);
   libraryMobileRef.classList.add('sidenav-close');
   librarySectionRef.classList.remove('is-hidden');
@@ -110,7 +107,6 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
         if (el.id === movieId) {
           // add alex - функция рендера кнопки трейлера
           trailer.renderMovieTrailer(el.id);
-          // renderMovieTrailer(el.id);
           return el;
         }
       });
@@ -160,7 +156,6 @@ function backToTop() {
 function isReturnBtn() {
   // add alex - сносит кнопку трейлера
   trailer.clearTrailerKey();
-  // clearTrailerKey();
 
   if (libraryRef.classList.contains('active')) {
     librarySectionRef.classList.remove('is-hidden');

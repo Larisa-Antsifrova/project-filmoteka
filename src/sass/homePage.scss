@@ -140,6 +140,8 @@
     color: #e8eaf6;
   }
   .search__form .input {
+    @include fontBasicStyles(16px, 1.5, 700, 0.04em);
+    color: $basicWhiteColor;
     border-bottom: 1px solid #e8eaf6;
   }
 }
