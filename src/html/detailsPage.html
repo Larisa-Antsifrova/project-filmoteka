@@ -1,18 +1,20 @@
 <section class="details-page is-hidden" data-details-section>
   <div class="container">
-    <div class="row">
+    <div class="movie-details-container">
       <!-- Movie poster -->
-      <div class="col s12 l6">
-        <img id="details__img" class="details-img col s12" />
+
+      <div class="poster__container">
+        <img id="details__img" class="details-img" />
+
         <a id="return__btn" class="backtoprevious btn-floating waves-effect waves-light left">
           <i class="material-icons">arrow_back</i>
         </a>
       </div>
       <!-- Movie info -->
-      <div class="col s12 l6 movie-description">
-        <div class="col s12 center">
-          <h2 id="details__title" class="details-title">Movie Title</h2>
-        </div>
+
+      <div class="description__container">
+        <h2 id="details__title" class="details__title details-title">Movie Title</h2>
+
         <table>
           <tbody>
             <tr class="table-dark-rows">
@@ -28,37 +30,49 @@
               <td id="original__title" class="details__info">title</td>
             </tr>
             <tr class="table-light-rows">
+
               <td class="details__caption">Genre</td>
               <td id="details__genre" class="details__info">genres</td>
             </tr>
           </tbody>
         </table>
 
-        <div class="col s12">
-          <a data-toggle-watched="add" class="col s6 waves-effect waves-light btn-small green offset-s3"
+        <div class="buttons__container">
+          <a data-toggle-watched="add" class="waves-effect waves-light btn-small green darken-1"
             ><i data-icon-watched="addPlus" class="material-icons left">add</i
             ><span data-watched-text="textButton">to watched</span></a
           >
-          <a
-            data-toggle-queue="add"
-            class="col s6 waves-effect waves-light btn-small yellow darken-2 offset-s3 middle-btn"
+          <a data-toggle-queue="add" class="waves-effect waves-light btn-small yellow darken-2 middle-btn"
             ><i data-icon-queue="addPlus" class="material-icons left">add</i
             ><span data-queue-text="textButton">to queue</span></a
           >
-          <a data-toggle-favorite="add" class="col s6 waves-effect waves-light btn-small pink offset-s3"
+          <a data-toggle-favorite="add" class="waves-effect waves-light btn-small pink"
             ><i data-icon-favorite="addPlus" class="material-icons left">add</i
             ><span data-favorite-text="textButton">fav</span></a
           >
         </div>
 
-        <h3 class="details-about center">About</h3>
-        <div class="about__content hidden__content">
-          <p id="details__about" class="details-about-text">description</p>
-        </div>
-        <button class="read-more" id="read__more" type="button">Read More</button>
-        <div class="trailer__box">
-          <ul class="trailer"></ul>
-        </div>
+        <ul class="collapsible">
+          <li class="collapsible-item">
+            <div class="collapsible-header">
+              <i class="material-icons">info_outline</i>
+              <h3 class="details-about center">About</h3>
+            </div>
+            <div class="collapsible-body"><p id="details__about" class="details-about-text">description</p></div>
+          </li>
+          <li class="collapsible-item">
+            <div class="collapsible-header">
+              <i class="material-icons">ondemand_video</i>
+              <h3 class="details-about center">Trailers</h3>
+            </div>
+            <div class="collapsible-body">
+              <div class="trailer__box">
+                <ul class="trailer"></ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+
       </div>
     </div>
   </div>
