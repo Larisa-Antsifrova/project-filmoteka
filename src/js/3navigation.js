@@ -50,7 +50,9 @@ function activeHomePage(e) {
   clearInput();
   trailer.clearTrailerKey();
   renderFilms = movieApi.fetchPopularFilmsList();
-  renderPopularFilms();
+  renderPopularFilms().then(() => {
+    paginator.recalculate(movieApi.totalPages);
+  });
   toggleActiveLink(homeRef);
   homeMobileRef.classList.add('sidenav-close');
   homePageSectionRef.classList.remove('is-hidden');
