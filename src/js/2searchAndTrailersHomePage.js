@@ -81,7 +81,6 @@ function clearError() {
   errorArea.style.visibility = 'hidden';
 }
 
-
 const trailer = {
   trailerSection: document.querySelector('.trailer'),
   trailerItem: document.createElement('li'),
@@ -89,14 +88,13 @@ const trailer = {
   trailerKey: '',
 
   renderMovieTrailer(el) {
-  movieApi.fetchTrailersAPI(el)
-    .then(this.createTrailerBtn.bind(this));
+    movieApi.fetchTrailersAPI(el).then(this.createTrailerBtn.bind(this));
   },
-    // функция принимает ключ трейлера и вставляет полную ссылку на него в li
+  // функция принимает ключ трейлера и вставляет полную ссылку на него в li
   createTrailerRef(key) {
     this.trailerItem.classList.add('trailer__ref');
     const fullURL = `${this.YOUTUBE_URL}${key}`;
-    const trailerRef = `<a href="${fullURL}" class='trailer__a'>Trailer</a>`;
+    const trailerRef = `<a href="${fullURL}" class='waves-effect waves-light btn-small pink'><i class="material-icons left">videocam</i> <span>Watch me!</span></a>`;
     this.trailerItem.insertAdjacentHTML('afterbegin', trailerRef);
     return this.trailerItem;
   },
@@ -114,12 +112,12 @@ const trailer = {
     this.trailerItem.innerHTML = '';
     this.trailerSection.removeEventListener('click', modalWindow.openModal.bind(modalWindow));
   },
-}
+};
 
 const modalWindow = {
-    lightboxOverlay: document.querySelector('.lightbox__overlay'),
-    lightboxCard: document.querySelector('.js-lightbox'),
-    trailerVideo: document.querySelector('.trailer_referense'),
+  lightboxOverlay: document.querySelector('.lightbox__overlay'),
+  lightboxCard: document.querySelector('.js-lightbox'),
+  trailerVideo: document.querySelector('.trailer_referense'),
 
   openModal(event) {
     event.preventDefault();
@@ -152,5 +150,5 @@ const modalWindow = {
     this.lightboxCard.classList.remove('is-open');
     this.trailerVideo.src = '';
     this.lightboxOverlay.removeEventListener('click', this.onClickOverlay.bind(this));
-  }
-}
+  },
+};

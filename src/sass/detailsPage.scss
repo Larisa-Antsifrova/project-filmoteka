@@ -152,6 +152,10 @@ td {
   color: #ffffff;
 }
 
+.details-about {
+  color: wheat;
+}
+
 .collapsible-body {
   background-color: ivory;
   border-bottom: none;
@@ -164,19 +168,20 @@ td {
   justify-content: center;
   margin: 15px;
 }
+
 .trailer__ref {
-  display: inline-block;
+  // display: inline-block;
   margin-right: auto;
   margin-left: auto;
-  padding: 8px 0;
-  background-color: #e91e63;
-  border-radius: 2px;
+  // padding: 8px 0;
+  // background-color: #e91e63;
+  // border-radius: 2px;
 }
-.trailer__a {
-  padding: 14px 50px;
-  color: $basicWhiteColor;
-  @include fontBasicStyles(14px, 1.5, 500);
-}
+// .trailer__a {
+//   padding: 14px 50px;
+//   color: $basicWhiteColor;
+//   @include fontBasicStyles(14px, 1.5, 500);
+// }
 
 // modal window
 .lightbox {
