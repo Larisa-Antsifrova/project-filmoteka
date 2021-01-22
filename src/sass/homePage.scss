@@ -128,8 +128,20 @@
 }
 
 .search-container {
+  background-color: #3f51b5;
+  color: #000;
   padding: 15px 0 20px 0;
   margin-bottom: 15px;
+
+  .btn-floating {
+    background-color: #c5cae9;
+  }
+  .label-text {
+    color: #e8eaf6;
+  }
+  .search__form .input {
+    border-bottom: 1px solid #e8eaf6;
+  }
 }
 
 .error__area {
@@ -155,10 +167,14 @@
   bottom: 40px;
   right: 20px;
   z-index: 1;
-
+  background-color: #e91e63;
   cursor: pointer;
 
   display: none;
+
+  &:hover {
+    background-color: #e91e63;
+  }
 }
 
 // показываем кнопку при выполнении скрипта
@@ -175,5 +191,148 @@
 
   @media screen and (min-width: 768px) {
     padding-top: 30px;
+  }
+}
+// Switch Theme
+
+.dark-theme {
+  background-color: #263238;
+
+  .nav-wraper {
+    background-color: #263238;
+    color: #ffffff;
+  }
+  .sidenav {
+    background-color: #263238;
+    color: #eceff1;
+
+    li > a {
+      color: #eceff1;
+
+      &:hover {
+        background-color: #607d8b;
+      }
+    }
+
+    li > a > i.material-icons {
+      color: #ee6e73;
+    }
+  }
+
+  .search-container {
+    background-color: #37474f;
+    color: red;
+
+    .btn-floating {
+      background-color: #c51162;
+    }
+
+    .label-text {
+      color: #eceff1;
+    }
+
+    .search__form .input {
+      border-bottom: 1px solid #eceff1;
+    }
+  }
+
+  .back__to__top {
+    background-color: #c51162;
+  }
+
+  .gallery-card-raiting {
+    background-color: #263238;
+  }
+
+  .gallery-card-title {
+    background: linear-gradient(360deg, #000000 0%, rgba(26, 35, 126, 0) 100%);
+  }
+  // пагинация
+  .pagination {
+    li.active a {
+      background-color: #ee6e73;
+    }
+
+    li.disabled a {
+      color: #37474f;
+    }
+    li a {
+      color: #eceff1;
+    }
+  }
+
+  // footer
+
+  .footer-site {
+    background-color: #78909c;
+
+    .footer-copyright {
+      background-color: #37474f;
+    }
+    .copyright-text {
+      color: #eceff1;
+    }
+    .team-link {
+      color: #ffe0b2;
+    }
+  }
+  // tabs
+  .tabs {
+    background-color: #37474f;
+
+    .text-of-tabs {
+      color: #eceff1;
+    }
+
+    .indicator {
+      background-color: #ee6e73;
+    }
+  }
+
+  .tab-pane {
+    color: #ee6e73;
+  }
+
+  #return__btn {
+    background-color: #c51162;
+  }
+
+  // movie-description
+
+  .movie-description {
+    .details-title {
+      color: #cfd8dc;
+    }
+    .details-about {
+      color: #cfd8dc;
+    }
+
+    table {
+      margin-bottom: 15px;
+      border-radius: 7px;
+      overflow: hidden;
+      & th,
+      td {
+        color: #cfd8dc;
+        border: 1px solid #263238;
+      }
+
+      .table-dark-rows {
+        background-color: #37474f;
+      }
+
+      .table-light-rows {
+        background-color: #546e7a;
+      }
+    }
+
+    .about__content {
+      color: #90a4ae;
+    }
+    .read-more {
+      color: #ffcc80;
+      background-color: transparent;
+      border-color: transparent;
+    }
   }
 }

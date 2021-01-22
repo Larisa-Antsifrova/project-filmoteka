@@ -52,20 +52,41 @@
   }
 }
 
+
 .details__title {
+
   margin: 10px 0 5px 0;
   text-align: center;
   font-size: 30px;
-  font-weight: 700;
+
+  font-weight: 700px;
   color: #3f51b5;
+}
+
+.details-about {
+  color: #7986cb;
+}
+
+#details__img {
+  border-radius: 7px;
+
 }
 
 table {
   margin-bottom: 15px;
   border-radius: 7px;
   overflow: hidden;
-  background-color: #9fa8da;
 }
+
+
+  .table-dark-rows {
+    background-color: #c5cae9;
+  }
+
+  .table-light-rows {
+    background-color: #e8eaf6;
+  }
+
 
 table,
 th,
