@@ -98,9 +98,18 @@ const trailer = {
     this.trailerItem.insertAdjacentHTML('afterbegin', trailerRef);
     return this.trailerItem;
   },
+  createDisabledButton() {
+    this.trailerItem.classList.add('trailer__ref');
+    const disabledBtn = `<a href="#" class='disabled btn-small '><i class="material-icons left">videocam_off</i> <span>No trailer</span></a>`;
+    this.trailerItem.insertAdjacentHTML('afterbegin', disabledBtn);
+    return this.trailerItem;
+  },
+
   // функция принимает li с ссылкой и вставляет в список
   createTrailerBtn(trailer) {
     if (!trailer) {
+      const trailerBtn = this.createDisabledButton();
+      this.trailerSection.insertAdjacentElement('afterbegin', trailerBtn);
       return;
     }
     this.trailerKey = trailer.key;
