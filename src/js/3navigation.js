@@ -8,9 +8,11 @@ const toggleWatchedBtn = document.querySelector('[data-toggle-watched]');
 const favoriteBtn = document.querySelector('[data-toggle-favorite]');
 const watchedBtn = document.querySelector('[data-action-watched]');
 const queueBtn = document.querySelector('[data-action-queue]');
+const favoriteMobileBtn = document.querySelector('[data-action-favorite]');
 const logoRefs = document.querySelector('.logo__js');
 const navigationRefs = document.querySelector('.navigation');
 const togleSwitchBtn = document.querySelector('[data-action-togle]');
+
 // получаем доступ к mobile-menu
 const homeMobileRef = document.querySelector('.home__link-mobile');
 const libraryMobileRef = document.querySelector('.library__link-mobile');
@@ -176,7 +178,55 @@ function activeLibraryPage(e) {
   librarySectionRef.classList.remove('is-hidden');
   homePageSectionRef.classList.add('is-hidden');
   detailsSectionRef.classList.add('is-hidden');
+
   queueBtn.focus();
+  drawQueueFilmList();
+  drawWatchedFilmList();
+  drawFavoriteFilmList();
+}
+function activeWatchedMobile(e) {
+  e.preventDefault();
+  clearInput();
+  toggleActiveLink(libraryRef);
+  libraryMobileRef.classList.add('sidenav-close');
+  librarySectionRef.classList.remove('is-hidden');
+  homePageSectionRef.classList.add('is-hidden');
+  detailsSectionRef.classList.add('is-hidden');
+  refs.mobileWatchedBtn.classList.add('sidenav-close');
+
+  watchedBtn.focus();
+  drawQueueFilmList();
+  drawWatchedFilmList();
+  drawFavoriteFilmList();
+}
+
+function activeQueuedMobile(e) {
+  e.preventDefault();
+  clearInput();
+  toggleActiveLink(libraryRef);
+  libraryMobileRef.classList.add('sidenav-close');
+  librarySectionRef.classList.remove('is-hidden');
+  homePageSectionRef.classList.add('is-hidden');
+  detailsSectionRef.classList.add('is-hidden');
+  refs.mobileQueueBtn.classList.add('sidenav-close');
+  queueBtn.focus();
+
+  drawQueueFilmList();
+  drawWatchedFilmList();
+  drawFavoriteFilmList();
+}
+
+function activeFavoriteMobile(e) {
+  e.preventDefault();
+  clearInput();
+  toggleActiveLink(libraryRef);
+  libraryMobileRef.classList.add('sidenav-close');
+  librarySectionRef.classList.remove('is-hidden');
+  homePageSectionRef.classList.add('is-hidden');
+  detailsSectionRef.classList.add('is-hidden');
+  refs.mobileFavoriteBtn.classList.add('sidenav-close');
+  favoriteMobileBtn.focus();
+
   drawQueueFilmList();
   drawWatchedFilmList();
   drawFavoriteFilmList();
@@ -259,7 +309,7 @@ function backToTop() {
     window.scrollBy(0, -80);
     setTimeout(backToTop, 20);
   }
-};
+}
 
 // функция возврата на предыдущую страницу
 function isReturnBtn() {
@@ -279,12 +329,3 @@ function isReturnBtn() {
     detailsSectionRef.classList.add('is-hidden');
   }
 }
-
-
-
-
-
-
-
-
-
