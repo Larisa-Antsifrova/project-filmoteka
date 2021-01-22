@@ -112,6 +112,7 @@ const trailer = {
       this.trailerSection.insertAdjacentElement('afterbegin', trailerBtn);
       return;
     }
+
     this.trailerKey = trailer.key;
     const trailerBtn = this.createTrailerRef(this.trailerKey);
     this.trailerSection.insertAdjacentElement('afterbegin', trailerBtn);
