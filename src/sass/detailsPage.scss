@@ -46,7 +46,6 @@
 .description__container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 
   @media screen and (min-width: 768px) {
     width: calc((100% - 30px) / 2);
