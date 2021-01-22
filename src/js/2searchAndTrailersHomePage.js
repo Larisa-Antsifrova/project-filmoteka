@@ -111,19 +111,13 @@ const trailer = {
     this.trailerKey = trailer.key;
     const trailerBtn = this.createTrailerRef(this.trailerKey);
     this.trailerSection.insertAdjacentElement('afterbegin', trailerBtn);
-    this.trailerSection.addEventListener('click', modalWindow.openModal);
+    this.trailerSection.addEventListener('click', modalWindow.openModal.bind(modalWindow));
   },
   clearTrailerKey() {
     this.trailerItem.innerHTML = '';
-    this.trailerSection.removeEventListener('click', openModal);
-  }
+    this.trailerSection.removeEventListener('click', modalWindow.openModal.bind(modalWindow));
+  },
 }
-
-// const lightboxOverlay = document.querySelector('.lightbox__overlay');
-// const lightboxCard = document.querySelector('.js-lightbox');
-// const trailerVideo = document.querySelector('.trailer_referense');
-
-// lightboxOverlay.addEventListener('click', onClickOverlay);
 
 const modalWindow = {
     lightboxOverlay: document.querySelector('.lightbox__overlay'),
@@ -132,22 +126,19 @@ const modalWindow = {
 
   openModal(event) {
     event.preventDefault();
-    console.log(event);
     if (event.target.nodeName !== 'A') {
       return;
     }
     this.trailerVideo.src = event.target.href;
     this.lightboxCard.classList.add('is-open');
-    this.lightboxOverlay.addEventListener('click', onClickOverlay);
-    trailerSection.removeEventListener('click', openModal);
+    this.lightboxOverlay.addEventListener('click', this.onClickOverlay.bind(this));
     this.addKeydownListener();
   },
-
   addKeydownListener() {
-    window.addEventListener('keydown', onPressEscape);
+    window.addEventListener('keydown', this.onPressEscape.bind(this));
   },
   removeKeydownListener() {
-    window.removeEventListener('keydown', onPressEscape);
+    window.removeEventListener('keydown', this.onPressEscape.bind(this));
   },
   onClickOverlay(event) {
     if (event.target === event.currentTarget) {
@@ -163,48 +154,6 @@ const modalWindow = {
     this.removeKeydownListener();
     this.lightboxCard.classList.remove('is-open');
     this.trailerVideo.src = '';
-    this.lightboxOverlay.removeEventListener('click', onClickOverlay);
-    trailerSection.addEventListener('click', openModal);
+    this.lightboxOverlay.removeEventListener('click', this.onClickOverlay.bind(this));
   }
 }
-
-// ==== modal window =====
-// function openModal(event) {
-//   event.preventDefault();
-//   if (event.target.nodeName !== 'A') {
-//     return;
-//   }
-//   trailerVideo.src = event.target.href;
-//   lightboxCard.classList.add('is-open');
-//   lightboxOverlay.addEventListener('click', onClickOverlay);
-//   trailer.trailerSection.removeEventListener('click', openModal);
-//   addKeydownListener();
-// }
-
-// function onClickOverlay(event) {
-//   if (event.target === event.currentTarget) {
-//     closeLightboxHandler();
-//   }
-// }
-
-// function onPressEscape(event) {
-//   if (event.code === 'Escape') {
-//     closeLightboxHandler();
-//   }
-// }
-
-// function closeLightboxHandler() {
-//   removeKeydownListener();
-//   lightboxCard.classList.remove('is-open');
-//   trailerVideo.src = '';
-//   lightboxOverlay.removeEventListener('click', onClickOverlay);
-//   trailer.trailerSection.addEventListener('click', openModal);
-// }
-
-// function addKeydownListener() {
-//   window.addEventListener('keydown', onPressEscape);
-// }
-
-// function removeKeydownListener() {
-//   window.removeEventListener('keydown', onPressEscape);
-// }
