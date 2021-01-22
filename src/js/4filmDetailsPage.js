@@ -86,6 +86,7 @@ function toggleToFavorite() {
 }
 
 function monitorButtonStatusText() {
+  console.log('toggleToQueue Film select beginning', selectFilm);
   let filmsQueueArr = [];
   let localStorageData = localStorage.getItem('filmsQueue');
   if (localStorageData) {
