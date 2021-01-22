@@ -331,13 +331,18 @@
     .about__content {
       color: #90a4ae;
     }
+
+    .collapsible-header i {
+      color: #263238;
+    }
     .collapsible-body {
       color: #cfd8dc;
-      background-color: #546e7a;
+      background-color: #37474f;
     }
 
     .collapsible-item {
       background-color: #546e7a;
+      border-bottom: 1px solid #263238;
     }
 
     .read-more {
