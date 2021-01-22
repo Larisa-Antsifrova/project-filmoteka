@@ -1,6 +1,7 @@
 // Containers for information
 .details-page {
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .movie-details-container {
@@ -52,9 +53,7 @@
   }
 }
 
-
 .details__title {
-
   margin: 10px 0 5px 0;
   text-align: center;
   font-size: 30px;
@@ -67,26 +66,19 @@
   color: #7986cb;
 }
 
-#details__img {
-  border-radius: 7px;
-
-}
-
 table {
   margin-bottom: 15px;
   border-radius: 7px;
   overflow: hidden;
 }
 
+.table-dark-rows {
+  background-color: #c5cae9;
+}
 
-  .table-dark-rows {
-    background-color: #c5cae9;
-  }
-
-  .table-light-rows {
-    background-color: #e8eaf6;
-  }
-
+.table-light-rows {
+  background-color: #e8eaf6;
+}
 
 table,
 th,

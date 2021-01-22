@@ -299,7 +299,7 @@
 
   // movie-description
 
-  .movie-description {
+  .description__container {
     .details-title {
       color: #cfd8dc;
     }
@@ -329,6 +329,15 @@
     .about__content {
       color: #90a4ae;
     }
+    .collapsible-body {
+      color: #cfd8dc;
+      background-color: #546e7a;
+    }
+
+    .collapsible-item {
+      background-color: #546e7a;
+    }
+
     .read-more {
       color: #ffcc80;
       background-color: transparent;
