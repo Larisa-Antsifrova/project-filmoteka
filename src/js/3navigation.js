@@ -68,7 +68,7 @@ function activeLibraryPage(e) {
   homePageSectionRef.classList.add('is-hidden');
   detailsSectionRef.classList.add('is-hidden');
 
-  queueBtn.focus();
+  // queueBtn.focus();
   drawQueueFilmList();
   drawWatchedFilmList();
   drawFavoriteFilmList();
@@ -83,7 +83,7 @@ function activeWatchedMobile(e) {
   detailsSectionRef.classList.add('is-hidden');
   refs.mobileWatchedBtn.classList.add('sidenav-close');
 
-  watchedBtn.focus();
+  // watchedBtn.focus();
   drawQueueFilmList();
   drawWatchedFilmList();
   drawFavoriteFilmList();
@@ -98,7 +98,7 @@ function activeQueuedMobile(e) {
   homePageSectionRef.classList.add('is-hidden');
   detailsSectionRef.classList.add('is-hidden');
   refs.mobileQueueBtn.classList.add('sidenav-close');
-  queueBtn.focus();
+  // queueBtn.focus();
 
   drawQueueFilmList();
   drawWatchedFilmList();
@@ -114,7 +114,7 @@ function activeFavoriteMobile(e) {
   homePageSectionRef.classList.add('is-hidden');
   detailsSectionRef.classList.add('is-hidden');
   refs.mobileFavoriteBtn.classList.add('sidenav-close');
-  favoriteMobileBtn.focus();
+  // favoriteMobileBtn.focus();
 
   drawQueueFilmList();
   drawWatchedFilmList();
