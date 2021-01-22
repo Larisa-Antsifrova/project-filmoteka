@@ -52,13 +52,13 @@ textarea.materialize-textarea {
 
   // Focused input style
   &:focus:not([readonly]) {
-    border-bottom: 1px solid $input-focus-color;
-    box-shadow: 0 1px 0 0 $input-focus-color;
+    border-bottom: 1px solid #f48fb1;
+    box-shadow: 0 1px 0 0 #f48fb1;
   }
 
   // Focused label style
   &:focus:not([readonly]) + label {
-    color: $input-focus-color;
+    color: #f48fb1;
   }
 
   // Hide helper text on data message
@@ -191,9 +191,7 @@ textarea.materialize-textarea {
   }
 
   // Autofill + date + time inputs
-  &
-    > input[type]:-webkit-autofill:not(.browser-default):not([type='search'])
-    + label,
+  & > input[type]:-webkit-autofill:not(.browser-default):not([type='search']) + label,
   & > input[type='date']:not(.browser-default) + label,
   & > input[type='time']:not(.browser-default) + label {
     transform: translateY(-14px) scale(0.8);

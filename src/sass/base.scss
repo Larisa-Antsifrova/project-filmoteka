@@ -30,16 +30,8 @@ $stillBoxShadow: 0px 10px 34px -10px rgba(0, 0, 0, 0.74);
 $hoverBoxShadow: 0px 10px 34px -10px rgba(0, 0, 0, 0.92);
 
 // Переменная для градиента
-$titleBackgroundGradientLT: linear-gradient(
-  360deg,
-  rgba(26, 35, 126, 1) 0%,
-  rgba(26, 35, 126, 0) 100%
-);
-$titleBackgroundGradientDT: linear-gradient(
-  360deg,
-  rgba(66, 66, 66, 1) 0%,
-  rgba(66, 66, 66, 0) 100%
-);
+$titleBackgroundGradientLT: linear-gradient(360deg, rgba(26, 35, 126, 1) 0%, rgba(26, 35, 126, 0) 100%);
+$titleBackgroundGradientDT: linear-gradient(360deg, rgba(66, 66, 66, 1) 0%, rgba(66, 66, 66, 0) 100%);
 
 // Миксин для шрифтов
 @mixin fontBasicStyles($fz, $lh: 1.5, $fw: 400, $ls: 0.03em) {
@@ -52,32 +44,28 @@ $titleBackgroundGradientDT: linear-gradient(
 // Подключение шрифтов
 @font-face {
   font-family: 'Roboto';
-  src: url(../fonts/roboto-regular.ttf) format('ttf'),
-    url(../fonts/roboto-regular.woff) format('woff');
+  src: url(../fonts/roboto-regular.ttf) format('ttf'), url(../fonts/roboto-regular.woff) format('woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url(../fonts/roboto-medium.ttf) format('ttf'),
-    url(../fonts/roboto-medium.woff) format('woff');
+  src: url(../fonts/roboto-medium.ttf) format('ttf'), url(../fonts/roboto-medium.woff) format('woff');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url(../fonts/roboto-bold.ttf) format('ttf'),
-    url(../fonts/roboto-bold.woff) format('woff');
+  src: url(../fonts/roboto-bold.ttf) format('ttf'), url(../fonts/roboto-bold.woff) format('woff');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url(../fonts/roboto-black.ttf) format('ttf'),
-    url(../fonts/roboto-black.woff) format('woff');
+  src: url(../fonts/roboto-black.ttf) format('ttf'), url(../fonts/roboto-black.woff) format('woff');
   font-weight: 900;
   font-style: normal;
 }
@@ -121,17 +109,13 @@ img {
   height: auto;
 }
 
-.light-theme {
-  background-color: white;
-}
-
-.dark-theme {
-  background-color: black;
-}
-
 //создаем класс чтобы скрывать секции
 .is-hidden {
   display: none;
+}
+
+#return__btn {
+  background-color: #e91e63;
 }
 
 // создаем добавляем стили кнокпи вверх
