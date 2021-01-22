@@ -105,6 +105,23 @@ const movieApi = {
         spinner.hide();
       });
   },
+  fetchTrailersAPI(el) {
+  return fetch(`${this.baseUrl}movie/${el}/videos?api_key=${this.apiKey}&language=en-US`)
+    .then(response => response.json())
+    .then(resp => resp)
+    .then(({ results }) => {
+      // проверка на наличие трейлера
+      if (!results.length) {
+        return;
+      } else {
+        return results.find(e => {
+          if (e.type == 'Trailer') {
+            return e;
+          }
+        });
+      }
+    });
+  },
   fetchGenresList() {
     return fetch(`${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`)
       .then(response => response.json())
