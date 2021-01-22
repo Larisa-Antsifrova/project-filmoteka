@@ -17,7 +17,7 @@
   line-height: 1.5;
   padding: 1rem;
   // background-color: $collapsible-header-color;
-  border-bottom: 1px solid $collapsible-border-color;
+  // border-bottom: 1px solid $collapsible-border-color;
 
   i {
     width: 2rem;
@@ -33,7 +33,7 @@
 
 .collapsible-body {
   display: none;
-  border-bottom: 1px solid $collapsible-border-color;
+  // border-bottom: 1px solid $collapsible-border-color;
   box-sizing: border-box;
   padding: 2rem;
 }

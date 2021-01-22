@@ -46,7 +46,6 @@
 .description__container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 
   @media screen and (min-width: 768px) {
     width: calc((100% - 30px) / 2);
@@ -134,11 +133,19 @@ td {
   width: 100%;
   border-radius: 7px;
   overflow: hidden;
-  background-color: #c5cae9;
 }
 
 .collapsible-item {
   background-color: #9fa8da;
+  border-bottom: 1px solid #ffffff;
+}
+
+.collapsible-item.trailers {
+  border-bottom: none;
+}
+
+.collapsible-header {
+  color: #ffffff;
 }
 
 .collapsible-header i {
@@ -146,26 +153,12 @@ td {
 }
 
 .details-about {
-  color: #ffffff;
+  color: wheat;
 }
 
-.read-more {
-  opacity: 0.7;
-}
-
-.read-more:hover {
-  opacity: 1;
-}
-
-.is__hidden-btn {
-  display: none;
-}
-
-.hidden__content {
-  overflow: hidden;
-  height: 3.6em;
-  line-height: 1.2em;
-  // width: 200px;
+.collapsible-body {
+  background-color: ivory;
+  border-bottom: none;
 }
 
 // ============= trailer ==============
@@ -175,19 +168,20 @@ td {
   justify-content: center;
   margin: 15px;
 }
+
 .trailer__ref {
-  display: inline-block;
+  // display: inline-block;
   margin-right: auto;
   margin-left: auto;
-  padding: 8px 0;
-  background-color: #e91e63;
-  border-radius: 2px;
+  // padding: 8px 0;
+  // background-color: #e91e63;
+  // border-radius: 2px;
 }
-.trailer__a {
-  padding: 14px 50px;
-  color: $basicWhiteColor;
-  @include fontBasicStyles(14px, 1.5, 500);
-}
+// .trailer__a {
+//   padding: 14px 50px;
+//   color: $basicWhiteColor;
+//   @include fontBasicStyles(14px, 1.5, 500);
+// }
 
 // modal window
 .lightbox {
