@@ -46,32 +46,32 @@ const movieApi = {
   calculateBackdropImgSize() {
     if (window.visualViewport.width >= 1024) {
       this.images.currentSizes.backdropSize = this.images.backdropSizes.desktop;
-      this.images.defaultBackdropImg = '../images/default/backdrop-desktop.jpg';
+      this.images.defaultBackdropImg = './images/default/backdrop-desktop.jpg';
       return;
     }
     if (window.visualViewport.width >= 768 && window.visualViewport.width < 1024) {
       this.images.currentSizes.backdropSize = this.images.backdropSizes.tablet;
-      this.images.defaultBackdropImg = '../images/default/backdrop-tablet.jpg';
+      this.images.defaultBackdropImg = './images/default/backdrop-tablet.jpg';
       return;
     }
     if (window.visualViewport.width < 768) {
       this.images.currentSizes.backdropSize = this.images.backdropSizes.mobile;
-      this.images.defaultBackdropImg = '../images/default/backdrop-mobile.jpg';
+      this.images.defaultBackdropImg = './images/default/backdrop-mobile.jpg';
       return;
     }
   },
   calculatePosterImgSize() {
     if (window.visualViewport.width >= 1024) {
       this.images.currentSizes.posterSize = this.images.posterSizes.desktop;
-      this.images.defaultPosterImg = '../images/default/poster-desktop.jpg';
+      this.images.defaultPosterImg = './images/default/poster-desktop.jpg';
     }
     if (window.visualViewport.width >= 768 && window.visualViewport.width < 1024) {
       this.images.currentSizes.posterSize = this.images.posterSizes.tablet;
-      this.images.defaultPosterImg = '../images/default/poster-tablet.jpg';
+      this.images.defaultPosterImg = './images/default/poster-tablet.jpg';
     }
     if (window.visualViewport.width < 768) {
       this.images.currentSizes.posterSize = this.images.posterSizes.mobile;
-      this.images.defaultPosterImg = '../images/default/poster-mobile.jpg';
+      this.images.defaultPosterImg = './images/default/poster-mobile.jpg';
     }
   },
   fetchPopularFilmsList() {
@@ -106,21 +106,21 @@ const movieApi = {
       });
   },
   fetchTrailersAPI(el) {
-  return fetch(`${this.baseUrl}movie/${el}/videos?api_key=${this.apiKey}&language=en-US`)
-    .then(response => response.json())
-    .then(resp => resp)
-    .then(({ results }) => {
-      // проверка на наличие трейлера
-      if (!results.length) {
-        return;
-      } else {
-        return results.find(e => {
-          if (e.type == 'Trailer') {
-            return e;
-          }
-        });
-      }
-    });
+    return fetch(`${this.baseUrl}movie/${el}/videos?api_key=${this.apiKey}&language=en-US`)
+      .then(response => response.json())
+      .then(resp => resp)
+      .then(({ results }) => {
+        // проверка на наличие трейлера
+        if (!results.length) {
+          return;
+        } else {
+          return results.find(e => {
+            if (e.type == 'Trailer') {
+              return e;
+            }
+          });
+        }
+      });
   },
   fetchGenresList() {
     return fetch(`${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`)
