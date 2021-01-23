@@ -1,5 +1,3 @@
-console.log('5');
-// Создание ссылок
 const refs = {
   tabs: document.querySelector('.tabs'),
   tabPanes: document.querySelector('.tab-panes'),
@@ -11,9 +9,7 @@ const refs = {
   mobileQueueBtn: document.querySelector('.queue__link-mobile'),
   mobileFavoriteBtn: document.querySelector('.favorite__link-mobile'),
 };
-
-// // Слушатели
-refs.tabs.addEventListener('click', onControlsClick); // для табов
+refs.tabs.addEventListener('click', onControlsClick);
 refs.queueBtn.addEventListener('click', drawQueueFilmList);
 refs.watchedBtn.addEventListener('click', drawWatchedFilmList);
 refs.favoriteBtn.addEventListener('click', drawFavoriteFilmList);
@@ -22,49 +18,6 @@ refs.mobileQueueBtn.addEventListener('click', activeQueuedMobile);
 refs.mobileFavoriteBtn.addEventListener('click', activeFavoriteMobile);
 
 let libraryTabs = null;
-
-// refs.galleryList.addEventListener('click', activeDetailsPage); // делегирование при клике на фильм на список <ul>
-
-// Функция для создания карточки фильма в библиотеке.
-// Принимает один объект фильма from local storage по инструкции
-// Делала функцию по патерну Ларисы
-// function createLibraryCardFunc(movie) {
-//   const imgPath = movie.backdrop_path
-//     ? movieApi.images.baseImageUrl + movieApi.imageBackdropSize + movie.backdrop_path
-//     : movieApi.images.defaultBackdropImg;
-//   const filmYear = movie.release_date ? `(${movie.release_date.slice(0, 4)})` : '';
-//   const filmTitle = `${movie.title} ${filmYear}`;
-//   const movieId = movie.id;
-//   const movieRaiting = String(movie.vote_average).padEnd(3, '.0');
-
-//   const libraryGalleryItemRef = document.createElement('li');
-//   libraryGalleryItemRef.classList.add('gallery-item-card');
-//   libraryGalleryItemRef.setAttribute('data-id', movieId);
-
-//   const libraryGalleryImageRef = document.createElement('img');
-//   libraryGalleryImageRef.src = imgPath;
-
-//   const libraryGalleryTitleRef = document.createElement('p');
-//   libraryGalleryTitleRef.classList.add('gallery-card-title');
-//   libraryGalleryTitleRef.textContent = filmTitle;
-
-//   const libraryGalleryRatingRef = document.createElement('p');
-//   libraryGalleryRatingRef.classList.add('gallery-card-raiting');
-//   libraryGalleryRatingRef.textContent = movieRaiting;
-
-//   libraryGalleryItemRef.appendChild(libraryGalleryRatingRef);
-//   libraryGalleryItemRef.appendChild(libraryGalleryImageRef);
-//   libraryGalleryItemRef.appendChild(libraryGalleryTitleRef);
-
-//   libraryGalleryItemRef.addEventListener('click', () => activeDetailsPage(movieId, true));
-//   return libraryGalleryItemRef;
-// }
-
-// Функция для создания/отрисовки списка фильмов
-// Обращение к локальной памяти внутри функции. Если в памяти пусто,
-// Вешается class message--shown на <p> с текстом, который до этого
-// был скрыт с помощью class message--hidden'
-
 function drawFilmList(key, paneId) {
   const paneRef = getTabPaneById(paneId);
   const messageRef = paneRef.querySelector('.message');
@@ -87,47 +40,26 @@ function drawFilmList(key, paneId) {
   listRef.appendChild(filmsList);
 }
 
-// Функция для создания/отрисовки списка фильмов в очереди на просмотр
 function drawQueueFilmList() {
   drawFilmList('filmsQueue', 'queue');
 }
 
-// Функция для создания/отрисовки списка просмотренных фильмов
 function drawWatchedFilmList() {
   drawFilmList('filmsWatched', 'watched');
 }
 
-// Функция для создания/отрисовки списка favorite фильмов
 function drawFavoriteFilmList() {
   drawFilmList('filmsFavorite', 'favorite');
 }
 
-// Функция для зачистки списка. Принимает аргументом ссылку на
-// требуемый список
 function clearGallery(filmsListRef) {
   filmsListRef.innerHTML = '';
 }
 
-// Функция для получения данных с локальной памяти
-// Принимает аргументом ключ
 function getFilmListFromLocalStorage(key) {
   const filmsContainer = localStorage.getItem(key);
   return JSON.parse(filmsContainer);
 }
-
-// Функция для создания фрагмента документа с контентом
-// Аргументами являются массив фильмов для отрисовки и ссылка на сам фрагмент документа
-// function createFilmListFragment(filmsArray) {
-//   let docFragmentRef = document.createDocumentFragment();
-//   filmsArray.forEach(film => {
-//     const filmEntry = createMovieCard(film);
-//     docFragmentRef.appendChild(filmEntry);
-//   });
-
-//   return docFragmentRef;
-// }
-
-// Pane-tabs Queue/Watched/Favorite =>
 
 function onControlsClick(event) {
   event.preventDefault();

@@ -192,12 +192,6 @@ function showDetails(selectFilm) {
       originalTitle.textContent = el.original_title;
       detailsAbout.textContent = el.overview;
 
-      // условие для скрытия и показа кнопки Read More по длине текста
-      // if (ditailsDescription.textContent.length < 150) {
-      //   readMoreBtn.classList.add('is__hidden-btn');
-      //   aboutContent.classList.remove('hidden__content');
-      // }
-
       let genresIdArr = el.genre_ids;
 
       genres.then(genresArr => {
@@ -232,49 +226,11 @@ function showDetails(selectFilm) {
         return acc;
       }, []);
       selectGenres.textContent = thisMovieGenres.join(', ');
-
-      // условие для скрытия и показа кнопки Read More по длине текста
-      // if (selectFilm.overview.length < 150) {
-      //   readMoreBtn.classList.add('is__hidden-btn');
-      //   aboutContent.classList.remove('hidden__content');
-      // }
     });
   }
-
-  // показывает больше контента в About при клике на кнопку
-  // if (!document.querySelector('.hidden__content')) {
-  //   readMoreBtn.classList.remove('is__hidden-btn');
-  //   aboutContent.classList.add('hidden__content');
-  // }
-  // readMoreBtn.addEventListener('click', () => {
-  //   aboutContent.classList.remove('hidden__content');
-  //   readMoreBtn.classList.add('is__hidden-btn');
-  // });
   monitorButtonStatusText();
 }
-// genres.then(console.log);
-// function monitorButtonStatusText() {
-//   let localStorageFilmsQueue = localStorage.getItem('filmsQueue');
-//   localStorageFilmsQueue === null
-//     ? (toggleQueueBtn.textContent = 'Add to queue')
-//     : JSON.parse(localStorageFilmsQueue).find(el => el.id === selectFilm.id)
-//     ? (toggleQueueBtn.innerHTML =
-//         '<i class="material-icons left">delete</i><span>queue</span>')
-//     : (toggleQueueBtn.innerHTML =
-//         '<i class="material-icons left">add</i><span>queue</span>');
 
-//   let localStorageFilmsWatch = localStorage.getItem('filmsWatched');
-//   localStorageFilmsWatch === null
-//     ? (toggleWatchedBtn.textContent = 'Add to watched')
-//     : JSON.parse(localStorageFilmsWatch).find(el => el.id === selectFilm.id)
-//     ? (toggleWatchedBtn.innerHTML =
-//         '<i class="material-icons left">delete</i><span>watched</span>')
-//     : (toggleWatchedBtn.innerHTML =
-//         '<i class="material-icons left">add</i><span>watched</span>');
-// }
-//Larisa canonized
-
-// переключатель темной темы
 const bodyRef = document.querySelector('body');
 function switchTheme(e) {
   if (e.target.textContent === 'brightness_6') {
