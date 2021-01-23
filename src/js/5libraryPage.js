@@ -21,6 +21,8 @@ refs.mobileWatchedBtn.addEventListener('click', activeWatchedMobile);
 refs.mobileQueueBtn.addEventListener('click', activeQueuedMobile);
 refs.mobileFavoriteBtn.addEventListener('click', activeFavoriteMobile);
 
+let libraryTabs = null;
+
 // refs.galleryList.addEventListener('click', activeDetailsPage); // делегирование при клике на фильм на список <ul>
 
 // Функция для создания карточки фильма в библиотеке.

@@ -71,6 +71,7 @@ function activeLibraryPage(e) {
   detailsSectionRef.classList.add('is-hidden');
 
   queueBtn.focus();
+  libraryTabs.select('queue');
   drawQueueFilmList();
   drawWatchedFilmList();
   drawFavoriteFilmList();
@@ -86,6 +87,7 @@ function activeWatchedMobile(e) {
   refs.mobileWatchedBtn.classList.add('sidenav-close');
 
   watchedBtn.focus();
+  libraryTabs.select('watched');
   drawQueueFilmList();
   drawWatchedFilmList();
   drawFavoriteFilmList();
@@ -101,6 +103,7 @@ function activeQueuedMobile(e) {
   detailsSectionRef.classList.add('is-hidden');
   refs.mobileQueueBtn.classList.add('sidenav-close');
   queueBtn.focus();
+  libraryTabs.select('queue');
 
   drawQueueFilmList();
   drawWatchedFilmList();
@@ -117,6 +120,7 @@ function activeFavoriteMobile(e) {
   detailsSectionRef.classList.add('is-hidden');
   refs.mobileFavoriteBtn.classList.add('sidenav-close');
   favoriteMobileBtn.focus();
+  libraryTabs.select('favorite');
 
   drawQueueFilmList();
   drawWatchedFilmList();
