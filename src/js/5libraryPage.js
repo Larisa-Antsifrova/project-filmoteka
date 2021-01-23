@@ -7,9 +7,9 @@ const refs = {
   watchedBtn: document.querySelector('[data-action-watched]'),
   favoriteBtn: document.querySelector('[data-action-favorite]'),
   galleryList: document.querySelector('.library-page-gallery'),
-  // mobileWatchedBtn: document.querySelector('.watched__link-mobile'),
-  // mobileQueueBtn: document.querySelector('.queue__link-mobile'),
-  // mobileFavoriteBtn: document.querySelector('.favorite__link-mobile'),
+  mobileWatchedBtn: document.querySelector('.watched__link-mobile'),
+  mobileQueueBtn: document.querySelector('.queue__link-mobile'),
+  mobileFavoriteBtn: document.querySelector('.favorite__link-mobile'),
 };
 
 // // Слушатели
@@ -17,9 +17,9 @@ refs.tabs.addEventListener('click', onControlsClick); // для табов
 refs.queueBtn.addEventListener('click', drawQueueFilmList);
 refs.watchedBtn.addEventListener('click', drawWatchedFilmList);
 refs.favoriteBtn.addEventListener('click', drawFavoriteFilmList);
-// refs.mobileWatchedBtn.addEventListener('click', activeWatchedMobile);
-// refs.mobileQueueBtn.addEventListener('click', activeQueuedMobile);
-// refs.mobileFavoriteBtn.addEventListener('click', activeFavoriteMobile);
+refs.mobileWatchedBtn.addEventListener('click', activeWatchedMobile);
+refs.mobileQueueBtn.addEventListener('click', activeQueuedMobile);
+refs.mobileFavoriteBtn.addEventListener('click', activeFavoriteMobile);
 
 // refs.galleryList.addEventListener('click', activeDetailsPage); // делегирование при клике на фильм на список <ul>
 
