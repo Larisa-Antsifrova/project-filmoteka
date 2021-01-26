@@ -34,7 +34,7 @@ function createMovieCard(movie) {
     ? movieApi.images.baseImageUrl + movieApi.imageBackdropSize + movie.backdrop_path
     : movieApi.images.defaultBackdropImg;
   const filmYear = movie.release_date ? `(${movie.release_date.slice(0, 4)})` : '';
-  const filmTitle = `${movie.title} ${filmYear}`;
+  const filmTitle = movie.title ? (`${movie.title}${filmYear}`) : (movie.name+`(${movie.first_air_date.slice(0, 4)})`);
   const movieId = movie.id;
   const movieRaiting = String(movie.vote_average).padEnd(3, '.0');
 

@@ -5,6 +5,7 @@ const movieApi = {
   apiKey: API_KEY,
   baseUrl: 'https://api.themoviedb.org/3/',
   searchQuery: '',
+  filmID: '',
   perPage: 20,
   totalPages: 1,
   pageNumber: 1,
@@ -87,7 +88,7 @@ const movieApi = {
     spinner.show();
     this.searchQuery = query;
     return fetch(
-      `${this.baseUrl}search/movie?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
+      `${this.baseUrl}search/multi?api_key=${this.apiKey}&language=en-US&query=${this.searchQuery}&page=${this.pageNumber}`,
     )
       .then(res => res.json())
       .then(resp => {
@@ -108,10 +109,19 @@ const movieApi = {
   fetchTrailersAPI(el) {
     return fetch(`${this.baseUrl}movie/${el}/videos?api_key=${this.apiKey}&language=en-US`)
       .then(response => response.json())
-      .then(resp => resp)
+      .then(resp => {
+        if (resp.success == false) {
+          return fetch(`${this.baseUrl}tv/${this.filmID}/videos?api_key=${this.apiKey}&language=en-US`)
+            .then(res => res.json()).then(resp => {
+              console.log(resp);
+              return resp
+            })
+        };
+        return resp
+      })
       .then(({ results }) => {
         // проверка на наличие трейлера
-        if (!results.length) {
+        if (!results) {
           return;
         } else {
           return results.find(e => {
