@@ -180,16 +180,17 @@ function showDetails(selectFilm) {
 
   if (selectFilm instanceof Promise) {
     selectFilm.then(el => {
+      movieApi.filmID = el.id;
       const imgPath = el.poster_path
         ? movieApi.images.baseImageUrl + movieApi.imagePosterSize + el.poster_path
         : movieApi.images.defaultPosterImg;
 
       img.setAttribute('src', imgPath);
 
-      title.textContent = el.title;
-      vote.textContent = `${el.vote_average} / ${el.vote_count}`;
+      title.textContent = el.title || el.name;
+      vote.textContent = el.release_date || el.first_air_date;
       popularity.textContent = el.popularity;
-      originalTitle.textContent = el.original_title;
+      originalTitle.textContent = el.original_title || el.name;
       detailsAbout.textContent = el.overview;
 
       let genresIdArr = el.genre_ids;
